@@ -57,15 +57,15 @@ body {
   color: #fff;
 }
 
-/* 📌 Контейнер заголовка и кнопки Назад */
+/* 📌 Контейнер заголовка и кнопки Назад / эталон Junior */
 .page-header,
 .subpage-header,
 .grade-header {
   display: flex;
   align-items: center;
-  gap: 100px;           /* расстояние между кнопкой и заголовком */
+  gap: 100px;           /* расстояние между кнопкой/крошками и заголовком */
   padding: 20px 40px;   /* отступы от краев экрана */
-  margin-top: 60px;     /* отступ сверху от body / шапки */
+  margin-top: 60px;     /* отступ сверху */
   margin-bottom: 20px;  /* отступ снизу */
 }
 
@@ -106,7 +106,7 @@ body {
 .page-text {
   max-width: 800px;
   line-height: 1.6;
-  padding: 0 20px 40px 20px; /* отступ слева/справа + снизу */
+  padding: 0 20px 40px 20px;
 }
 
 /* 📦 Главная зона BPMN */
@@ -116,7 +116,7 @@ body {
   margin-top: 60px;
 }
 
-/* 🧩 Карточки BPMN (как было) */
+/* 🧩 Карточки BPMN — оставляем как было */
 .cards {
   display: grid;
   grid-template-columns: repeat(5, 280px);
@@ -136,3 +136,39 @@ body {
   transform: translateY(-5px);
 }
 
+/* Хлебные крошки */
+.breadcrumbs {
+  margin-top: 20px;       /* отступ сверху, меньше чем margin-top у header */
+  margin-left: 130px;     /* как у grade-description */
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+/* Заголовок страницы для отдельной карточки */
+.page-title {
+  margin-left: 130px;   /* как у grade-description */
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Контейнер текста под заголовком */
+.page-content {
+  margin-top: 10px;      /* отступ от заголовка */
+  margin-left: 130px;
+  margin-right: 130px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}

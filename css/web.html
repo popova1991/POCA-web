@@ -581,7 +581,7 @@
 
       // 👉 ВНЕШНИЕ страницы
       if (externalPages[item]) {
-        loadPage(externalPages[item]);
+        window.location.href = externalPages[item];
         return;
       }
 

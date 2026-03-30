@@ -18,7 +18,7 @@
 
   <div class="cards">
 
-    <div class="card" onclick="openPage('bpmnIntro')">
+    <div class="card" onclick="openPage('bpmnGoals')">
       <h2>Цели моделирования</h2>
       <p>Различия: для согласования с бизнесом / для передачи разработчикам / для регламента / для анализа узких мест.</p>
     </div>
@@ -162,17 +162,21 @@
 
 </main>
 
-<!-- 📄 Подстраница 1 -->
-<div class="page" id="bpmnIntro">
-  <div class="page-header">
-    <button class="back-btn" onclick="goToMain()">←</button>
-    <h2>Что такое BPMN</h2>
+<!-- Новая подстраница -->
+<div class="page" id="bpmnGoals">
+  <div class="breadcrumbs">
+    <a href="web.html">Главная</a> &gt;
+    <a href="#" onclick="goToMain(); return false;">BPMN</a> &gt;
+    <span>Цели моделирования</span>
   </div>
 
-  <p class="page-text">
-    BPMN (Business Process Model and Notation) — это стандарт для моделирования бизнес-процессов.
-    Он позволяет одинаково понимать процессы аналитикам, разработчикам и бизнесу.
-  </p>
+  <h2 class="page-title">Цели моделирования</h2>
+
+  <div class="page-content">
+    <p>
+      Различия: для согласования с бизнесом / для передачи разработчикам / для регламента / для анализа узких мест.
+    </p>
+  </div>
 </div>
 
 <!-- 📄 Подстраница 2 -->
@@ -204,22 +208,44 @@
   const main = document.getElementById('bpmnMain');
   const pages = document.querySelectorAll('.page');
 
-  // 👉 открыть подстраницу
+  // открыть подстраницу
   function openPage(id) {
     main.style.display = 'none';
     pages.forEach(p => p.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
+
+    const page = document.getElementById(id);
+    if (page) {
+      page.style.display = 'block';
+    } else {
+      console.error("Страница с id", id, "не найдена!");
+    }
   }
 
-  // 👉 назад к карточкам
+  // назад к карточкам
   function goToMain() {
     pages.forEach(p => p.style.display = 'none');
-    main.style.display = 'block';
+    main.style.display = 'flex';
   }
 
-  // 👉 назад в web.html
+  // назад в web.html
   function goBack() {
     window.location.href = 'web.html';
+  }
+
+  function openPage(id) {
+    main.style.display = 'none';
+    pages.forEach(p => p.style.display = 'none');
+    const page = document.getElementById(id);
+    if (page) {
+      page.style.display = 'block';
+    } else {
+      console.error("Страница с id", id, "не найдена!");
+    }
+  }
+
+  function goToMain() {
+    pages.forEach(p => p.style.display = 'none');
+    main.style.display = 'flex';
   }
 
 </script>
