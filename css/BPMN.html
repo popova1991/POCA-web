@@ -7,17 +7,18 @@
 </head>
 <body>
 
+
+
+<!-- 📦 Главная страница BPMN -->
 <!-- 🔙 Шапка -->
-<div class="subpage-header">
+<div class="subpage-header" id="bpmnHeader">
   <button class="back-btn" onclick="goBack()">←</button>
   <h1>BPMN</h1>
 </div>
 
-<!-- 📦 Главная страница BPMN -->
 <main class="bpmn-main" id="bpmnMain">
 
   <div class="cards">
-
     <div class="card" onclick="openPage('bpmnGoals')">
       <h2>Цели моделирования</h2>
       <p>Различия: для согласования с бизнесом / для передачи разработчикам / для регламента / для анализа узких мест.</p>
@@ -162,34 +163,45 @@
 
 </main>
 
-<!-- Новая подстраница -->
-<div class="page" id="bpmnGoals">
+
+<!-- Детальная страница -->
+<div class="page" id="bpmnGoals" style="display: none;">
+  <!-- Кнопка назад -->
+  <button class="back-btn" onclick="goToBpmn()">←</button>
+
+  <!-- Хлебные крошки -->
   <div class="breadcrumbs">
     <a href="web.html">Главная</a> &gt;
-    <a href="#" onclick="goToMain(); return false;">BPMN</a> &gt;
+    <a href="#" onclick="goToBpmn(); return false;">BPMN</a> &gt;
     <span>Цели моделирования</span>
   </div>
 
-  <h2 class="page-title">Цели моделирования</h2>
+  <!-- Заголовок страницы -->
+  <h1 class="page-title">Цели моделирования</h1>
 
+  <!-- Контент -->
   <div class="page-content">
     <p>
-      Различия: для согласования с бизнесом / для передачи разработчикам / для регламента / для анализа узких мест.
+      Различия: для согласования с бизнесом / для передачи разработчикам /
+      для регламента / для анализа узких мест.
     </p>
   </div>
 </div>
 
-
 <script>
-
-  const main = document.getElementById('bpmnMain');
+  const bpmnMain = document.getElementById('bpmnMain');
   const pages = document.querySelectorAll('.page');
+  const bpmnHeader = document.getElementById('bpmnHeader');
 
-  // открыть подстраницу
   function openPage(id) {
-    main.style.display = 'none';
+    // Скрываем главную страницу и шапку
+    bpmnMain.style.display = 'none';
+    bpmnHeader.style.display = 'none';
+
+    // Скрываем все детальные страницы
     pages.forEach(p => p.style.display = 'none');
 
+    // Показываем выбранную страницу
     const page = document.getElementById(id);
     if (page) {
       page.style.display = 'block';
@@ -198,33 +210,18 @@
     }
   }
 
-  // назад к карточкам
-  function goToMain() {
+  function goToBpmn() {
+    // Скрываем все детальные страницы
     pages.forEach(p => p.style.display = 'none');
-    main.style.display = 'flex';
+
+    // Показываем главную страницу и шапку
+    bpmnMain.style.display = 'flex';
+    bpmnHeader.style.display = 'flex';
   }
 
-  // назад в web.html
   function goBack() {
     window.location.href = 'web.html';
   }
-
-  function openPage(id) {
-    main.style.display = 'none';
-    pages.forEach(p => p.style.display = 'none');
-    const page = document.getElementById(id);
-    if (page) {
-      page.style.display = 'block';
-    } else {
-      console.error("Страница с id", id, "не найдена!");
-    }
-  }
-
-  function goToMain() {
-    pages.forEach(p => p.style.display = 'none');
-    main.style.display = 'flex';
-  }
-
 </script>
 
 </body>

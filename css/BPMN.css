@@ -190,3 +190,6 @@ body {
   line-height: 1.5;
   color: var(--text-secondary);
 }
+.page .subpage-header h1 {
+  display: none; /* скрываем BPMN */
+}
