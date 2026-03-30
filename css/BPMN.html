@@ -19,18 +19,143 @@
   <div class="cards">
 
     <div class="card" onclick="openPage('bpmnIntro')">
-      <h2>Что такое BPMN</h2>
-      <p>Базовое понимание нотации и зачем она нужна аналитику.</p>
+      <h2>Цели моделирования</h2>
+      <p>Различия: для согласования с бизнесом / для передачи разработчикам / для регламента / для анализа узких мест.</p>
     </div>
 
     <div class="card" onclick="openPage('bpmnElements')">
-      <h2>Элементы BPMN</h2>
-      <p>События, задачи, шлюзы и их применение.</p>
+      <h2>Уровни абстракции</h2>
+      <p>Разница между Descriptive (кто что делает), Analytical (логика и данные), Executable (BPMS, автоматизация).</p>
     </div>
 
     <div class="card" onclick="openPage('bpmnExamples')">
-      <h2>Примеры диаграмм</h2>
-      <p>Практические кейсы и реальные сценарии.</p>
+      <h2>Золотое правило BPMN</h2>
+      <p>Один процесс — одна диаграмма. Если не влезает на A3/экран, значит, вы неправильно декомпозировали.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Потребители диаграммы</h2>
+      <p>Кто будет читать: бизнес-пользователь (нужны пулы и роли), разработчик (нужны события и данные), тестировщик (нужны альтернативные потоки).</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Пулы и дорожки (Pool & Lane)</h2>
+      <p>Разница между пулом (сущность, внешняя система) и дорожкой (роль внутри пула). Вертикальное vs горизонтальное расположение.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>События начала и конца</h2>
+      <p>Start Event (один процесс — одно стартовое), End Event (может быть несколько). Типы: message, timer, none.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Задачи (Tasks)</h2>
+      <p>User Task (человек), Service Task (система), Script Task (автоматический скрипт), Business Rule Task (вызов правил).</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Потоки управления (Sequence Flow)</h2>
+      <p>Правила соединения: нельзя соединять пулы напрямую (нужны сообщения), нельзя вести поток из пула в лейн.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Простая логика ветвления</h2>
+      <p>Exclusive Gateway (XOR) — «или-или». Как правильно ставить условия, формат выражений.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Параллелизм</h2>
+      <p>Parallel Gateway — разветвление и схождение. Правило: сколько входов, столько выходов должно сойтись.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Промежуточные события (Intermediate Events)</h2>
+      <p>Timer (ждать), Message (получить ответ), Error (ошибка в процессе), Signal (шина событий).</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Сообщения (Message Flow)</h2>
+      <p>Как правильно показать коммуникацию между пулами. Message Flow всегда пунктирный, пересекает границы пулов.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Сложные гейты</h2>
+      <p>Inclusive Gateway — «и/или» (выполняется один или несколько путей). Event-Based Gateway — «кто первый» (реакция на событие).</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Вложенные процессы (Sub-process)</h2>
+      <p>Collapsed vs Expanded. Когда выносить в подпроцесс. Loop Characteristics (повторение).</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Компенсация (Compensation)</h2>
+      <p>Как моделировать откат действий. Compensation Boundary Event, Compensation Task.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Артефакты (Data Objects, Group, Annotation)</h2>
+      <p>Как показывать данные (документы, записи в БД). Группировка для читаемости.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Анализ текста требований</h2>
+      <p>Техники вырезания: вычленяем действующих лиц, события, шаги, условия, исключения.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Выделение границ процесса</h2>
+      <p>Что такое «хороший» старт (триггер) и «хороший» конец (выходные критерии). Избегать «вечных» процессов.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Выделение пулов и дорожек</h2>
+      <p>Как не перепутать роль и систему. Когда нужен отдельный пул для внешней системы.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Работа с исключениями</h2>
+      <p>Happy Path vs Unhappy Path. Как не превратить диаграмму в паутину.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Декомпозиция</h2>
+      <p>Правила: уровень детализации = один исполнитель за один шаг. Когда использовать Sub-process.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Проверка модели на валидность</h2>
+      <p>Чек-лист: все пути закрыты, нет «висячих» стрелок, все гейты имеют выходы, все пулы взаимодействуют через Message Flow.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Моделирование с группой (EventStorming + BPMN)</h2>
+      <p>Как проводить сессию: сначала стикеры (действия, события), потом формализация в BPMN.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Согласование модели со стейкхолдерами</h2>
+      <p>Как презентовать диаграмму бизнесу (скрыть технические детали, показать роли). Как собирать обратную связь.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Версионирование и хранение</h2>
+      <p>Где хранить BPMN (репозиторий, wiki). Правила именования файлов. Связь с требованиями (Jira/Confluence).</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>BPMN для разработки</h2>
+      <p>Как передать модель разработчикам: что такое «исполнимая» BPMN (Camunda, Zeebe). Где нужны Service Task, где — User Task.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>BPMN для тестирования</h2>
+      <p>Как генерировать тестовые сценарии из диаграммы: каждый путь — отдельный тест-кейс.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Анализ метрик процесса</h2>
+      <p>Как с помощью BPMN найти узкие места: количество гейтов, длина путей, точки ручного вмешательства.</p>
     </div>
 
   </div>
