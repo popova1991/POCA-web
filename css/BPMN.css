@@ -124,16 +124,34 @@ body {
 }
 
 .card {
-  background: white;
+  background: var(--bg-card);
   padding: 20px;
   border-radius: 16px;
   cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  position: relative; /* важно для полоски */
+  overflow: hidden;   /* чтобы полоска не вылезала */
 }
 
 .card:hover {
   transform: translateY(-5px);
+  background: #F9FAFB; /* легкое изменение фона */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.card:hover::before {
+  width: 100%;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.3s ease;
 }
 
 /* Хлебные крошки */
