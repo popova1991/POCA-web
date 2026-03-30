@@ -1,0 +1,130 @@
+/* 🎯 Общий фон */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #F7F6F2;
+  color: #2B2B2B;
+}
+
+/* 🔝 Шапка */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+/* 📦 Главная зона */
+.bpmn-main {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+/* 🧩 Карточки */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 280px);
+  gap: 30px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* 📄 Подстраницы */
+.page {
+  display: none;
+  padding: 40px;
+}
+
+/* 📝 Текст */
+.page-text {
+  max-width: 800px;
+  line-height: 1.6;
+}
+
+/* 📌 Подстраница: контейнер кнопки Назад и заголовка */
+.grade-header {
+  display: flex;
+  align-items: center;   /* выравнивание по вертикали */
+  gap: 200px;            /* расстояние между кнопкой и заголовком */
+  padding-left: 200px;    /* отступ от края экрана слева */
+  padding-right: 20px;   /* отступ от края экрана справа */
+  margin-top: 100px;       /* отступ сверху от хедера */
+  margin-bottom: 20px;   /* отступ снизу */
+}
+
+/* Заголовок подстраницы */
+.grade-header h1 {
+  font-size: 1.5rem;     /* как на Junior */
+  font-weight: 600;
+  color: #2B2B2B;
+  margin: 0;
+}
+
+/* Кнопка Назад */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  background-color: var(--bg-main, #F7F6F2);
+  border-radius: 12px;
+  border: 2px solid var(--accent, #7C3AED);
+
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent, #7C3AED);
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background-color: var(--accent, #7C3AED);
+  color: #fff;
+}
+
+/* Контейнер текста под кнопкой и заголовком */
+.grade-description {
+  margin-top: 10px;      /* вертикальный отступ от заголовка */
+  margin-left: 130px;    /* сдвиг текста вправо на ширину кнопки + gap */
+  font-size: 16px;
+  color: var(--text-secondary, #6B7280);
+  line-height: 1.5;
+}
+
+/* 📌 Хедер подстраницы, если нужен отдельно */
+.subpage-header {
+  display: flex;
+  align-items: center;
+  gap: 100px;             /* расстояние между кнопкой и заголовком */
+  padding: 0 20px;       /* отступ от краёв экрана */
+  margin-bottom: 20px;
+}
+
+.subpage-header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2B2B2B;
+  margin: 0;
+}

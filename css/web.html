@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>РОСА</title>
+  <link rel="stylesheet" href="web.css">
+</head>
+<body>
+
+<!-- Шапка -->
+<header class="header">
+  <div class="logo">РОСА</div>
+</header>
+
+<!-- Сайдбар -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2 id="sidebarTitle">Грейды системного аналитика</h2>
+    <button class="close-btn" id="closeSidebar">&times;</button>
+  </div>
+  <ul class="grades-list" id="sidebarList">
+    <!-- Листы будут добавляться динамически -->
+  </ul>
+</div>
+
+<!-- Главный экран -->
+<main class="main" id="mainScreen">
+  <div class="container">
+    <div class="card">
+      <h2>Грейды системного аналитика</h2>
+      <p>Описание уровней и развития системного аналитика.</p>
+    </div>
+    <div class="card">
+      <h2>Статьи по темам</h2>
+      <p>Полезные материалы и статьи для изучения.</p>
+    </div>
+    <div class="card">
+      <h2>Обучающие материалы</h2>
+      <p>Курсы, гайды и практические материалы для прокачки навыков.</p>
+    </div>
+  </div>
+</main>
+
+<!-- Страница Junior -->
+<div class="grade-page" id="junPage">
+  <!-- Контейнер для кнопки Назад и заголовка -->
+  <div class="grade-header">
+    <button class="back-btn" onclick="goBack()">←</button>
+    <h1>Junior</h1>
+  </div>
+
+  <!-- Информационный блок под заголовком -->
+  <div class="info-box">
+    <div class="info-icon">!</div>
+    <p>
+      Важно понимать: любые квалификационные рамки относительны. Приведенная информация обобщает распространенную практику, но не отменяет внутренних матриц компетенций. Так, одним отделам не требуются навыки работы со снифферами или SQL-запросами, однако взамен необходимо углубленное владение разными типами API. Другим же подразделениям не нужно тестировать бэкенд, но предъявляются повышенные требования к проверке интерфейсов. Рекомендуем воспринимать данный материал как путеводитель, а за актуальными уровнями грейдов обращаться к правилам конкретной компании.
+    </p>
+  </div>
+
+  <!-- Текст под заголовком и блоком -->
+  <p class="grade-description">
+  </p>
+
+  <!-- Таблица компетенций -->
+  <div class="grade-table-container">
+    <h2>Уровень — поддержка</h2>
+    <p>Выполняет только под контролем, требует проверки</p>
+
+    <table class="grade-table">
+      <thead>
+      <tr>
+        <th>Факт выполнения</th>
+        <th>Компетенция</th>
+        <th>Индикатор</th>
+        <th>Что делает / не делает</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Сбор требований</td>
+        <td>Глубинные интервью</td>
+        <td>Присутствует, задаёт 1–2 уточняющих вопроса по готовому списку, не ведёт сам</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Сбор требований</td>
+        <td>Работа с неопределённостью</td>
+        <td>Не начинает работу, пока требование не описано дословно</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Документирование</td>
+        <td>User Story</td>
+        <td>Заполняет фиксированный шаблон («Как &lt;роль&gt;, я хочу…»)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Документирование</td>
+        <td>Техническое задание</td>
+        <td>Не пишет, только читает готовое</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Документирование</td>
+        <td>Диаграммы</td>
+        <td>Копирует стиль наставника, рисует только Sequence</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Управление требованиями</td>
+        <td>Приоритезация</td>
+        <td>Выполняет указания (MoSCoW по команде)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Управление требованиями</td>
+        <td>Трассировка</td>
+        <td>Отслеживает связи «задача → баг» в Jira по инструкции</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Проектирование</td>
+        <td>Модель данных</td>
+        <td>Рисует таблицу из 3–5 полей, типы данных (копирует)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Проектирование</td>
+        <td>API</td>
+        <td>Не проектирует, только потребляет по документации</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Коммуникации</td>
+        <td>Управление ожиданиями</td>
+        <td>Передаёт любой конфликт / вопрос наставнику</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Коммуникации</td>
+        <td>Фасилитация</td>
+        <td>Ведёт daily команды (до 10 минут)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>SQL</td>
+        <td>SELECT, WHERE, JOIN двух таблиц</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>Postman</td>
+        <td>Выполняет GET-запрос по готовой документации</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>Чтение кода</td>
+        <td>Не читает — спрашивает у разработчика</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Менторство</td>
+        <td>Передача знаний</td>
+        <td>Задаёт вопросы, ведёт личные заметки</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Оценка и риски</td>
+        <td>Оценка SP</td>
+        <td>Не оценивает, только слушает</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Страница Middle -->
+<div class="grade-page" id="midPage">
+  <!-- Контейнер для кнопки Назад и заголовка -->
+  <div class="grade-header">
+    <button class="back-btn" onclick="goBack()">←</button>
+    <h1>Middle</h1>
+  </div>
+  <!-- Информационный блок под заголовком -->
+  <div class="info-box">
+    <div class="info-icon">!</div>
+    <p>
+      Важно понимать: любые квалификационные рамки относительны. Приведенная информация обобщает распространенную практику, но не отменяет внутренних матриц компетенций. Так, одним отделам не требуются навыки работы со снифферами или SQL-запросами, однако взамен необходимо углубленное владение разными типами API. Другим же подразделениям не нужно тестировать бэкенд, но предъявляются повышенные требования к проверке интерфейсов. Рекомендуем воспринимать данный материал как путеводитель, а за актуальными уровнями грейдов обращаться к правилам конкретной компании.
+    </p>
+  </div>
+  <!-- Текст под заголовком и блоком -->
+  <p class="grade-description">
+  </p>
+  <!-- Таблица компетенций -->
+  <div class="grade-table-container">
+    <h2>Уровень — обустройство</h2>
+    <p>Адаптирует подходы под контекст, учит других</p>
+
+    <table class="grade-table">
+      <thead>
+      <tr>
+        <th>Факт выполнения</th>
+        <th>Компетенция</th>
+        <th>Индикатор</th>
+        <th>Что делает</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Сбор требований</td>
+        <td>Глубинные интервью</td>
+        <td>Выявляет скрытые потребности через 5 Why, меняет сценарий по ходу</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Сбор требований</td>
+        <td>Работа с неопределённостью</td>
+        <td>Предлагает 2–3 гипотезы, выбирает с заказчиком за 1 встречу</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Сбор требований</td>
+        <td>Эвристики</td>
+        <td>Ведёт мозговой штурм с фиксацией на стикерах</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Документирование</td>
+        <td>User Story</td>
+        <td>Пишет негативные сценарии и исключения (error flows)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Документирование</td>
+        <td>ТЗ</td>
+        <td>Пишет ТЗ на 10+ страниц с диаграммами и API-контрактами</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Документирование</td>
+        <td>Диаграммы</td>
+        <td>Выбирает тип диаграммы под задачу: BPMN vs UML vs C4</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Управление требованиями</td>
+        <td>Приоритезация</td>
+        <td>Комбинирует WSJF + бизнес-ценность</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Управление требованиями</td>
+        <td>Трассировка</td>
+        <td>Создаёт матрицу трассировки в Excel на 100+ строк</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Проектирование</td>
+        <td>Модель данных</td>
+        <td>Проектирует медленно меняющиеся измерения (SCD Type 2)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Проектирование</td>
+        <td>Интеграции</td>
+        <td>Проектирует dead-letter, retry, idempotency</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Проектирование</td>
+        <td>НФТ</td>
+        <td>Определяет SLI/SLO, создаёт нагрузочный профиль</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Коммуникации</td>
+        <td>Управление ожиданиями</td>
+        <td>Объясняет trade-off (скорость vs качество) на пальцах</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Коммуникации</td>
+        <td>Конфликт требований</td>
+        <td>Показывает последствия выбора в $ или времени</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Коммуникации</td>
+        <td>Фасилитация</td>
+        <td>Ведёт конфликтную встречу 3+ сторон</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>SQL</td>
+        <td>Оконные функции (ROW_NUMBER, LAG), CTE</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>API-тесты</td>
+        <td>Тестирует негативные сценарии (401, 500)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>Чтение кода</td>
+        <td>Находит баг, читая стектрейс</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>Логи</td>
+        <td>Пишет запрос в Kibana (ELK) с условиями</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Менторство</td>
+        <td>Design review</td>
+        <td>Оценивает полноту покрытия сценариев</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Оценка и риски</td>
+        <td>Оценка SP</td>
+        <td>Оценивает задачу со скрытой сложностью (5–8 SP)</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Страница Senior -->
+<div class="grade-page" id="seniorPage">
+  <!-- Контейнер для кнопки Назад и заголовка -->
+  <div class="grade-header">
+    <button class="back-btn" onclick="goBack()">←</button>
+    <h1>Senior</h1>
+  </div>
+  <!-- Информационный блок под заголовком -->
+  <div class="info-box">
+    <div class="info-icon">!</div>
+    <p>
+      Важно понимать: любые квалификационные рамки относительны. Приведенная информация обобщает распространенную практику, но не отменяет внутренних матриц компетенций. Так, одним отделам не требуются навыки работы со снифферами или SQL-запросами, однако взамен необходимо углубленное владение разными типами API. Другим же подразделениям не нужно тестировать бэкенд, но предъявляются повышенные требования к проверке интерфейсов. Рекомендуем воспринимать данный материал как путеводитель, а за актуальными уровнями грейдов обращаться к правилам конкретной компании.
+    </p>
+  </div>
+  <!-- Таблица компетенций -->
+  <div class="grade-table-container">
+    <h2>Уровень — система</h2>
+    <p>Создаёт стандарты, масштабирует практики</p>
+    <p>Интервью: «создал ли стандарт, который используют другие?»</p>
+
+    <table class="grade-table">
+      <thead>
+      <tr>
+        <th>Факт выполнения</th>
+        <th>Компетенция</th>
+        <th>Индикатор</th>
+        <th>Что делает</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Сбор требований</td>
+        <td>Глубинные интервью</td>
+        <td>Управляет группой 5+ человек, снимает групповое давление</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Сбор требований</td>
+        <td>Работа с неопределённостью</td>
+        <td>Создаёт прототип за 1 день для снятия неопределённости</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Сбор требований</td>
+        <td>Эвристики</td>
+        <td>Использует обратную мозговую атаку (выявление рисков)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Документирование</td>
+        <td>User Story</td>
+        <td>Создаёт шаблоны Story для разных типов задач</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Документирование</td>
+        <td>ТЗ</td>
+        <td>Создаёт Living Documentation (документация как код)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Документирование</td>
+        <td>Диаграммы</td>
+        <td>Внедряет C4 model для всей системы, проверяет консистентность</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Управление требованиями</td>
+        <td>Приоритезация</td>
+        <td>Создаёт модель приоритезации для продукта с весами</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Управление требованиями</td>
+        <td>Управление изменениями</td>
+        <td>Создаёт Impact Assessment Checklist для команды</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Проектирование</td>
+        <td>Модель данных</td>
+        <td>Создаёт Data Vault или Anchor Model для больших данных</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Проектирование</td>
+        <td>API</td>
+        <td>Внедряет GraphQL или gRPC по критериям</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Проектирование</td>
+        <td>Интеграции</td>
+        <td>Внедряет паттерны: Saga, Outbox, Circuit Breaker</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Проектирование</td>
+        <td>НФТ</td>
+        <td>Внедряет Chaos Engineering для проверки НФТ</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Коммуникации</td>
+        <td>Управление ожиданиями</td>
+        <td>Договаривается о замене одной фичи на другую</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Коммуникации</td>
+        <td>Конфликт требований</td>
+        <td>Находит компромиссный вариант (третье решение)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Коммуникации</td>
+        <td>Фасилитация</td>
+        <td>Проводит EventStorming на 20 человек</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>SQL</td>
+        <td>EXPLAIN ANALYZE, оптимизация запросов</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>API-тесты</td>
+        <td>Пишет автотесты на коллекции (Newman)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>Чтение кода</td>
+        <td>Делает Code Review на логику (не на синтаксис)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Технические навыки</td>
+        <td>Логи</td>
+        <td>Строит дашборд по логам (частота ошибок)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Менторство</td>
+        <td>Передача знаний</td>
+        <td>Ведёт внутренний курс (4+ часов)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Менторство</td>
+        <td>Адаптация</td>
+        <td>Проводит buddy-программу (2 месяца)</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Оценка и риски</td>
+        <td>Оценка SP</td>
+        <td>Даёт диапазон: оптимистичную и пессимистичную</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="row-check"></td>
+        <td>Оценка и риски</td>
+        <td>Риски</td>
+        <td>Предлагает mitigation и fallback план</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- 📌 Контейнер для внешних страниц -->
+<div id="content"></div>
+
+</div>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const closeBtn = document.getElementById('closeSidebar');
+  const sidebarTitle = document.getElementById('sidebarTitle');
+  const sidebarList = document.getElementById('sidebarList');
+  const mainScreen = document.getElementById('mainScreen');
+  const content = document.getElementById('content');
+
+  const pages = {
+    "Junior": document.getElementById('junPage'),
+    "Middle": document.getElementById('midPage'),
+    "Senior": document.getElementById('seniorPage')
+  };
+
+  const externalPages = {
+    "BPMN": "BPMN.html"
+  };
+
+  const sidebarContent = {
+    "Грейды системного аналитика": ["Junior", "Middle", "Senior"],
+    "Статьи по темам": ["Интеграции", "Обновления С4"],
+    "Обучающие материалы": ["BPMN"]
+  };
+
+  let currentBlock = null;
+
+  // 👉 Карточки
+
+  document.querySelectorAll('.card').forEach(card => {
+    const title = card.querySelector('h2').textContent.trim();
+
+    if (sidebarContent[title]) {
+      card.addEventListener('click', () => {
+
+        if (sidebar.classList.contains('active') && currentBlock === title) {
+          sidebar.classList.remove('active');
+          currentBlock = null;
+          return;
+        }
+
+        currentBlock = title;
+        sidebarTitle.textContent = title;
+        sidebarList.innerHTML = "";
+
+        sidebarContent[title].forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          sidebarList.appendChild(li);
+        });
+
+        sidebar.classList.add('active');
+      });
+    }
+  });
+
+  // 👉 Закрытие
+  closeBtn.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    currentBlock = null;
+  });
+
+  // 👉 Клик по пункту
+  sidebarList.addEventListener('click', (e) => {
+    if (e.target.tagName === 'LI') {
+      const item = e.target.textContent.trim();
+
+      // 👉 ВНЕШНИЕ страницы
+      if (externalPages[item]) {
+        loadPage(externalPages[item]);
+        return;
+      }
+
+      // 👉 ВСТРОЕННЫЕ
+      if (pages[item]) {
+        Object.values(pages).forEach(p => p.style.display = 'none');
+        content.innerHTML = "";
+        mainScreen.style.display = 'none';
+        pages[item].style.display = 'block';
+        sidebar.classList.remove('active');
+      }
+    }
+  });
+
+  // 👉 Загрузка внешней страницы
+  function loadPage(url) {
+    fetch(url)
+      .then(res => res.text())
+      .then(html => {
+        content.innerHTML = html;
+        mainScreen.style.display = 'none';
+        Object.values(pages).forEach(p => p.style.display = 'none');
+        sidebar.classList.remove('active');
+      })
+      .catch(() => {
+        content.innerHTML = '<p>Ошибка загрузки</p>';
+      });
+  }
+
+  // 👉 Назад
+  function goBack() {
+    Object.values(pages).forEach(p => p.style.display = 'none');
+    content.innerHTML = "";
+    mainScreen.style.display = 'flex';
+  }
+
+  // 👉 чекбоксы
+  document.querySelectorAll('.row-check').forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+      const row = this.closest('tr');
+      row.classList.toggle('checked', this.checked);
+    });
+  });
+
+</script>
+
+
+</body>
+</html>

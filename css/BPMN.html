@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>BPMN - РОСА</title>
+  <link rel="stylesheet" href="BPMN.css">
+</head>
+<body>
+
+<!-- 🔙 Шапка -->
+<div class="subpage-header">
+  <button class="back-btn" onclick="goBack()">←</button>
+  <h1>BPMN</h1>
+</div>
+
+<!-- 📦 Главная страница BPMN -->
+<main class="bpmn-main" id="bpmnMain">
+
+  <div class="cards">
+
+    <div class="card" onclick="openPage('bpmnIntro')">
+      <h2>Что такое BPMN</h2>
+      <p>Базовое понимание нотации и зачем она нужна аналитику.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnElements')">
+      <h2>Элементы BPMN</h2>
+      <p>События, задачи, шлюзы и их применение.</p>
+    </div>
+
+    <div class="card" onclick="openPage('bpmnExamples')">
+      <h2>Примеры диаграмм</h2>
+      <p>Практические кейсы и реальные сценарии.</p>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- 📄 Подстраница 1 -->
+<div class="page" id="bpmnIntro">
+  <div class="page-header">
+    <button class="back-btn" onclick="goToMain()">←</button>
+    <h2>Что такое BPMN</h2>
+  </div>
+
+  <p class="page-text">
+    BPMN (Business Process Model and Notation) — это стандарт для моделирования бизнес-процессов.
+    Он позволяет одинаково понимать процессы аналитикам, разработчикам и бизнесу.
+  </p>
+</div>
+
+<!-- 📄 Подстраница 2 -->
+<div class="page" id="bpmnElements">
+  <div class="page-header">
+    <button class="back-btn" onclick="goToMain()">←</button>
+    <h2>Элементы BPMN</h2>
+  </div>
+
+  <p class="page-text">
+    Основные элементы: события (events), задачи (tasks), шлюзы (gateways), потоки (flows).
+  </p>
+</div>
+
+<!-- 📄 Подстраница 3 -->
+<div class="page" id="bpmnExamples">
+  <div class="page-header">
+    <button class="back-btn" onclick="goToMain()">←</button>
+    <h2>Примеры</h2>
+  </div>
+
+  <p class="page-text">
+    Пример: процесс оформления заказа, процесс авторизации пользователя и др.
+  </p>
+</div>
+
+<script>
+
+  const main = document.getElementById('bpmnMain');
+  const pages = document.querySelectorAll('.page');
+
+  // 👉 открыть подстраницу
+  function openPage(id) {
+    main.style.display = 'none';
+    pages.forEach(p => p.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+  }
+
+  // 👉 назад к карточкам
+  function goToMain() {
+    pages.forEach(p => p.style.display = 'none');
+    main.style.display = 'block';
+  }
+
+  // 👉 назад в web.html
+  function goBack() {
+    window.location.href = 'web.html';
+  }
+
+</script>
+
+</body>
+</html>
