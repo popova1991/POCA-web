@@ -1,0 +1,650 @@
+/* 🎯 Общие переменные и фон */
+:root {
+  --bg-main: #F7F6F2;
+  --bg-card: #FFFFFF;
+  --text-main: #2B2B2B;
+  --text-secondary: #6B7280;
+  --accent: #7C3AED;
+  --accent-2: #E11D48;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Body */
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.08), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(225, 29, 72, 0.06), transparent 40%);
+}
+
+/* 🔝 Шапка страницы */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 40px;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Логотип */
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  color: var(--text-main);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+}
+
+/* Иконка перед текстом */
+.logo::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.6);
+}
+
+/* 🔙 Кнопка Назад */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-main);
+  border-radius: 12px;
+  border: 2px solid var(--accent);
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+/* 📌 Контейнер заголовка и кнопки Назад / эталон Junior */
+.page-header,
+.subpage-header,
+.grade-header {
+  display: flex;
+  align-items: center;
+  gap: 100px;           /* расстояние между кнопкой/крошками и заголовком */
+  padding: 20px 40px;   /* отступы от краев экрана */
+  margin-top: 30px;     /* отступ сверху */
+  margin-bottom: 20px;  /* отступ снизу */
+}
+
+.page-header h2,
+.subpage-header h1,
+.grade-header h1,
+.grade-header h2 {
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.subpage-header h1 {
+  font-size: 1.8rem;
+}
+
+.page-header h2,
+.grade-header h2 {
+  font-size: 1.5rem;
+}
+
+/* 📝 Текст под заголовком */
+.grade-description {
+  margin-top: 10px;
+  margin-left: 130px;   /* сдвиг относительно кнопки назад + gap */
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* 📄 Подстраницы */
+.page {
+  display: none;
+  padding: 0; /* отступ задается через header */
+}
+
+/* 📝 Текст подстраниц */
+.page-text {
+  max-width: 800px;
+  line-height: 1.6;
+  padding: 0 20px 40px 20px;
+}
+
+/* 📦 Главная зона BPMN */
+.bpmn-main {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+/* 🧩 Карточки BPMN — оставляем как было */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(5, 280px);
+  gap: 30px;
+}
+
+.card {
+  background: var(--bg-card);
+  padding: 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  position: relative; /* важно для полоски */
+  overflow: hidden;   /* чтобы полоска не вылезала */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: #F9FAFB; /* легкое изменение фона */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.card:hover::before {
+  width: 100%;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+/* Хлебные крошки */
+.breadcrumbs {
+  margin-top: 40px;       /* отступ сверху, меньше чем margin-top у header */
+  margin-left: 130px;     /* как у grade-description */
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+/* Заголовок страницы для отдельной карточки */
+.page-title {
+  margin-left: 130px;   /* как у grade-description */
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Контейнер текста под заголовком */
+.page-content {
+  margin-top: 10px;      /* отступ от заголовка */
+  margin-left: 150px;
+  margin-right: 150px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.page .subpage-header h1 {
+  display: none; /* скрываем BPMN */
+}
+/* 🎯 Цветовая система */
+:root {
+  --bg-main: #F7F6F2;   /* теплый фон */
+  --bg-card: #FFFFFF;   /* карточки */
+
+  --text-main: #2B2B2B;
+  --text-secondary: #6B7280;
+
+  --accent: #7C3AED;    /* фиолет */
+  --accent-2: #E11D48;  /* малиновый */
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Body */
+body {
+  background-color: var(--bg-main);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.08), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(225, 29, 72, 0.06), transparent 40%);
+}
+
+/* Шапка */
+.header {
+  background-color: var(--bg-card);
+  padding: 20px 40px;
+
+  display: flex;
+  align-items: center;
+
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Логотип */
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  color: var(--text-main);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+}
+
+/* Иконка перед текстом */
+.logo::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.6);
+}
+
+/* Основная часть */
+.main {
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Контейнер */
+.container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Карточки */
+.card {
+  width: 300px;
+  padding: 30px;
+  background-color: var(--bg-card);
+  border-radius: 20px;
+
+  border: 1px solid rgba(0,0,0,0.05);
+
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+/* фирменная линия */
+.card::before {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 40px;
+  background: var(--accent);
+  margin-bottom: 15px;
+  border-radius: 2px;
+}
+
+/* hover */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.15);
+}
+
+/* Заголовки */
+.card h2 {
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+/* Текст */
+.card p {
+  color: var(--text-secondary);
+}
+
+/* Акцент при наведении */
+.card:hover h2 {
+  color: var(--accent);
+}
+
+/* 🎯 Сайдбар */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -500px; /* скрыт за пределами экрана */
+  width: 500px;
+  height: 100%;
+  background-color: var(--bg-card);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  border-left: 1px solid rgba(0,0,0,0.05);
+  transition: right 0.3s ease;
+  z-index: 100;
+  padding: 20px;
+}
+
+.sidebar.active {
+  right: 0; /* показываем сайдбар */
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sidebar-header h2 {
+  font-size: 20px;
+  color: var(--text-main);
+}
+
+.close-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.grades-list {
+  list-style: none;
+}
+
+.grades-list li {
+  padding: 10px 0;
+  font-size: 18px;
+  color: var(--text-main);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Стиль элементов списка с кружком */
+.grades-list li {
+  position: relative; /* чтобы ::before позиционировался относительно li */
+  padding: 10px 15px 10px 35px; /* увеличили отступ слева для кружка */
+  font-size: 18px;
+  color: var(--text-main);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: 0.2s;
+  border-radius: 5px;
+}
+
+/* Кружок перед текстом */
+.grades-list li::before {
+  content: "";
+  position: absolute;
+  left: 15px; /* расстояние от левого края li */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #7C3AED; /* цвет кружка */
+  border-radius: 50%; /* делаем кружок круглым */
+}
+
+/* hover эффект */
+.grades-list li:hover {
+  background-color: rgba(124, 58, 237, 0.1); /* легкий фиолетовый фон */
+  color: #7C3AED;
+  cursor: pointer;
+}
+
+/* Страницы для каждого грейда */
+.grade-page {
+  display: block;
+  padding: 40px;
+  min-height: calc(100vh - 80px); /* чтобы не уходило за шапку */
+  background-color: var(--bg-main);
+
+}
+
+
+/* Кнопка Назад */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  background-color: var(--bg-main); /* #F7F6F2 */
+  border-radius: 12px; /* скругленные углы */
+  border: 2px solid var(--accent); /* акцентная окантовка */
+
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent);
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background-color: var(--accent);
+  color: #fff; /* стрелка становится белой при наведении */
+}
+
+/* Контейнер для кнопки Назад и заголовка */
+.grade-header {
+  display: flex;
+  align-items: center; /* по вертикали */
+  gap: 100px;           /* расстояние между кнопкой и заголовком */
+  margin-bottom: 20px;
+}
+/* Контейнер для текста который под кнопкой Назад и Заголовком */
+.grade-description {
+  margin-top: 10px;           /* вертикальный отступ от заголовка */
+  margin-left: 130px;          /* сдвигаем текст вправо на ширину кнопки + gap */
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+/* Контейнер для блока подсказки */
+.info-box {
+  margin-top: 10px;           /* вертикальный отступ от заголовка */
+  margin-left: 130px;          /* сдвигаем текст вправо на ширину кнопки + gap */
+  margin-right: 130px; /* сдвигаем от правого края */
+  position: relative;          /* для позиционирования иконки */
+  background-color: #FFF1D6;   /* цвет блока */
+  border-radius: 12px;          /* скругление углов */
+  padding: 20px 20px 20px 50px; /* отступ слева чтобы иконка не перекрывала текст */
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-main);
+  border: 1px solid #FFE4A3;   /* легкая рамка */
+}
+
+/* Иконка в левом верхнем углу */
+.info-icon {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 24px;
+  height: 24px;
+  background-color: #FBBF24; /* яркий желтый фон */
+  color: #fff;               /* цвет восклицательного знака */
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;        /* делаем кружок */
+}
+
+/* Таблица на старнице компетенции */
+.grade-table-container {
+  margin-top: 30px;           /* вертикальный отступ от заголовка */
+  margin-left: 130px;         /* сдвигаем текст вправо на ширину кнопки + gap */
+  margin-right: 130px;        /* сдвигаем от правого края */
+}
+
+.grade-table-container h2 {
+  margin-bottom: 5px;
+  font-size: 18px;
+  color: var(--text-main);
+}
+
+.grade-table-container p {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.grade-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-card);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  table-layout: fixed; /* ВОТ ЭТО ВАЖНО */
+}
+
+.grade-table th, .grade-table td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.1); /* горизонтальные линии */
+  border-right: 1px solid rgba(0,0,0,0.1);  /* вертикальные линии */
+  text-align: left;
+}
+
+/* Убираем правую границу у последнего столбца */
+.grade-table th:last-child,
+.grade-table td:last-child {
+  border-right: none;
+}
+
+.grade-table th {
+  background-color: #F3F2F0;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* чекбокс таблицы чуть аккуратнее */
+.row-check {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* стиль зачеркнутой строки */
+.grade-table tr.row-checked td {
+  text-decoration: line-through;
+  color: #9CA3AF;
+  opacity: 0.7;
+}
+/* делаем колонку с чекбоксами уже */
+.grade-table th:first-child,
+.grade-table td:first-child {
+  width: 120px;
+  min-width: 40px;
+  max-width: 40px;
+  padding: 5px;
+  text-align: center;
+}
+
+/* Страницы категорий "Обучающие материалы! */
+/*    Сетка для карточек! */
+.materials-grid {
+  margin-left: 200px;   /* отступ слева от страницы */
+  margin-right: 200px;  /* отступ справа */
+  margin-top: 50px;     /* отступ сверху */
+
+  display: grid;        /* используем CSS Grid */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* каждая колонка минимум 220px, автоматически заполняем ряд */
+  gap: 100px;            /* расстояние между карточками по вертикали и горизонтали */
+}
+
+/* Контейнер для карточек */
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+/* Стиль карточки */
+.material-card {
+  margin-left: 150px;   /* отступ слева от страницы */
+  margin-right: 200px;  /* отступ справа */
+  margin-top: 50px;     /* отступ сверху */
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+
+  /* Ограничиваем размер карточки */
+  max-width: 300px;
+  width: 100%;  /* адаптивная ширина */
+  box-sizing: border-box;
+}
+
+/* Hover эффект */
+.material-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+}
+
+/* Заголовок */
+.material-card h2 {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text-main);
+  margin: 0;
+}
+
+/* Описание */
+.material-card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
