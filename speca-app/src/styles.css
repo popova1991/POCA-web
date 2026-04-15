@@ -198,6 +198,27 @@ body {
   text-decoration: underline;
 }
 
+.breadcrumb-link {
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+.breadcrumb-current {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.breadcrumb-separator {
+  color: var(--text-secondary);
+  margin: 0 6px;
+}
+
 /* Заголовок страницы для отдельной карточки */
 .page-title {
   margin-left: 130px;   /* как у grade-description */

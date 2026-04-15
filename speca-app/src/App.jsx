@@ -8,6 +8,7 @@ import Junior from "./pages/Junior";
 import Middle from "./pages/Middle";
 import Senior from "./pages/Senior";
 import BPMN from "./pages/BPMN";
+import BPMNDetail from "./pages/BPMNDetail"; // 👈 ВОТ СЮДА ДОБАВИТЬ
 
 export default function App() {
   const [page, setPage] = useState("main");
@@ -29,14 +30,16 @@ export default function App() {
 
   const handleSelect = (item) => {
     setSidebarOpen(false);
-    setPage(item.toLowerCase()); // junior / middle / senior
+    setPage(item.toLowerCase()); // junior / middle / senior / bpmn
   };
 
   const renderPage = () => {
+    // Главная
     if (page === "main") {
       return <Main openSidebar={openSidebar} openPage={setPage} />;
     }
 
+    // Грейды
     if (page === "junior") {
       return <Junior setPage={setPage} />;
     }
@@ -49,8 +52,14 @@ export default function App() {
       return <Senior setPage={setPage} />;
     }
 
+    // BPMN список
     if (page === "bpmn") {
       return <BPMN setPage={setPage} />;
+    }
+
+    // 👇 ВОТ СЮДА ДОБАВЛЯЕТСЯ УСЛОВИЕ (ПОСЛЕ bpmn!)
+    if (page.startsWith("bpmn_")) {
+      return <BPMNDetail setPage={setPage} page={page} />;
     }
 
     return <div>Страница не найдена</div>;
