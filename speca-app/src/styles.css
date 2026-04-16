@@ -235,7 +235,7 @@ body {
   margin-right: 50px;
   font-size: 16px;
   line-height: 1.5;
-  color: var(--text-secondary);
+  /*color: var(--text-secondary);*/
 }
 .page .subpage-header h1 {
   display: none; /* скрываем BPMN */
@@ -693,13 +693,17 @@ body {
 .page-subtitle {
   color: #666;
   margin: 0 0 20px 0;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .page-excerpt {
   background: #f5f5f5;
-  padding: 12px;
+  padding: 12px 5px;
   border-radius: 8px;
   margin-bottom: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .page-content {
@@ -739,24 +743,31 @@ body {
 .markdown h1 {
   font-size: 28px;
   margin: 20px 0 10px;
+  padding-left: 20px;
+  padding-right: 100px;
 }
 
 .markdown h2 {
   font-size: 22px;
   margin: 18px 0 10px;
+  padding-left: 20px;
+  padding-right: 100px;
 }
 
 .markdown p {
-  margin: 10px 0;
+  margin: 3px 20;
   color: #333;
+  padding-left: 70px;
+  padding-right: 100px;
 }
 
 .markdown ul {
-  padding-left: 20px;
+  padding-left: 150px;
+  padding-right: 100px;
 }
 
 .markdown li {
-  margin-bottom: 6px;
+  margin-bottom: 0px;
 }
 
 .markdown strong {
