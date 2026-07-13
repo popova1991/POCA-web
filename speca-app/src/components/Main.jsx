@@ -6,8 +6,8 @@ export default function Main({ openSidebar, openPage }) {
       action: "sidebar",
     },
     {
-      title: "Статьи по темам",
-      description: "Полезные материалы и статьи для изучения",
+      title: "Кейсы для разбора",
+      description: "Полезные кейсы для самостоятельного разбора",
       action: "sidebar",
     },
     {
