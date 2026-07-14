@@ -779,3 +779,29 @@ body {
   padding: 2px 6px;
   border-radius: 4px;
 }
+
+/* для главной картинки */
+.main {
+  width: 100%;
+  min-height: 100vh;
+  background-image: inherit;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #111;
+}
+
+/* планшеты */
+
+@media (max-width: 768px) {
+  .main {
+    background-position: center top;
+  }
+}
+/* телефоны */
+@media (max-width: 480px) {
+  .main {
+    min-height: 100svh;
+    background-position: center top;
+  }
+}

@@ -20,6 +20,7 @@ export default function App() {
   const sidebarContent = {
     "Грейды системного аналитика": ["Junior", "Middle", "Senior"],
     "Обучающие материалы": ["BPMN"],
+    "Кейсы для разбора": ["Кейс №1","Кейс №2"]
   };
 
   const openSidebar = (title) => {

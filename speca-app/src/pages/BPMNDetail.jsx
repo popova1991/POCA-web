@@ -1,5 +1,6 @@
 import { bpmnPages } from "../data/bpmnPages";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export default function BPMNDetail({ setPage, page }) {
   const normalizePageKey = (page) => {
@@ -23,7 +24,10 @@ export default function BPMNDetail({ setPage, page }) {
           <p>page: {String(page)}</p>
           <p>key: {String(key)}</p>
 
-          <button className="back-btn" onClick={() => setPage("bpmn")}>
+          <button
+            className="back-btn"
+            onClick={() => setPage("bpmn")}
+          >
             ← Вернуться в BPMN
           </button>
         </div>
@@ -37,17 +41,26 @@ export default function BPMNDetail({ setPage, page }) {
 
         {/* HEADER */}
         <div className="subpage-header">
-          <button className="back-btn" onClick={() => setPage("bpmn")}>
+          <button
+            className="back-btn"
+            onClick={() => setPage("bpmn")}
+          >
             ←
           </button>
 
-          <h1 className="page-title">{data.title}</h1>
+          <h1 className="page-title">
+            {data.title}
+          </h1>
         </div>
 
+
         {/* SUBTITLE */}
-        <div className="page-subtitle">
-          {data.subtitle}
-        </div>
+        {data.subtitle && (
+          <div className="page-subtitle">
+            {data.subtitle}
+          </div>
+        )}
+
 
         {/* EXCERPT */}
         {data.excerpt && (
@@ -56,49 +69,122 @@ export default function BPMNDetail({ setPage, page }) {
           </div>
         )}
 
+
         {/* CONTENT */}
         <div className="page-content">
+
           {Array.isArray(data.content) &&
             data.content.map((block, i) => {
 
+              // TEXT BLOCK
               if (block.type === "text") {
                 return (
-                  <div key={i} className="text-block markdown">
-                    <ReactMarkdown>
+                  <div
+                    key={i}
+                    className="text-block markdown"
+                  >
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        a({ href, children, ...props }) {
+                          return (
+                            <a
+                              href={href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              {...props}
+                            >
+                              {children}
+                            </a>
+                          );
+                        }
+                      }}
+                    >
                       {block.value}
                     </ReactMarkdown>
                   </div>
                 );
               }
 
+              // TABLE BLOCK
               if (block.type === "table") {
                 return (
-                  <div key={i} className="table-wrapper">
+                  <div
+                    key={i}
+                    className="table-wrapper"
+                  >
                     <table className="bpmn-table">
+
                       <thead>
                       <tr>
-                        {block.headers.map((h) => (
-                          <th key={h}>{h}</th>
+                        {block.headers.map((h, index) => (
+                          <th key={index}>
+                            {h}
+                          </th>
                         ))}
                       </tr>
                       </thead>
+
 
                       <tbody>
                       {block.rows.map((row, r) => (
                         <tr key={r}>
                           {row.map((cell, c) => (
-                            <td key={c}>{cell}</td>
+                            <td key={c}>
+                              {cell}
+                            </td>
                           ))}
                         </tr>
                       ))}
                       </tbody>
+
                     </table>
                   </div>
                 );
               }
 
+
+              // IMAGE BLOCK
+              if (block.type === "image") {
+                return (
+                  <div
+                    key={i}
+                    className="image-block"
+                    style={{
+                      textAlign: "center",
+                      margin: "20px 0"
+                    }}
+                  >
+
+                    {block.caption && (
+                      <p className="image-caption">
+                        {block.caption}
+                      </p>
+                    )}
+
+                    <img
+                      src={block.src}
+                      alt={block.alt || "BPMN Image"}
+                      onError={(e) => {
+                        console.error("IMAGE LOAD ERROR:", block.src);
+                      }}
+                      style={{
+                        maxWidth: "100%",
+                        height: "auto",
+                        borderRadius: "8px"
+                      }}
+                    />
+
+                  </div>
+                );
+              }
+
+
+              // UNKNOWN BLOCK TYPE
               return null;
+
             })}
+
         </div>
 
       </div>

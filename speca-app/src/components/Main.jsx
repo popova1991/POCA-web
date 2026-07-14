@@ -1,3 +1,5 @@
+import poolLaneImg from "../img/home.jpg";
+
 export default function Main({ openSidebar, openPage }) {
   const cards = [
     {
@@ -26,7 +28,12 @@ export default function Main({ openSidebar, openPage }) {
   };
 
   return (
-    <main className="main">
+    <main
+      className="main"
+      style={{
+        backgroundImage: `url(${poolLaneImg})`,
+      }}
+    >
       <div className="container">
         {cards.map((card) => (
           <div
