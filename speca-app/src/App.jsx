@@ -9,6 +9,8 @@ import Middle from "./pages/Middle";
 import Senior from "./pages/Senior";
 import BPMN from "./pages/BPMN";
 import BPMNDetail from "./pages/BPMNDetail"; // 👈 ВОТ СЮДА ДОБАВИТЬ
+import Case1 from "./pages/Case1";
+import Case2 from "./pages/Case2";
 
 export default function App() {
   const [page, setPage] = useState("main");
@@ -20,7 +22,7 @@ export default function App() {
   const sidebarContent = {
     "Грейды системного аналитика": ["Junior", "Middle", "Senior"],
     "Обучающие материалы": ["BPMN"],
-    "Кейсы для разбора": ["Кейс №1","Кейс №2"]
+    "Кейсы для разбора": ["Case1", "Case2"],
   };
 
   const openSidebar = (title) => {
@@ -52,7 +54,13 @@ export default function App() {
     if (page === "senior") {
       return <Senior setPage={setPage} />;
     }
-
+   // Кейсы
+    if (page === "case1") {
+      return <Case1 setPage={setPage} />;
+    }
+    if (page === "case2") {
+      return <Case2 setPage={setPage} />;
+    }
     // BPMN список
     if (page === "bpmn") {
       return <BPMN setPage={setPage} />;
