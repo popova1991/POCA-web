@@ -147,6 +147,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 280px);
   gap: 30px;
+  margin-top: -70px;
 }
 
 .card {
@@ -319,6 +320,7 @@ body {
   gap: 40px;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 180px;
 }
 
 /* Карточки */
@@ -785,10 +787,9 @@ body {
   width: 100%;
   min-height: 100vh;
   background-image: inherit;
-  background-size: contain;
-  background-position: center;
+  background-size: 40% 50%;
+  background-position: center top;
   background-repeat: no-repeat;
-  background-color: #111;
 }
 
 /* планшеты */
