@@ -11,7 +11,6 @@ import BPMN from "./pages/BPMN";
 import BPMNDetail from "./pages/BPMNDetail"; // 👈 ВОТ СЮДА ДОБАВИТЬ
 import Case1 from "./pages/Case1";
 import Case2 from "./pages/Case2";
-
 export default function App() {
   const [page, setPage] = useState("main");
 
