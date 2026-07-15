@@ -9,6 +9,8 @@ import Middle from "./pages/Middle";
 import Senior from "./pages/Senior";
 import BPMN from "./pages/BPMN";
 import BPMNDetail from "./pages/BPMNDetail";
+import UML from "./pages/UML";
+import UMLDetail from "./pages/UMLDetail";
 
 import Case1 from "./pages/Case1";
 import Case2 from "./pages/Case2";
@@ -28,7 +30,7 @@ export default function App() {
 
   const sidebarContent = {
     "Грейды системного аналитика": ["Junior", "Middle", "Senior"],
-    "Обучающие материалы": ["BPMN"],
+    "Обучающие материалы": ["BPMN", "UML"],
     "Кейсы для разбора": [
       "Кейс: «Новая система обработки заявок»",
       "Кейс: «Автоматизация согласования документов»",
@@ -64,6 +66,9 @@ export default function App() {
 
     if (item === "BPMN") {
       setPage("bpmn");
+    }
+    if (item === "UML") {
+      setPage("uml");
     }
 
     if (item === "Кейс: «Новая система обработки заявок»") {
@@ -159,6 +164,13 @@ export default function App() {
     // Детальная страница BPMN
     if (page.startsWith("bpmn_")) {
       return <BPMNDetail setPage={setPage} page={page} />;
+    }
+
+    if (page === "uml") {
+      return <UML setPage={setPage} />;
+    }
+    if (page.startsWith("uml_")) {
+      return <UMLDetail setPage={setPage} page={page} />;
     }
 
     return <div>Страница не найдена</div>;
