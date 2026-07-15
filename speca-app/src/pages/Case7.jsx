@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Case5({ setPage }) {
+export default function Case7({ setPage }) {
     const [checkedRows, setCheckedRows] = useState({});
 
     const data = {

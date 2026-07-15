@@ -8,7 +8,8 @@ import Junior from "./pages/Junior";
 import Middle from "./pages/Middle";
 import Senior from "./pages/Senior";
 import BPMN from "./pages/BPMN";
-import BPMNDetail from "./pages/BPMNDetail"; // 👈 ВОТ СЮДА ДОБАВИТЬ
+import BPMNDetail from "./pages/BPMNDetail";
+
 import Case1 from "./pages/Case1";
 import Case2 from "./pages/Case2";
 import Case3 from "./pages/Case3";
@@ -17,6 +18,7 @@ import Case5 from "./pages/Case5";
 import Case6 from "./pages/Case6";
 import Case7 from "./pages/Case7";
 import Case8 from "./pages/Case8";
+
 export default function App() {
   const [page, setPage] = useState("main");
 
@@ -27,7 +29,16 @@ export default function App() {
   const sidebarContent = {
     "Грейды системного аналитика": ["Junior", "Middle", "Senior"],
     "Обучающие материалы": ["BPMN"],
-    "Кейсы для разбора": ["Case1", "Case2", "Case3", "Case4", "Case5", "Case6", "Case7", "Case8"]
+    "Кейсы для разбора": [
+      "Кейс: «Новая система обработки заявок»",
+      "Кейс: «Автоматизация согласования документов»",
+      "Кейс: «Оптимизация клиентского сервиса»",
+      "Кейс: «Интеграция информационных систем»",
+      "Кейс: «Разработка личного кабинета»",
+      "Кейс: «Модернизация внутреннего процесса»",
+      "Кейс: «Автоматизация отчетности»",
+      "Кейс: «Проектирование новой системы»"
+    ]
   };
 
   const openSidebar = (title) => {
@@ -38,7 +49,54 @@ export default function App() {
 
   const handleSelect = (item) => {
     setSidebarOpen(false);
-    setPage(item.toLowerCase()); // junior / middle / senior / bpmn
+
+    if (item === "Junior") {
+      setPage("junior");
+    }
+
+    if (item === "Middle") {
+      setPage("middle");
+    }
+
+    if (item === "Senior") {
+      setPage("senior");
+    }
+
+    if (item === "BPMN") {
+      setPage("bpmn");
+    }
+
+    if (item === "Кейс: «Новая система обработки заявок»") {
+      setPage("case1");
+    }
+
+    if (item === "Кейс: «Автоматизация согласования документов»") {
+      setPage("case2");
+    }
+
+    if (item === "Кейс: «Оптимизация клиентского сервиса»") {
+      setPage("case3");
+    }
+
+    if (item === "Кейс: «Интеграция информационных систем»") {
+      setPage("case4");
+    }
+
+    if (item === "Кейс: «Разработка личного кабинета»") {
+      setPage("case5");
+    }
+
+    if (item === "Кейс: «Модернизация внутреннего процесса»") {
+      setPage("case6");
+    }
+
+    if (item === "Кейс: «Автоматизация отчетности»") {
+      setPage("case7");
+    }
+
+    if (item === "Кейс: «Проектирование новой системы»") {
+      setPage("case8");
+    }
   };
 
   const renderPage = () => {
@@ -59,37 +117,46 @@ export default function App() {
     if (page === "senior") {
       return <Senior setPage={setPage} />;
     }
-   // Кейсы
+
+    // Кейсы
     if (page === "case1") {
       return <Case1 setPage={setPage} />;
     }
+
     if (page === "case2") {
       return <Case2 setPage={setPage} />;
     }
+
     if (page === "case3") {
       return <Case3 setPage={setPage} />;
     }
+
     if (page === "case4") {
       return <Case4 setPage={setPage} />;
     }
+
     if (page === "case5") {
-    return <Case5 setPage={setPage} />;
+      return <Case5 setPage={setPage} />;
     }
+
     if (page === "case6") {
       return <Case6 setPage={setPage} />;
     }
+
     if (page === "case7") {
       return <Case7 setPage={setPage} />;
     }
+
     if (page === "case8") {
       return <Case8 setPage={setPage} />;
     }
+
     // BPMN список
     if (page === "bpmn") {
       return <BPMN setPage={setPage} />;
     }
 
-    // 👇 ВОТ СЮДА ДОБАВЛЯЕТСЯ УСЛОВИЕ (ПОСЛЕ bpmn!)
+    // Детальная страница BPMN
     if (page.startsWith("bpmn_")) {
       return <BPMNDetail setPage={setPage} page={page} />;
     }
@@ -98,18 +165,18 @@ export default function App() {
   };
 
   return (
-    <>
-      <Header/>
+      <>
+        <Header />
 
-      <Sidebar
-        open={sidebarOpen}
-        items={sidebarItems}
-        title={sidebarTitle}
-        onClose={() => setSidebarOpen(false)}
-        onSelect={handleSelect}
-      />
+        <Sidebar
+            open={sidebarOpen}
+            items={sidebarItems}
+            title={sidebarTitle}
+            onClose={() => setSidebarOpen(false)}
+            onSelect={handleSelect}
+        />
 
-      {renderPage()}
-    </>
+        {renderPage()}
+      </>
   );
 }
