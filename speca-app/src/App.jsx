@@ -11,6 +11,12 @@ import BPMN from "./pages/BPMN";
 import BPMNDetail from "./pages/BPMNDetail"; // 👈 ВОТ СЮДА ДОБАВИТЬ
 import Case1 from "./pages/Case1";
 import Case2 from "./pages/Case2";
+import Case3 from "./pages/Case3";
+import Case4 from "./pages/Case4";
+import Case5 from "./pages/Case5";
+import Case6 from "./pages/Case6";
+import Case7 from "./pages/Case7";
+import Case8 from "./pages/Case8";
 export default function App() {
   const [page, setPage] = useState("main");
 
@@ -21,7 +27,7 @@ export default function App() {
   const sidebarContent = {
     "Грейды системного аналитика": ["Junior", "Middle", "Senior"],
     "Обучающие материалы": ["BPMN"],
-    "Кейсы для разбора": ["Case1", "Case2"],
+    "Кейсы для разбора": ["Case1", "Case2", "Case3", "Case4", "Case5", "Case6", "Case7", "Case8"]
   };
 
   const openSidebar = (title) => {
@@ -60,6 +66,24 @@ export default function App() {
     if (page === "case2") {
       return <Case2 setPage={setPage} />;
     }
+    if (page === "case3") {
+      return <Case3 setPage={setPage} />;
+    }
+    if (page === "case4") {
+      return <Case4 setPage={setPage} />;
+    }
+    if (page === "case5") {
+    return <Case5 setPage={setPage} />;
+    }
+    if (page === "case6") {
+      return <Case6 setPage={setPage} />;
+    }
+    if (page === "case7") {
+      return <Case7 setPage={setPage} />;
+    }
+    if (page === "case8") {
+      return <Case8 setPage={setPage} />;
+    }
     // BPMN список
     if (page === "bpmn") {
       return <BPMN setPage={setPage} />;
@@ -75,7 +99,7 @@ export default function App() {
 
   return (
     <>
-      <Header />
+      <Header/>
 
       <Sidebar
         open={sidebarOpen}
