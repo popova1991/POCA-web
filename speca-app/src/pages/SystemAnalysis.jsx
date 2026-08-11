@@ -1,31 +1,30 @@
 import { useState } from "react";
 
-import dog1Img from "../img/dog1.jpg";
+import dogImg from "../img/dog.jpg";
 import dog2Img from "../img/dog2.jpg";
 
-export default function UML({ setPage }) {
+export default function SystemAnalysis({ setPage }) {
     const [hoveredCard, setHoveredCard] = useState(null);
 
     const cards = [
         {
-            image: dog1Img,
+            image: dogImg,
             hoverImage: dog2Img,
             clickable: false,
         },
 
         {
-            title: "Цели моделирования",
+            title: "История и эволюция системного анализа",
             description:
-                "Различия: для согласования с бизнесом / для передачи разработчикам / для регламента / для анализа узких мест.",
-            page: "uml_goals",
+                "Роль системного аналитика, границы ответственности, связь бизнеса, пользователей, процессов и IT-систем.",
+            page: "sa_intro",
             clickable: true,
         },
-
         {
-            title: "Уровни абстракции",
+            title: "Классические методы системного анализа",
             description:
-                "Descriptive (кто что делает), Analytical (логика и данные), Executable (BPMS, автоматизация).",
-            page: "uml_elements",
+                "Классические методы системного анализа — это основа профессии аналитика.",
+            page: "sa_metod",
             clickable: true,
         },
     ];
@@ -40,10 +39,12 @@ export default function UML({ setPage }) {
                     ←
                 </button>
 
-                <h1>UML</h1>
+                <h1>
+                    Методология системного анализа. Системное мышление.
+                </h1>
             </div>
 
-            <main className="uml-main">
+            <main className="system-analysis-main">
                 <div className="cards">
                     {cards.map((card, index) => (
                         <div
@@ -64,21 +65,29 @@ export default function UML({ setPage }) {
                             {card.image && (
                                 <img
                                     src={
-                                        hoveredCard === index && card.hoverImage
+                                        hoveredCard === index &&
+                                        card.hoverImage
                                             ? card.hoverImage
                                             : card.image
                                     }
-                                    alt={card.title || "UML"}
+                                    alt={
+                                        card.title ||
+                                        "Методология системного анализа"
+                                    }
                                     className="card-image"
                                 />
                             )}
 
                             {card.title && (
-                                <h2>{card.title}</h2>
+                                <h2>
+                                    {card.title}
+                                </h2>
                             )}
 
                             {card.description && (
-                                <p>{card.description}</p>
+                                <p>
+                                    {card.description}
+                                </p>
                             )}
                         </div>
                     ))}

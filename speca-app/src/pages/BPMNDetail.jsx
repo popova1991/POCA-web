@@ -18,7 +18,7 @@ export default function BPMNDetail({ setPage, page }) {
   if (!data) {
     return (
       <div className="grade-page">
-        <div className="bpmn-detail">
+        <div className="detail-page">
           <h2>Страница не найдена</h2>
 
           <p>page: {String(page)}</p>
@@ -37,7 +37,7 @@ export default function BPMNDetail({ setPage, page }) {
 
   return (
     <div className="grade-page">
-      <div className="bpmn-detail">
+      <div className="detail-page">
 
         {/* HEADER */}
         <div className="subpage-header">
@@ -113,7 +113,7 @@ export default function BPMNDetail({ setPage, page }) {
                     key={i}
                     className="table-wrapper"
                   >
-                    <table className="bpmn-table">
+                    <table className="page-table">
 
                       <thead>
                       <tr>

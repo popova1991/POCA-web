@@ -7,10 +7,15 @@ import Main from "./components/Main";
 import Junior from "./pages/Junior";
 import Middle from "./pages/Middle";
 import Senior from "./pages/Senior";
+
 import BPMN from "./pages/BPMN";
 import BPMNDetail from "./pages/BPMNDetail";
+
 import UML from "./pages/UML";
 import UMLDetail from "./pages/UMLDetail";
+
+import SystemAnalysis from "./pages/SystemAnalysis";
+import SystemAnalysisDetail from "./pages/SystemAnalysisDetail";
 
 import Case1 from "./pages/Case1";
 import Case2 from "./pages/Case2";
@@ -21,6 +26,7 @@ import Case6 from "./pages/Case6";
 import Case7 from "./pages/Case7";
 import Case8 from "./pages/Case8";
 
+
 export default function App() {
   const [page, setPage] = useState("main");
 
@@ -28,9 +34,20 @@ export default function App() {
   const [sidebarItems, setSidebarItems] = useState([]);
   const [sidebarTitle, setSidebarTitle] = useState("");
 
+
   const sidebarContent = {
-    "Грейды системного аналитика": ["Junior", "Middle", "Senior"],
-    "Обучающие материалы": ["BPMN", "UML"],
+    "Грейды системного аналитика": [
+      "Junior",
+      "Middle",
+      "Senior"
+    ],
+
+    "Обучающие материалы": [
+      "BPMN",
+      "UML",
+      "Методология системного анализа. Системное мышление."
+    ],
+
     "Кейсы для разбора": [
       "Кейс: «Новая система обработки заявок»",
       "Кейс: «Автоматизация согласования документов»",
@@ -43,14 +60,19 @@ export default function App() {
     ]
   };
 
+
   const openSidebar = (title) => {
     setSidebarTitle(title);
     setSidebarItems(sidebarContent[title] || []);
     setSidebarOpen(true);
   };
 
+
   const handleSelect = (item) => {
     setSidebarOpen(false);
+
+
+    // Грейды
 
     if (item === "Junior") {
       setPage("junior");
@@ -64,53 +86,102 @@ export default function App() {
       setPage("senior");
     }
 
+
+    // Обучающие материалы
+
     if (item === "BPMN") {
       setPage("bpmn");
     }
+
     if (item === "UML") {
       setPage("uml");
     }
 
-    if (item === "Кейс: «Новая система обработки заявок»") {
+    if (
+        item ===
+        "Методология системного анализа. Системное мышление."
+    ) {
+      setPage("system_analysis");
+    }
+
+
+    // Кейсы
+
+    if (
+        item ===
+        "Кейс: «Новая система обработки заявок»"
+    ) {
       setPage("case1");
     }
 
-    if (item === "Кейс: «Автоматизация согласования документов»") {
+    if (
+        item ===
+        "Кейс: «Автоматизация согласования документов»"
+    ) {
       setPage("case2");
     }
 
-    if (item === "Кейс: «Оптимизация клиентского сервиса»") {
+    if (
+        item ===
+        "Кейс: «Оптимизация клиентского сервиса»"
+    ) {
       setPage("case3");
     }
 
-    if (item === "Кейс: «Интеграция информационных систем»") {
+    if (
+        item ===
+        "Кейс: «Интеграция информационных систем»"
+    ) {
       setPage("case4");
     }
 
-    if (item === "Кейс: «Разработка личного кабинета»") {
+    if (
+        item ===
+        "Кейс: «Разработка личного кабинета»"
+    ) {
       setPage("case5");
     }
 
-    if (item === "Кейс: «Модернизация внутреннего процесса»") {
+    if (
+        item ===
+        "Кейс: «Модернизация внутреннего процесса»"
+    ) {
       setPage("case6");
     }
 
-    if (item === "Кейс: «Автоматизация отчетности»") {
+    if (
+        item ===
+        "Кейс: «Автоматизация отчетности»"
+    ) {
       setPage("case7");
     }
 
-    if (item === "Кейс: «Проектирование новой системы»") {
+    if (
+        item ===
+        "Кейс: «Проектирование новой системы»"
+    ) {
       setPage("case8");
     }
   };
 
+
   const renderPage = () => {
+
+
     // Главная
+
     if (page === "main") {
-      return <Main openSidebar={openSidebar} openPage={setPage} />;
+      return (
+          <Main
+              openSidebar={openSidebar}
+              openPage={setPage}
+          />
+      );
     }
 
+
     // Грейды
+
     if (page === "junior") {
       return <Junior setPage={setPage} />;
     }
@@ -123,7 +194,9 @@ export default function App() {
       return <Senior setPage={setPage} />;
     }
 
+
     // Кейсы
+
     if (page === "case1") {
       return <Case1 setPage={setPage} />;
     }
@@ -156,25 +229,62 @@ export default function App() {
       return <Case8 setPage={setPage} />;
     }
 
-    // BPMN список
+
+    // BPMN
+
     if (page === "bpmn") {
       return <BPMN setPage={setPage} />;
     }
 
-    // Детальная страница BPMN
     if (page.startsWith("bpmn_")) {
-      return <BPMNDetail setPage={setPage} page={page} />;
+      return (
+          <BPMNDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
     }
+
+
+    // UML
 
     if (page === "uml") {
       return <UML setPage={setPage} />;
     }
+
     if (page.startsWith("uml_")) {
-      return <UMLDetail setPage={setPage} page={page} />;
+      return (
+          <UMLDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
     }
 
-    return <div>Страница не найдена</div>;
+
+    // Методология системного анализа.
+    // Системное мышление.
+
+    if (page === "system_analysis") {
+      return <SystemAnalysis setPage={setPage} />;
+    }
+    if (page.startsWith("sa_")) {
+      return (
+          <SystemAnalysisDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
+    }
+
+
+    return (
+        <div>
+          Страница не найдена
+        </div>
+    );
   };
+
 
   return (
       <>

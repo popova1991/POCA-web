@@ -334,7 +334,7 @@ body {
 
   padding: 0 30px;
 
-  margin: -70px auto 0;
+  margin: -10px auto 0;
 }
 
 .cards .card {
@@ -674,10 +674,10 @@ body {
 
 
 /* =========================================================
-   📖 BPMN DETAIL PAGE
+    📖 DETAIL PAGE (УНИВЕРСАЛЬНЫЕ СТИЛИ)
 ========================================================= */
 
-.bpmn-detail {
+.detail-page {
   width: min(
           calc(100% - 2 * var(--page-padding)),
           1200px
@@ -692,11 +692,8 @@ body {
   border-radius: 12px;
 }
 
-.page .subpage-header h1 {
-  display: none;
-}
 
-.page-subtitle {
+.detail-page .page-subtitle {
   margin: 0 0 20px;
 
   padding: 0 clamp(0px, 5vw, 100px);
@@ -704,7 +701,7 @@ body {
   color: #666;
 }
 
-.page-excerpt {
+.detail-page .page-excerpt {
   margin-bottom: 20px;
 
   padding: 12px clamp(12px, 5vw, 100px);
@@ -716,7 +713,7 @@ body {
 
 
 /* =========================================================
-   📝 ТЕКСТОВЫЕ БЛОКИ
+    📝 ТЕКСТОВЫЕ БЛОКИ И ТАБЛИЦЫ (УНИВЕРСАЛЬНЫЕ)
 ========================================================= */
 
 .text-block {
@@ -733,7 +730,7 @@ body {
   margin-top: 20px;
 }
 
-.bpmn-table {
+.page-table {
   width: 100%;
   min-width: 600px;
 
@@ -742,8 +739,8 @@ body {
   font-size: 14px;
 }
 
-.bpmn-table th,
-.bpmn-table td {
+.page-table th,
+.page-table td {
   padding: 10px;
 
   border: 1px solid #DDD;
@@ -751,13 +748,13 @@ body {
   text-align: left;
 }
 
-.bpmn-table th {
+.page-table th {
   background: #F3F3F3;
 }
 
 
 /* =========================================================
-   📝 MARKDOWN
+    📝 MARKDOWN
 ========================================================= */
 
 .markdown {
@@ -1039,6 +1036,7 @@ body {
     padding: 20px 16px;
   }
 
+  .detail-page,
   .bpmn-detail {
     width: calc(100% - 32px);
 
@@ -1093,4 +1091,81 @@ body {
   .sidebar.active {
     right: 0;
   }
+}
+
+/* =========================================================
+   📱 Раскрывающийся список
+========================================================= */
+.answers-container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.answer-block {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.answer-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 20px;
+
+  border: none;
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  text-align: left;
+}
+
+.answer-header.correct {
+  background: #e8f5e9;
+}
+
+.answer-header.wrong {
+  background: #ffebee;
+}
+
+.answer-content {
+  padding: 20px;
+  background: #ffffff;
+  line-height: 1.6;
+}
+
+.answer-content p {
+  margin: 0 0 10px;
+}
+
+.answer-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   📱 карточка картинка
+========================================================= */
+.card-clickable {
+  cursor: pointer;
+}
+
+.card-info {
+  cursor: default;
+}
+
+.card-image {
+  width: 100%;
+  height: 180px;
+
+  object-fit: cover;
+
+  display: block;
+
+  border-radius: 12px 12px 0 0;
 }
