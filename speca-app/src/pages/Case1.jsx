@@ -28,8 +28,77 @@ export default function Case1({ setPage }) {
                 description:
                     "Описать текущий процесс согласования отпуска: от создания заявки сотрудником до внесения данных HR в систему.",
 
-                details:
-                    "Необходимо описать текущий процесс пошагово: сотрудник создаёт заявку, отправляет её руководителю, руководитель принимает решение, после чего информация передаётся в HR."
+                details: [
+                    {
+                        type: "paragraph",
+                        text: "Что нужно сделать:"
+                    },
+                    {
+                        type: "paragraph",
+                        text:
+                            "Опиши, как процесс работает сейчас, до внедрения автоматизации. " +
+                            "Не предлагай улучшения — сначала необходимо зафиксировать существующий процесс."
+                    },
+                    {
+                        type: "paragraph",
+                        text: "Нужно пройти процесс пошагово:"
+                    },
+                    {
+                        type: "ordered",
+                        items: [
+                            "С чего начинается процесс?",
+                            "Кто инициирует отпуск?",
+                            "Каким способом сотрудник подаёт заявку?",
+                            "Какие данные он указывает?",
+                            "Кто получает заявку?",
+                            "Что делает руководитель?",
+                            "Что происходит после согласования или отказа?",
+                            "Как HR получает информацию?",
+                            "Какие действия выполняет HR?",
+                            "В какой момент данные появляются в информационной системе?",
+                            "Где возможны ручные действия, задержки и ошибки?"
+                        ]
+                    },
+                    {
+                        type: "paragraph",
+                        text: "Что должно быть в результате:"
+                    },
+                    {
+                        type: "paragraph",
+                        text:
+                            "Лучше представить процесс в виде последовательности:"
+                    },
+                    {
+                        type: "flow",
+                        text:
+                            "Сотрудник → отправляет письмо → Руководитель → согласует → " +
+                            "HR → вручную вносит данные → Система"
+                    },
+                    {
+                        type: "paragraph",
+                        text: "Для каждого шага желательно указать:"
+                    },
+                    {
+                        type: "list",
+                        items: [
+                            "участника",
+                            "действие",
+                            "результат действия",
+                            "систему/канал взаимодействия, если он есть"
+                        ]
+                    },
+                    {
+                        type: "note",
+                        text:
+                            "Важно: AS-IS описывает именно текущее состояние, поэтому здесь нельзя писать " +
+                            "«система автоматически проверяет» или «руководитель нажимает кнопку», если этого сейчас нет."
+                    },
+                    {
+                        type: "note",
+                        text:
+                            "Типичная ошибка: сразу начинать проектировать будущую систему вместо анализа текущего процесса."
+                    }
+                ]
             },
 
             {
@@ -154,6 +223,72 @@ export default function Case1({ setPage }) {
 
     const toggleWrongAnswer = () => {
         setShowWrongAnswer((prev) => !prev);
+    };
+
+    const renderDetails = (details) => {
+        if (typeof details === "string") {
+            return <p>{details}</p>;
+        }
+
+        return details.map((block, blockIndex) => {
+            switch (block.type) {
+                case "title":
+                    return (
+                        <h4 key={blockIndex}>
+                            {block.text}
+                        </h4>
+                    );
+
+                case "ordered":
+                    return (
+                        <ol key={blockIndex}>
+                            {block.items.map((item, itemIndex) => (
+                                <li key={itemIndex}>
+                                    {item}
+                                </li>
+                            ))}
+                        </ol>
+                    );
+
+                case "list":
+                    return (
+                        <ul key={blockIndex}>
+                            {block.items.map((item, itemIndex) => (
+                                <li key={itemIndex}>
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    );
+
+                case "flow":
+                    return (
+                        <p
+                            key={blockIndex}
+                            className="details-flow"
+                        >
+                            {block.text}
+                        </p>
+                    );
+
+                case "note":
+                    return (
+                        <p
+                            key={blockIndex}
+                            className="details-note"
+                        >
+                            {block.text}
+                        </p>
+                    );
+
+                default:
+                    return (
+                        <p key={blockIndex}>
+                            {block.text}
+                        </p>
+                    );
+            }
+        });
     };
 
     return (
@@ -308,9 +443,7 @@ export default function Case1({ setPage }) {
                                                 Подробнее:
                                             </strong>
 
-                                            <p>
-                                                {row.details}
-                                            </p>
+                                            {renderDetails(row.details)}
 
                                         </div>
 
