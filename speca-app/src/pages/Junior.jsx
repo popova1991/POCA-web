@@ -1,4 +1,5 @@
 import { useState } from "react";
+import dog1 from "../img/dog1.jpg";
 
 export default function Junior({ setPage }) {
   const [checkedRows, setCheckedRows] = useState({});
@@ -102,7 +103,14 @@ export default function Junior({ setPage }) {
 
       <div className="info-box">
         <div className="info-icon">!</div>
-        <p>{data.info}</p>
+        <div className="info-content">
+          <p>{data.info}</p>
+          <img
+            src={dog1}
+            alt="Маскот Junior"
+            className="info-img"
+          />
+        </div>
       </div>
 
       <div className="grade-table-container">
