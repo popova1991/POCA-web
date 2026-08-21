@@ -161,7 +161,7 @@ export default function BPMN({ setPage }) {
       title: "Пулы и роли",
       description:
           "Разделение систем, ролей и внешних участников.",
-      page: "bpmn_pools",
+      page: "bpmn_pools_lanes",
       clickable: true,
     },
 
@@ -193,7 +193,7 @@ export default function BPMN({ setPage }) {
       title: "EventStorming + BPMN",
       description:
           "Сначала события → потом формализация в BPMN.",
-      page: "bpmn_event_storming",
+      page: "bpmn_eventstorming",
       clickable: true,
     },
 
