@@ -11,10 +11,6 @@ export default function BPMNDetail({ setPage, page }) {
   const key = normalizePageKey(page);
   const data = key ? bpmnPages[key] : null;
 
-  console.log("PAGE RAW:", page);
-  console.log("KEY:", key);
-  console.log("DATA:", data);
-
   if (!data) {
     return (
       <div className="grade-page">
