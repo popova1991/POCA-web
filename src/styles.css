@@ -649,6 +649,8 @@ body {
 
 .info-content p {
   flex: 1;
+
+  white-space: pre-line;
 }
 
 .info-img {
@@ -1736,4 +1738,96 @@ body {
 
   border: 1px solid #FFE4A3;
   border-radius: 8px;
+}
+
+/* =========================================================
+   📋 СТИЛИ СТРАНИЦ КЕЙСОВ (CasePage)
+========================================================= */
+
+.case-block-title {
+  margin: 22px 0 8px;
+
+  color: var(--text-main);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.case-block-title:first-child {
+  margin-top: 0;
+}
+
+.case-block-subtitle {
+  margin: 18px 0 8px;
+
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.case-list {
+  margin: 8px 0 20px;
+  padding-left: 22px;
+
+  line-height: 1.7;
+}
+
+.case-list li {
+  margin-bottom: 6px;
+}
+
+.case-note {
+  margin: 14px 0 20px;
+  padding: 14px 16px;
+
+  background: #fff1d6;
+  border: 1px solid #ffe4a3;
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+
+  color: var(--text-main);
+  font-size: 15px;
+  line-height: 1.6;
+
+  white-space: pre-line;
+}
+
+.case-flow {
+  margin: 14px 0 20px;
+  padding: 12px 16px;
+
+  background: #f3f4f6;
+  border: 1px solid var(--border-medium);
+  border-radius: 10px;
+
+  color: var(--text-main);
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
+    Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.row-toggle {
+  padding: 0;
+
+  background: none;
+  border: none;
+
+  color: var(--accent);
+  font-size: 11px;
+  line-height: 1;
+
+  cursor: pointer;
+  transform: rotate(0deg);
+  transition: transform 0.15s ease;
+}
+
+.row-expanded .row-toggle {
+  transform: rotate(90deg);
+}
+
+.case-details {
+  padding: 6px 4px 14px;
 }
