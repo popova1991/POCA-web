@@ -1,4 +1,5 @@
 import { useState } from "react";
+import dog2 from "../img/dog2.jpg";
 
 export default function Middle({ setPage }) {
   const [checkedRows, setCheckedRows] = useState({});
@@ -139,7 +140,14 @@ export default function Middle({ setPage }) {
 
       <div className="info-box">
         <div className="info-icon">!</div>
-        <p>{data.info}</p>
+        <div className="info-content">
+          <p>{data.info}</p>
+          <img
+            src={dog2}
+            alt="Маскот Middle"
+            className="info-img"
+          />
+        </div>
       </div>
 
       <div className="grade-table-container">
