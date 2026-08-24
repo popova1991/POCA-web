@@ -144,6 +144,19 @@ export default function UMLDetail({ setPage, page }) {
                             }
 
 
+                            // CODE BLOCK
+                            if (block.type === "code") {
+                                return (
+                                    <pre
+                                        key={i}
+                                        className="code-block"
+                                    >
+                                        {block.value}
+                                    </pre>
+                                );
+                            }
+
+
                             // IMAGE BLOCK
                             if (block.type === "image") {
                                 return (

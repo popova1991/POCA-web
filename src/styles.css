@@ -984,6 +984,23 @@ body {
   margin-bottom: 6px;
 }
 
+.code-block {
+  margin: 16px 0;
+  padding: 16px;
+
+  background-color: #1e293b;
+  color: #e2e8f0;
+
+  border-radius: 8px;
+
+  font-family: "Fira Code", "Consolas", monospace;
+  font-size: 14px;
+  line-height: 1.5;
+
+  overflow-x: auto;
+  white-space: pre;
+}
+
 .markdown strong {
   font-weight: 600;
 }

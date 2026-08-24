@@ -14,18 +14,90 @@ export default function UML({ setPage }) {
         },
 
         {
-            title: "Цели моделирования",
+            title: "База UML",
             description:
-                "Различия: для согласования с бизнесом / для передачи разработчикам / для регламента / для анализа узких мест.",
-            page: "uml_goals",
+                "Что такое UML, зачем она нужна и из чего состоит: сущности, отношения и виды диаграмм.",
+            page: "uml_base",
             clickable: true,
         },
 
         {
-            title: "Уровни абстракции",
+            title: "Use Case Diagram",
             description:
-                "Descriptive (кто что делает), Analytical (логика и данные), Executable (BPMS, автоматизация).",
-            page: "uml_elements",
+                "Актёры, прецеденты и связи. Как описать функциональные требования к системе.",
+            page: "uml_use_case",
+            clickable: true,
+        },
+
+        {
+            title: "Activity Diagram",
+            description:
+                "Потоки работ, решения и параллельные процессы. Функциональная блок-схема процесса.",
+            page: "uml_activity",
+            clickable: true,
+        },
+
+        {
+            title: "Sequence Diagram",
+            description:
+                "Взаимодействие объектов во времени. Кто кому и когда отправляет сообщения.",
+            page: "uml_sequence",
+            clickable: true,
+        },
+
+        {
+            title: "Class Diagram",
+            description:
+                "Классы, атрибуты, методы и связи. Основа объектно-ориентированного проектирования.",
+            page: "uml_class_diagram",
+            clickable: true,
+        },
+
+        {
+            title: "State Machine Diagram",
+            description:
+                "Состояния объекта и переходы между ними. Жизненный цикл сущности.",
+            page: "uml_state_machine",
+            clickable: true,
+        },
+
+        {
+            title: "Component Diagram",
+            description:
+                "Компоненты системы и их интерфейсы. Архитектура на уровне модулей.",
+            page: "uml_component",
+            clickable: true,
+        },
+
+        {
+            title: "Deployment Diagram",
+            description:
+                "Узлы, серверы и физическое размещение. Как система живёт в инфраструктуре.",
+            page: "uml_deployment",
+            clickable: true,
+        },
+
+        {
+            title: "Как выбирать UML-диаграмму",
+            description:
+                "Чек-лист: какую диаграмму выбрать под задачу анализа или проектирования.",
+            page: "uml_how_to_choose",
+            clickable: true,
+        },
+
+        {
+            title: "PlantUML",
+            description:
+                "Текстовое описание диаграмм кодом. Быстро, версионируемо и удобно в CI.",
+            page: "uml_plantuml",
+            clickable: true,
+        },
+
+        {
+            title: "Практика UML",
+            description:
+                "Типичные ошибки и шаблоны. Как не превратить модель в нечитаемый монстр.",
+            page: "uml_practice",
             clickable: true,
         },
     ];
