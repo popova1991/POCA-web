@@ -640,6 +640,25 @@ body {
   line-height: 1.6;
 }
 
+.info-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.info-content p {
+  flex: 1;
+}
+
+.info-img {
+  width: 120px;
+  height: auto;
+  flex-shrink: 0;
+  align-self: flex-end;
+  border-radius: 8px;
+}
+
 .info-icon {
   position: absolute;
 
@@ -1382,6 +1401,16 @@ body {
     width: calc(100% - 32px);
 
     padding: 16px 16px 16px 48px;
+  }
+
+  .info-content {
+    flex-direction: column;
+  }
+
+  .info-img {
+    align-self: flex-end;
+
+    width: 100px;
   }
 
   .grade-description,
