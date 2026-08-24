@@ -1,4 +1,5 @@
 import { useState } from "react";
+import dog from "../img/dog.jpg";
 
 export default function Senior({ setPage }) {
   const [checkedRows, setCheckedRows] = useState({});
@@ -154,7 +155,14 @@ export default function Senior({ setPage }) {
 
       <div className="info-box">
         <div className="info-icon">!</div>
-        <p>{data.info}</p>
+        <div className="info-content">
+          <p>{data.info}</p>
+          <img
+            src={dog}
+            alt="Маскот Senior"
+            className="info-img"
+          />
+        </div>
       </div>
 
       <div className="grade-table-container">
