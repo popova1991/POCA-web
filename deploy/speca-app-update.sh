@@ -1,14 +1,14 @@
-#!/usr/bin/env bash
+#!/bin/sh
 #
 # Запускать НА СЕРВЕРЕ после `make push` (или `docker push`):
-#   ./deploy/update.sh
+#   ./deploy/speca-app-update.sh
 #
-# По умолчанию берёт образ <your-dockerhub-user>/poca-web:latest.
-# Переопределить имя можно: DOCKER_USER=myuser ./deploy/update.sh
+# По умолчанию образ: richardgear/poca-web:latest
+# Порт контейнера всегда 80 (внутри nginx), наружу 8080 (HOST_PORT).
 #
-set -euo pipefail
+set -eu
 
-DOCKER_USER="${DOCKER_USER:-your-dockerhub-user}"
+DOCKER_USER="richardgear"
 IMAGE="${DOCKER_USER}/poca-web:latest"
 CONTAINER_NAME="poca-web"
 HOST_PORT="${HOST_PORT:-8080}"
