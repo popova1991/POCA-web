@@ -13,7 +13,7 @@ function Block({ block }) {
 
     case "ordered":
       return (
-        <ol className="case-list">
+        <ol className="case-list case-list-ordered">
           {block.items.map((item, i) => (
             <li key={i}>{item}</li>
           ))}
@@ -40,8 +40,65 @@ function Block({ block }) {
   }
 }
 
+function renderInline(str) {
+  return String(str)
+    .split(/\*\*(.+?)\*\*/g)
+    .map((part, i) =>
+      i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+    );
+}
+
 function RichText({ text }) {
-  return <div className="text-block">{text}</div>;
+  const blocks = String(text).split(/\n\n+/);
+
+  return (
+    <div className="rich-text">
+      {blocks.map((block, i) => {
+        const trimmed = block.trim();
+
+        if (trimmed.startsWith("[[") && trimmed.endsWith("]]")) {
+          return (
+            <div className="answer-callout" key={i}>
+              {renderInline(trimmed.slice(2, -2))}
+            </div>
+          );
+        }
+
+        if (trimmed.startsWith("{{") && trimmed.endsWith("}}")) {
+          return (
+            <div className="answer-flowbox" key={i}>
+              {renderInline(trimmed.slice(2, -2))}
+            </div>
+          );
+        }
+
+        return (
+          <p className="text-block" key={i}>
+            {renderInline(block)}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
+function Chevron() {
+  return (
+    <svg
+      className="chevron"
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  );
 }
 
 export default function CasePage({ data, onBack }) {
@@ -122,11 +179,12 @@ export default function CasePage({ data, onBack }) {
                   <td>
                     <button
                       type="button"
-                      className="row-toggle"
+                      className={"case-toggle" + (expanded[i] ? " open" : "")}
                       onClick={() => toggleExpand(i)}
                       aria-expanded={!!expanded[i]}
+                      aria-label={expanded[i] ? "Свернуть" : "Развернуть"}
                     >
-                      ▶
+                      <Chevron />
                     </button>
                   </td>
                 </tr>
@@ -161,8 +219,12 @@ export default function CasePage({ data, onBack }) {
                   onClick={() => toggleAnswer("correct")}
                   aria-expanded={!!answerOpen.correct}
                 >
-                  <span>Правильный вариант</span>
-                  <span>▼</span>
+                  <span className="answer-label">Правильный вариант</span>
+                  <span
+                    className={"case-toggle" + (answerOpen.correct ? " open" : "")}
+                  >
+                    <Chevron />
+                  </span>
                 </button>
                 {answerOpen.correct && (
                   <div className="answer-content">
@@ -180,8 +242,12 @@ export default function CasePage({ data, onBack }) {
                   onClick={() => toggleAnswer("wrong")}
                   aria-expanded={!!answerOpen.wrong}
                 >
-                  <span>Неправильный вариант</span>
-                  <span>▼</span>
+                  <span className="answer-label">Неправильный вариант</span>
+                  <span
+                    className={"case-toggle" + (answerOpen.wrong ? " open" : "")}
+                  >
+                    <Chevron />
+                  </span>
                 </button>
                 {answerOpen.wrong && (
                   <div className="answer-content">

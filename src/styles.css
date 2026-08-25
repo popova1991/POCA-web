@@ -62,6 +62,10 @@ body {
 ========================================================= */
 
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
   width: 100%;
 
   display: flex;
@@ -1480,16 +1484,24 @@ body {
    📱 Раскрывающийся список
 ========================================================= */
 .answers-container {
-  margin-top: 30px;
+  width: min(
+          calc(100% - 2 * var(--page-padding)),
+          var(--detail-max-width)
+  );
+
+  margin: 30px auto 0;
+
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
 .answer-block {
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  border: 1px solid var(--border-medium);
+  border-radius: 14px;
   overflow: hidden;
+  background: var(--bg-card);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 .answer-header {
@@ -1497,8 +1509,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 14px;
 
-  padding: 18px 20px;
+  padding: 16px 16px 16px 22px;
 
   border: none;
   cursor: pointer;
@@ -1507,20 +1520,58 @@ body {
   font-weight: 600;
 
   text-align: left;
+
+  transition: filter 0.2s ease;
+}
+
+.answer-header:hover {
+  filter: brightness(0.97);
+}
+
+.answer-label {
+  flex: 1;
 }
 
 .answer-header.correct {
   background: #e8f5e9;
+  color: #1b5e20;
 }
 
 .answer-header.wrong {
   background: #ffebee;
+  color: #b71c1c;
+}
+
+.answer-header.correct .case-toggle {
+  color: #1b5e20;
+  border-color: rgba(27, 94, 32, 0.35);
+  background: #fff;
+}
+
+.answer-header.wrong .case-toggle {
+  color: #b71c1c;
+  border-color: rgba(183, 28, 28, 0.35);
+  background: #fff;
+}
+
+.answer-header.correct .case-toggle:hover {
+  background: #1b5e20;
+  color: #fff;
+  border-color: #1b5e20;
+}
+
+.answer-header.wrong .case-toggle:hover {
+  background: #b71c1c;
+  color: #fff;
+  border-color: #b71c1c;
 }
 
 .answer-content {
-  padding: 24px 26px;
-  background: #ffffff;
-  line-height: 1.65;
+  padding: 22px 24px;
+  background: var(--bg-card);
+  line-height: 1.7;
+  color: var(--text-main);
+  text-align: left;
 }
 
 .answer-content > :first-child {
@@ -1531,11 +1582,81 @@ body {
   margin-bottom: 0;
 }
 
+.rich-text {
+  text-align: left;
+}
+
+.answer-content .text-block {
+  margin: 0 0 14px;
+
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-main);
+
+  white-space: pre-line;
+}
+
+.answer-content .text-block:last-child {
+  margin-bottom: 0;
+}
+
+.answer-content strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.answer-callout {
+  margin: 0 0 14px;
+  padding: 14px 16px 14px 18px;
+
+  background: #f5f3ff;
+  border: 1px solid #e9e1ff;
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+
+  color: var(--text-main);
+  font-size: 15px;
+  line-height: 1.65;
+
+  white-space: pre-line;
+}
+
+.answer-callout:last-child {
+  margin-bottom: 0;
+}
+
+.answer-callout strong {
+  color: var(--accent);
+}
+
+.answer-flowbox {
+  margin: 0 0 14px;
+  padding: 14px 16px;
+
+  background: #f3f0ff;
+  border: 1px solid #e4d9ff;
+  border-radius: 12px;
+
+  color: var(--accent);
+
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
+    Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.7;
+
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.answer-flowbox:last-child {
+  margin-bottom: 0;
+}
+
 .answer-content p,
 .answer-content li {
   font-size: 15px;
-  line-height: 1.65;
-  color: #333;
+  line-height: 1.7;
+  color: var(--text-main);
 }
 
 .answer-content p {
@@ -1744,12 +1865,59 @@ body {
    📋 СТИЛИ СТРАНИЦ КЕЙСОВ (CasePage)
 ========================================================= */
 
+/* Общая кнопка-шеврон для всех аккордеонов */
+.case-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 30px;
+  height: 30px;
+  padding: 0;
+
+  border: 1px solid var(--border-medium);
+  border-radius: 50%;
+
+  background-color: var(--bg-card);
+  color: var(--accent);
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.case-toggle:hover {
+  background-color: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+}
+
+.case-toggle .chevron {
+  transition: transform 0.25s ease;
+}
+
+.case-toggle.open .chevron {
+  transform: rotate(180deg);
+}
+
 .case-block-title {
-  margin: 22px 0 8px;
+  margin: 24px 0 10px;
+  padding-left: 13px;
+
+  border-left: 3px solid var(--accent);
 
   color: var(--text-main);
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
 }
 
 .case-block-title:first-child {
@@ -1757,77 +1925,410 @@ body {
 }
 
 .case-block-subtitle {
-  margin: 18px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 20px 0 8px;
 
   color: var(--accent);
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.case-block-subtitle::before {
+  content: "";
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
 }
 
 .case-list {
   margin: 8px 0 20px;
-  padding-left: 22px;
 
   line-height: 1.7;
 }
 
 .case-list li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
-.case-note {
-  margin: 14px 0 20px;
-  padding: 14px 16px;
+/* Для неупорядоченного списка — акцентные маркеры */
+.case-list:not(.case-list-ordered) {
+  padding-left: 4px;
 
-  background: #fff1d6;
-  border: 1px solid #ffe4a3;
-  border-left: 4px solid var(--accent);
-  border-radius: 10px;
+  list-style: none;
+}
+
+.case-list:not(.case-list-ordered) li {
+  position: relative;
+
+  padding-left: 26px;
+}
+
+.case-list:not(.case-list-ordered) li::before {
+  content: "";
+
+  position: absolute;
+  left: 8px;
+  top: 11px;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+}
+
+/* Для нумерованного списка — акцентные номера */
+.case-list-ordered {
+  padding-left: 24px;
+}
+
+.case-list-ordered li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.case-details .text-block {
+  margin: 0 0 14px;
 
   color: var(--text-main);
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.7;
+
+  white-space: pre-line;
+}
+
+.case-details .text-block:last-child {
+  margin-bottom: 0;
+}
+
+.case-note {
+  margin: 16px 0 20px;
+  padding: 14px 16px 14px 18px;
+
+  background: #f5f3ff;
+  border: 1px solid #e9e1ff;
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+
+  color: var(--text-main);
+  font-size: 15px;
+  line-height: 1.65;
 
   white-space: pre-line;
 }
 
 .case-flow {
   margin: 14px 0 20px;
-  padding: 12px 16px;
+  padding: 14px 16px;
 
-  background: #f3f4f6;
-  border: 1px solid var(--border-medium);
-  border-radius: 10px;
+  background: #f3f0ff;
+  border: 1px solid #e4d9ff;
+  border-radius: 12px;
 
-  color: var(--text-main);
+  color: var(--accent);
   font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
     Menlo, Consolas, monospace;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.7;
 
   white-space: pre-wrap;
   overflow-x: auto;
 }
 
-.row-toggle {
-  padding: 0;
+.case-details {
+  padding: 8px 4px 12px;
 
-  background: none;
+  text-align: left;
+}
+
+
+/* =========================================================
+   🦶 FOOTER
+======================================================== */
+
+.footer {
+  width: 100%;
+
+  margin-top: 60px;
+  padding: 28px var(--page-padding);
+
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border-light);
+}
+
+.footer-inner {
+  width: min(100%, var(--content-max-width));
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-info {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.footer-logo {
+  color: var(--text-main);
+
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.footer-copy {
+  color: var(--text-main);
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.footer-tagline {
+  color: var(--text-secondary);
+
+  font-size: 14px;
+}
+
+.footer-feedback {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   🔘 КНОПКИ
+======================================================== */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 12px 20px;
+
+  background-color: var(--accent);
+  color: #fff;
+
   border: none;
+  border-radius: 12px;
 
-  color: var(--accent);
-  font-size: 11px;
-  line-height: 1;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
 
   cursor: pointer;
-  transform: rotate(0deg);
-  transition: transform 0.15s ease;
+
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.row-expanded .row-toggle {
-  transform: rotate(90deg);
+.btn-primary:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.35);
 }
 
-.case-details {
-  padding: 6px 4px 14px;
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: default;
+  box-shadow: none;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 20px;
+
+  background-color: transparent;
+  color: var(--text-secondary);
+
+  border: 1px solid var(--border-medium);
+  border-radius: 12px;
+
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-ghost:hover {
+  color: var(--text-main);
+  border-color: var(--text-secondary);
+}
+
+
+/* =========================================================
+   💬 МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ
+======================================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(31, 22, 51, 0.45);
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  animation: overlay-in 0.2s ease;
+}
+
+.modal {
+  width: min(520px, 100%);
+
+  padding: 26px;
+
+  background-color: var(--bg-card);
+  border-radius: 18px;
+
+  box-shadow: 0 24px 60px rgba(20, 10, 40, 0.3);
+
+  animation: modal-in 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  color: var(--text-main);
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.modal-textarea {
+  width: 100%;
+  min-height: 130px;
+
+  padding: 14px;
+
+  resize: vertical;
+
+  border: 1px solid var(--border-medium);
+  border-radius: 12px;
+
+  background-color: var(--bg-main);
+  color: var(--text-main);
+
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.modal-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.modal-counter {
+  margin-top: 8px;
+
+  text-align: right;
+
+  color: var(--text-secondary);
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  margin-top: 16px;
+}
+
+.modal-success {
+  padding: 18px 0 6px;
+
+  text-align: center;
+}
+
+.modal-success-icon {
+  width: 56px;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 14px;
+
+  border-radius: 50%;
+
+  background-color: #e8f5e9;
+  color: #1b5e20;
+
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.modal-success-text {
+  margin-bottom: 18px;
+
+  color: var(--text-main);
+
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
