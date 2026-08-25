@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
+import FeedbackModal from "./components/FeedbackModal";
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
 
@@ -29,6 +31,7 @@ import Case8 from "./pages/Case8";
 
 export default function App() {
   const [page, setPage] = useState("main");
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarItems, setSidebarItems] = useState([]);
@@ -288,7 +291,7 @@ export default function App() {
 
   return (
       <>
-        <Header />
+        <Header onHome={() => setPage("main")} />
 
         <Sidebar
             open={sidebarOpen}
@@ -299,6 +302,12 @@ export default function App() {
         />
 
         {renderPage()}
+
+        <Footer onFeedback={() => setFeedbackOpen(true)} />
+        <FeedbackModal
+            open={feedbackOpen}
+            onClose={() => setFeedbackOpen(false)}
+        />
       </>
   );
 }
