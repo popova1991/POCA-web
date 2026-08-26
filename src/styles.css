@@ -2271,6 +2271,15 @@ body {
   font-weight: 500;
 }
 
+.modal-error {
+  margin-top: 10px;
+
+  color: #dc2626;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;
