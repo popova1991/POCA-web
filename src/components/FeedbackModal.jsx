@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 export default function FeedbackModal({ open, onClose }) {
   const [text, setText] = useState("");
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (open) {
       setText("");
       setSent(false);
+      setSending(false);
+      setError("");
     }
   }, [open]);
 
@@ -22,11 +26,57 @@ export default function FeedbackModal({ open, onClose }) {
 
   if (!open) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!text.trim()) return;
-    // Здесь можно отправить текст на бэкенд. Пока просто показываем успех.
-    setSent(true);
+
+    const token = (import.meta.env.VITE_TG_BOT_TOKEN || "").trim();
+    const chatId = (import.meta.env.VITE_TG_CHAT_ID || "").trim();
+
+    if (!token || !chatId || token.startsWith("замените") || chatId.startsWith("замените")) {
+      setError("Отправка не настроена: заполните VITE_TG_BOT_TOKEN и VITE_TG_CHAT_ID в .env");
+      return;
+    }
+
+    setSending(true);
+    setError("");
+
+    const message =
+      `📩 Обратная связь с сайта Speca\n` +
+      `🌐 Страница: ${window.location.href}\n` +
+      `💬 Сообщение:\n${text.trim()}`;
+
+    try {
+      const res = await fetch(
+        `https://api.telegram.org/bot${token}/sendMessage`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            chat_id: chatId,
+            text: message,
+            disable_web_page_preview: "true",
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.description || `HTTP ${res.status}`);
+      }
+
+      setSent(true);
+    } catch (err) {
+      setError(
+        err.message === "Failed to fetch"
+          ? "Не удалось отправить. Проверьте подключение к сети."
+          : `Ошибка отправки: ${err.message}`
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -78,20 +128,22 @@ export default function FeedbackModal({ open, onClose }) {
             <div className="modal-counter">
               {text.length}/2000
             </div>
+            {error && <div className="modal-error">{error}</div>}
             <div className="modal-actions">
               <button
                 type="button"
                 className="btn-ghost"
                 onClick={onClose}
+                disabled={sending}
               >
                 Отмена
               </button>
               <button
                 type="submit"
                 className="btn-primary"
-                disabled={!text.trim()}
+                disabled={!text.trim() || sending}
               >
-                Отправить
+                {sending ? "Отправка…" : "Отправить"}
               </button>
             </div>
           </form>
