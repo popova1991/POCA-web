@@ -2327,6 +2327,221 @@ body {
   line-height: 1.6;
 }
 
+
+/* ---------- Notes (Right) ---------- */
+
+.case9-notes {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* ---------- DeepSeek button on Case pages ---------- */
+
+.case-deepseek-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.case-deepseek-header h2 {
+  margin: 0;
+}
+
+.case-deepseek-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s, opacity 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.case-deepseek-btn:hover {
+  transform: scale(1.04);
+  opacity: 0.9;
+}
+
+/* ---------- Notes button ---------- */
+
+.case-deepseek-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.case-notes-btn {
+  padding: 10px 24px;
+  border-radius: 10px;
+  background: var(--card-bg, #fff);
+  color: var(--text);
+  border: 1px solid var(--border, #e0e0e0);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.2s;
+  white-space: nowrap;
+}
+
+.case-notes-btn:hover {
+  transform: scale(1.04);
+  opacity: 0.9;
+}
+
+/* ---------- Notes Drawer ---------- */
+
+.notes-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.notes-drawer {
+  width: 460px;
+  max-width: 90vw;
+  height: 100%;
+  background: var(--bg-main, #f5f5f5);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.25s ease-out;
+  overflow-y: auto;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.notes-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border, #e0e0e0);
+  font-size: 16px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.notes-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.notes-close-btn:hover {
+  background: var(--border, #e0e0e0);
+}
+
+.notes-drawer-body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* ---------- Notes (Right) ---------- */
+
+.case9-notes-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 16px 20px;
+
+  background: linear-gradient(135deg, #E11D48, #BE123C);
+  color: #fff;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.case9-notes-body {
+  flex: 1;
+
+  padding: 16px;
+}
+
+.case9-notes-textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+
+  padding: 14px;
+  border: 1px solid var(--border-medium);
+  border-radius: 12px;
+
+  font-size: 14px;
+  line-height: 1.7;
+  resize: vertical;
+
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  color: var(--text-main);
+  background: var(--bg-main);
+}
+
+.case9-notes-textarea:focus {
+  border-color: var(--accent-2);
+}
+
+.case9-notes-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.case9-notes-hint {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.case9-notes-clear {
+  padding: 6px 14px;
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.case9-notes-clear:not(:disabled):hover {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+}
+
+.case9-notes-clear:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 @keyframes overlay-in {
   from {
     opacity: 0;

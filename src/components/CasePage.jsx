@@ -101,12 +101,59 @@ function Chevron() {
   );
 }
 
+function NotesDrawer({ open, onClose, notes, setNotes }) {
+  if (!open) return null;
+
+  return (
+    <div className="notes-overlay" onClick={onClose}>
+      <div className="notes-drawer" onClick={(e) => e.stopPropagation()}>
+        <div className="notes-drawer-header">
+          <span>📝 Заметки</span>
+          <button type="button" className="notes-close-btn" onClick={onClose}>
+            ✕
+          </button>
+        </div>
+        <div className="notes-drawer-body">
+          <div className="case9-notes">
+            <div className="case9-notes-header">
+              <span>📝</span>
+              <span>Заметки системного аналитика</span>
+            </div>
+            <div className="case9-notes-body">
+              <textarea
+                className="case9-notes-textarea"
+                placeholder={"Фиксируйте наблюдения, инсайты и выводы по кейсу…\n\nНапример:\n— Выявлены противоречивые требования\n— Нужно уточнить сроки у stakeholders\n— Предложено 3 варианта решения"}
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+              />
+            </div>
+            <div className="case9-notes-footer">
+              <span className="case9-notes-hint">
+                Заметки хранятся в рамках сессии
+              </span>
+              <button
+                className="case9-notes-clear"
+                onClick={() => setNotes("")}
+                disabled={!notes.trim()}
+              >
+                Очистить
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function CasePage({ data, onBack }) {
   if (!data) return null;
 
   const [expanded, setExpanded] = useState({});
   const [checked, setChecked] = useState({});
   const [answerOpen, setAnswerOpen] = useState({});
+  const [notesOpen, setNotesOpen] = useState(false);
+  const [notes, setNotes] = useState("");
 
   const toggleExpand = (i) =>
     setExpanded((prev) => ({ ...prev, [i]: !prev[i] }));
@@ -143,7 +190,26 @@ export default function CasePage({ data, onBack }) {
       )}
 
       <div className="grade-table-container">
-        <h2>{data.subtitle}</h2>
+        <div className="case-deepseek-header" style={{ position: "relative", zIndex: 1 }}>
+          <h2>{data.subtitle}</h2>
+          <div className="case-deepseek-actions">
+            <button
+              type="button"
+              className="case-notes-btn"
+              onClick={() => setNotesOpen(true)}
+            >
+              Заметки
+            </button>
+            <a
+              className="case-deepseek-btn"
+              href="https://chat.deepseek.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Открыть DeepSeek →
+            </a>
+          </div>
+        </div>
         <p>{data.description}</p>
 
         <table className="grade-table grade-table-case">
@@ -188,75 +254,82 @@ export default function CasePage({ data, onBack }) {
                     </button>
                   </td>
                 </tr>
-                    {expanded[i] && (
-                      <tr className="details-row">
-                        <td colSpan={5}>
-                          <div className="case-details">
-                            {Array.isArray(row.content) &&
-                              row.content.map((block, bi) =>
-                                block.type === "rich" ? (
-                                  <RichText key={bi} text={block.text} />
-                                ) : (
-                                  <Block key={bi} block={block} />
-                                )
-                              )}
-                          </div>
-                        </td>
-                      </tr>
-                    )}
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="answers-container">
-            {data.correctAnswer && (
-              <div className="answer-block">
-                <button
-                  type="button"
-                  className="answer-header correct"
-                  onClick={() => toggleAnswer("correct")}
-                  aria-expanded={!!answerOpen.correct}
-                >
-                  <span className="answer-label">Правильный вариант</span>
-                  <span
-                    className={"case-toggle" + (answerOpen.correct ? " open" : "")}
-                  >
-                    <Chevron />
-                  </span>
-                </button>
-                {answerOpen.correct && (
-                  <div className="answer-content">
-                    <RichText text={data.correctAnswer} />
-                  </div>
+                {expanded[i] && (
+                  <tr className="details-row">
+                    <td colSpan={5}>
+                      <div className="case-details">
+                        {Array.isArray(row.content) &&
+                          row.content.map((block, bi) =>
+                            block.type === "rich" ? (
+                              <RichText key={bi} text={block.text} />
+                            ) : (
+                              <Block key={bi} block={block} />
+                            )
+                          )}
+                      </div>
+                    </td>
+                  </tr>
                 )}
-              </div>
-            )}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-            {data.wrongAnswer && (
-              <div className="answer-block">
-                <button
-                  type="button"
-                  className="answer-header wrong"
-                  onClick={() => toggleAnswer("wrong")}
-                  aria-expanded={!!answerOpen.wrong}
-                >
-                  <span className="answer-label">Неправильный вариант</span>
-                  <span
-                    className={"case-toggle" + (answerOpen.wrong ? " open" : "")}
-                  >
-                    <Chevron />
-                  </span>
-                </button>
-                {answerOpen.wrong && (
-                  <div className="answer-content">
-                    <RichText text={data.wrongAnswer} />
-                  </div>
-                )}
+      <div className="answers-container">
+        {data.correctAnswer && (
+          <div className="answer-block">
+            <button
+              type="button"
+              className="answer-header correct"
+              onClick={() => toggleAnswer("correct")}
+              aria-expanded={!!answerOpen.correct}
+            >
+              <span className="answer-label">Правильный вариант</span>
+              <span
+                className={"case-toggle" + (answerOpen.correct ? " open" : "")}
+              >
+                <Chevron />
+              </span>
+            </button>
+            {answerOpen.correct && (
+              <div className="answer-content">
+                <RichText text={data.correctAnswer} />
               </div>
             )}
           </div>
-        </div>
+        )}
+
+        {data.wrongAnswer && (
+          <div className="answer-block">
+            <button
+              type="button"
+              className="answer-header wrong"
+              onClick={() => toggleAnswer("wrong")}
+              aria-expanded={!!answerOpen.wrong}
+            >
+              <span className="answer-label">Неправильный вариант</span>
+              <span
+                className={"case-toggle" + (answerOpen.wrong ? " open" : "")}
+              >
+                <Chevron />
+              </span>
+            </button>
+            {answerOpen.wrong && (
+              <div className="answer-content">
+                <RichText text={data.wrongAnswer} />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      <NotesDrawer
+        open={notesOpen}
+        onClose={() => setNotesOpen(false)}
+        notes={notes}
+        setNotes={setNotes}
+      />
+    </div>
   );
 }
