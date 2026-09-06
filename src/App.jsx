@@ -116,12 +116,21 @@ export default function App() {
     ) {
       setPage("case1");
     }
+    if (
+      item ===
+      "Кейс: «Заказ завис в статусе»"
+    ) {
+      setPage("case2");
+    }
+
+
+
 
     if (
         item ===
-        "Кейс: «Заказ завис в статусе»"
+        "Кейс-встреча: «Изменение тарифа клиента»"
     ) {
-      setPage("case2");
+      setPage("case8");
     }
 
     if (

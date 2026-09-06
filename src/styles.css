@@ -906,11 +906,16 @@ body {
 .detail-page .page-excerpt {
   margin-bottom: 20px;
 
-  padding: 12px clamp(12px, 5vw, 100px);
+  padding: 14px 18px;
 
-  background: #F5F5F5;
+  background: #f5f3ff;
+  border: 1px solid #e9e1ff;
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
 
-  border-radius: 8px;
+  color: var(--text-main);
+  font-size: 15px;
+  line-height: 1.65;
 }
 
 
