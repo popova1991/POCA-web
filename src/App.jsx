@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -6,27 +6,27 @@ import FeedbackModal from "./components/FeedbackModal";
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
 
-import Junior from "./pages/Junior";
-import Middle from "./pages/Middle";
-import Senior from "./pages/Senior";
+const Junior = lazy(() => import("./pages/Junior"));
+const Middle = lazy(() => import("./pages/Middle"));
+const Senior = lazy(() => import("./pages/Senior"));
 
-import BPMN from "./pages/BPMN";
-import BPMNDetail from "./pages/BPMNDetail";
+const BPMN = lazy(() => import("./pages/BPMN"));
+const BPMNDetail = lazy(() => import("./pages/BPMNDetail"));
 
-import UML from "./pages/UML";
-import UMLDetail from "./pages/UMLDetail";
+const UML = lazy(() => import("./pages/UML"));
+const UMLDetail = lazy(() => import("./pages/UMLDetail"));
 
-import SystemAnalysis from "./pages/SystemAnalysis";
-import SystemAnalysisDetail from "./pages/SystemAnalysisDetail";
+const SystemAnalysis = lazy(() => import("./pages/SystemAnalysis"));
+const SystemAnalysisDetail = lazy(() => import("./pages/SystemAnalysisDetail"));
 
-import Case1 from "./pages/Case1";
-import Case2 from "./pages/Case2";
-import Case3 from "./pages/Case3";
-import Case4 from "./pages/Case4";
-import Case5 from "./pages/Case5";
-import Case6 from "./pages/Case6";
-import Case7 from "./pages/Case7";
-import Case8 from "./pages/Case8";
+const Case1 = lazy(() => import("./pages/Case1"));
+const Case2 = lazy(() => import("./pages/Case2"));
+const Case3 = lazy(() => import("./pages/Case3"));
+const Case4 = lazy(() => import("./pages/Case4"));
+const Case5 = lazy(() => import("./pages/Case5"));
+const Case6 = lazy(() => import("./pages/Case6"));
+const Case7 = lazy(() => import("./pages/Case7"));
+const Case8 = lazy(() => import("./pages/Case8"));
 
 
 export default function App() {
@@ -296,7 +296,9 @@ export default function App() {
             onSelect={handleSelect}
         />
 
-        {renderPage()}
+        <Suspense fallback={<div>Загрузка...</div>}>
+          {renderPage()}
+        </Suspense>
 
         <Footer onFeedback={() => setFeedbackOpen(true)} />
         <FeedbackModal

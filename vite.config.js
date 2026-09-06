@@ -12,4 +12,14 @@ export default defineConfig({
     host: true,
     port: 4173,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+          markdown: ["react-markdown", "remark-gfm"],
+        },
+      },
+    },
+  },
 });
