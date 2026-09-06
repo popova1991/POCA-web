@@ -2328,15 +2328,14 @@ body {
 }
 
 
-/* ---------- Notes (Right) ---------- */
-
 .case9-notes {
   display: flex;
   flex-direction: column;
-  background: var(--bg-card);
+  background: var(--bg-main, #f7f6f2);
   border: 1px solid var(--border-light);
   border-radius: 16px;
   overflow: hidden;
+  flex: 1;
 }
 
 /* ---------- DeepSeek button on Case pages ---------- */
@@ -2405,58 +2404,74 @@ body {
 .notes-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 1000;
   display: flex;
   justify-content: flex-end;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .notes-drawer {
-  width: 460px;
-  max-width: 90vw;
+  width: 480px;
+  max-width: 92vw;
   height: 100%;
-  background: var(--bg-main, #f5f5f5);
-  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  background: var(--bg-card, #fff);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
-  animation: slideInRight 0.25s ease-out;
-  overflow-y: auto;
+  animation: drawerSlideIn 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
 }
 
-@keyframes slideInRight {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+@keyframes drawerSlideIn {
+  from { transform: translateX(100%); opacity: 0.5; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
 .notes-drawer-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border, #e0e0e0);
-  font-size: 16px;
-  font-weight: 600;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 17px;
+  font-weight: 700;
   flex-shrink: 0;
+  letter-spacing: -0.01em;
 }
 
 .notes-close-btn {
-  background: none;
-  border: none;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--bg-main);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  font-size: 16px;
   cursor: pointer;
-  color: var(--text);
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background 0.15s;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
 }
 
 .notes-close-btn:hover {
-  background: var(--border, #e0e0e0);
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  transform: rotate(90deg);
 }
 
 .notes-drawer-body {
   flex: 1;
-  padding: 20px;
+  padding: 24px;
   overflow-y: auto;
 }
 
@@ -2469,16 +2484,16 @@ body {
 
   padding: 16px 20px;
 
-  background: linear-gradient(135deg, #E11D48, #BE123C);
+  background: linear-gradient(135deg, var(--accent), #6D28D9);
   color: #fff;
 
   font-size: 15px;
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .case9-notes-body {
   flex: 1;
-
   padding: 16px;
 }
 
@@ -2487,49 +2502,66 @@ body {
   height: 100%;
   min-height: 400px;
 
-  padding: 14px;
-  border: 1px solid var(--border-medium);
+  padding: 16px;
+  border: 1px solid var(--border-light);
   border-radius: 12px;
 
   font-size: 14px;
   line-height: 1.7;
-  resize: vertical;
+  resize: none;
 
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
   font-family: inherit;
   color: var(--text-main);
-  background: var(--bg-main);
+  background: var(--bg-card, #fff);
 }
 
 .case9-notes-textarea:focus {
-  border-color: var(--accent-2);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.case9-notes-textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
 }
 
 .case9-notes-footer {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 12px;
 
-  padding: 12px 16px;
+  padding: 16px 20px;
   border-top: 1px solid var(--border-light);
 }
 
 .case9-notes-hint {
-  font-size: 12px;
+  font-size: 11px;
+  line-height: 1.6;
   color: var(--text-secondary);
+  flex: 1;
+}
+
+.case9-notes-hint strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--text-main);
+  font-size: 11px;
 }
 
 .case9-notes-clear {
-  padding: 6px 14px;
-  border: 1px solid var(--border-medium);
+  padding: 6px 16px;
+  border: 1px solid var(--border-light);
   border-radius: 8px;
   background: transparent;
   color: var(--text-secondary);
-
   font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .case9-notes-clear:not(:disabled):hover {

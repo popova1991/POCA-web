@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Block({ block }) {
   switch (block.type) {
@@ -128,9 +128,10 @@ function NotesDrawer({ open, onClose, notes, setNotes }) {
               />
             </div>
             <div className="case9-notes-footer">
-              <span className="case9-notes-hint">
-                Заметки хранятся в рамках сессии
-              </span>
+              <div className="case9-notes-hint">
+                <strong>📌 Важно о хранении заметок</strong><br/>
+                Заметки хранятся только в вашем браузере (локально), а не на наших серверах. Они могут быть удалены, если вы очистите данные сайта, используете режим Инкогнито, смените браузер или устройство. Мы не можем восстановить потерянные заметки. Рекомендуем делать резервные копии важных записей.
+              </div>
               <button
                 className="case9-notes-clear"
                 onClick={() => setNotes("")}
@@ -153,7 +154,19 @@ export default function CasePage({ data, onBack }) {
   const [checked, setChecked] = useState({});
   const [answerOpen, setAnswerOpen] = useState({});
   const [notesOpen, setNotesOpen] = useState(false);
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState(() => {
+    try {
+      return localStorage.getItem(`notes_${data.title}`) || "";
+    } catch {
+      return "";
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(`notes_${data.title}`, notes);
+    } catch {}
+  }, [notes, data.title]);
 
   const toggleExpand = (i) =>
     setExpanded((prev) => ({ ...prev, [i]: !prev[i] }));
