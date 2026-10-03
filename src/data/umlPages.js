@@ -41,6 +41,18 @@ import uml39Img from "../img/uml39.jpg";
 import uml41Img from "../img/uml41.jpg";
 import uml42Img from "../img/uml42.jpg";
 import uml43Img from "../img/uml43.jpg";
+import uml44Img from "../img/uml44.jpg";
+import uml45Img from "../img/uml45.jpg";
+import uml46Img from "../img/uml46.jpg";
+import uml47Img from "../img/uml47.jpg";
+import uml48Img from "../img/uml48.jpg";
+import uml49Img from "../img/uml49.jpg";
+import uml50Img from "../img/uml50.jpg";
+import uml51Img from "../img/uml51.jpg";
+import uml52Img from "../img/uml52.jpg";
+import uml53Img from "../img/uml53.jpg";
+import uml54Img from "../img/uml54.jpg";
+
 
 export const umlPages = {
 
@@ -2399,42 +2411,29 @@ Return Message показывает результат взаимодейств�
                 type: "text",
                 value: `# Вложенные вызовы
 
-Например:
-
-Frontend → Backend
-             |
-             |→ Customer Service
-             |      |
-             |      |→ Database
-             |      |
-             |←─────|
-             |
-             |→ Order Service
-             |
-             |←─────|
-             |
-Frontend ← Backend
-
-Такой сценарий показывает:
-
-1. Backend получает запрос.
-2. Backend обращается к Customer Service.
-3. Customer Service получает данные из Database.
-4. Backend получает результат.
-5. Backend обращается к Order Service.
-6. Backend возвращает результат Frontend.
+**Такой сценарий показывает:**
+\t1.\tBackend получает запрос.
+\t2.\tBackend обращается к Customer Service.
+\t3.\tCustomer Service получает данные из Database.
+\t4.\tBackend получает результат.
+\t5.\tBackend обращается к Order Service.
+\t6.\tBackend возвращает результат Frontend.
 
 Это один из наиболее полезных сценариев для системного аналитика.`
             },
-
+          {
+            type: "image",
+            src: uml48Img,
+            alt: "Например:",
+            caption: "Например"
+          },
             {
                 type: "text",
                 value: `# Combined Fragment
 
 **Combined Fragment** — специальный блок, который позволяет моделировать сложную логику взаимодействия.
 
-Наиболее используемые типы:
-
+**Наиболее используемые типы:**
 \t•\t**alt** — альтернативы;
 \t•\t**opt** — условный необязательный сценарий;
 \t•\t**loop** — повторение;
@@ -2450,186 +2449,103 @@ Frontend ← Backend
                 value: `# alt — альтернативные сценарии
 
 **alt** используется, когда сценарий может пойти по разным веткам.
-
-Например:
-
-┌──────── alt ──────────────┐
-│ [данные корректны]       │
-│ Backend → DB: save()     │
-│                           │
-├───────────────────────────┤
-│ [данные некорректны]     │
-│ Backend → Frontend: 400  │
-└───────────────────────────┘
-
-Например:
-
-Frontend → Backend: POST /orders
-
-alt
-
-[успешная валидация]
-Backend → Database: INSERT
-Backend → Frontend: 201 Created
-
-[ошибка валидации]
-Backend → Frontend: 400 Bad Request
-
 **alt = один из нескольких вариантов выполнения.**`
             },
-
+          {
+            type: "image",
+            src: uml49Img,
+            alt: "Например:",
+            caption: "Например"
+          },
             {
                 type: "text",
                 value: `# opt — необязательный сценарий
 
 **opt** используется, когда дополнительное взаимодействие выполняется только при определённом условии.
-
-Например:
-
-Frontend → Backend: POST /orders
-
-┌──────── opt ──────────────┐
-│ [есть промокод]           │
-│ Backend → Promo Service   │
-│       checkPromo()        │
-└───────────────────────────┘
-
 После этого основной сценарий продолжается.
-
-Отличие:
-
+**Отличие:**
 **alt** → несколько альтернативных вариантов.
-
 **opt** → дополнительная ветка, которая либо выполняется, либо пропускается.`
             },
-
+          {
+            type: "image",
+            src: uml50Img,
+            alt: "Например:",
+            caption: "Например"
+          },
             {
                 type: "text",
                 value: `# loop — повторение
 
 **loop** показывает многократное выполнение взаимодействия.
-
-Например:
-
-┌──────── loop ─────────────┐
-│ [для каждого документа]  │
-│ Backend → Document Service│
-│          check()         │
-└──────────────────────────┘
-
-Loop может иметь условие:
-
-[до 3 попыток]
-
-или:
-
-[для каждого документа]
-
-или:
-
-[пока статус != SUCCESS]
-
+Loop может иметь условие: [до 3 попыток] или [для каждого документа] или [пока статус != SUCCESS]
 Главное — показать условие или смысл повторения, если без него количество повторений неоднозначно.`
             },
-
+          {
+            type: "image",
+            src: uml51Img,
+            alt: "Например:",
+            caption: "Например"
+          },
             {
                 type: "text",
                 value: `# par — параллельное взаимодействие
 
 **par** используется, когда несколько взаимодействий могут выполняться параллельно.
-
-Например:
-
-После создания заказа:
-
-┌──────── par ──────────────┐
-│ Backend → Notification   │
-│                           │
-├───────────────────────────┤
-│ Backend → Audit Service  │
-│                           │
-├───────────────────────────┤
-│ Backend → Analytics      │
-└───────────────────────────┘
-
 Это означает, что взаимодействия могут выполняться независимо друг от друга.
-
-Важно:
-
+**Важно:**
 **par не означает просто «несколько действий».**
-
 Он означает возможность их параллельного выполнения.`
             },
-
+          {
+            type: "image",
+            src: uml52Img,
+            alt: "Например:",
+            caption: "Например: После создания заказа"
+          },
             {
                 type: "text",
                 value: `# break — прерывание сценария
 
 **break** используется, когда при определённом условии основной сценарий прекращается.
-
-Например:
-
-Frontend → Backend: POST /orders
-
-┌──────── break ────────────┐
-│ [клиент заблокирован]    │
-│ Backend → Frontend: 403  │
-└───────────────────────────┘
-
 Если условие выполняется, дальнейшие взаимодействия основного сценария не происходят.
-
 Break особенно полезен для моделирования критических ошибок и условий, после которых продолжение сценария невозможно.`
             },
-
+          {
+            type: "image",
+            src: uml53Img,
+            alt: "Например:",
+            caption: "Например"
+          },
             {
                 type: "text",
                 value: `# ref — ссылка на другой сценарий
 
 **ref** позволяет не помещать весь детальный сценарий непосредственно в текущую диаграмму.
 
-Например:
-
-┌──────── ref ──────────────┐
-│ Проверка клиента          │
-└───────────────────────────┘
-
-В отдельной Sequence Diagram можно описать:
-
+**В отдельной Sequence Diagram можно описать:**
 Frontend → Backend
 Backend → Customer Service
 Customer Service → Database
 Database → Customer Service
 Customer Service → Backend
 Backend → Frontend
-
 Это позволяет декомпозировать большие сценарии.
-
 **ref особенно полезен, когда один и тот же сценарий используется в нескольких местах.**`
             },
-
+          {
+            type: "image",
+            src: uml54Img,
+            alt: "Например:",
+            caption: "Например"
+          },
             {
                 type: "text",
                 value: `# Создание и уничтожение объекта
 
-Sequence Diagram позволяет показать создание объекта:
-
-Backend
-   |
-   |──── create ────>
-   ↓
-Order
-
-После создания начинается его Lifeline.
-
-Также можно показать уничтожение:
-
-Order
-   |
-   |──── destroy ────>
-   X
-
+Sequence Diagram позволяет показать создание объекта. После создания начинается его Lifeline.
+Также можно показать уничтожение.
 Это используется, когда жизненный цикл объекта имеет значение для моделируемого сценария.
-
 Для обычных API-взаимодействий эти элементы обычно не нужны.`
             },
 
@@ -2637,18 +2553,10 @@ Order
                 type: "text",
                 value: `# Sequence Diagram для REST API
 
-Один из самых частых сценариев для системного аналитика:
+**Один из самых частых сценариев для системного аналитика:**
+Пользователь → Frontend → Backend → Database
 
-Пользователь
-↓
-Frontend
-↓
-Backend
-↓
-Database
-
-Например:
-
+**Например:**
 Frontend → Backend:
 POST /api/v1/orders
 
@@ -2668,8 +2576,7 @@ Backend → Frontend:
 Frontend → Пользователь:
 «Заказ создан»
 
-Такой вариант помогает связать:
-
+**Такой вариант помогает связать:**
 \t•\tфункциональное требование;
 \t•\tAPI;
 \t•\tбизнес-логику;
@@ -2682,31 +2589,18 @@ Frontend → Пользователь:
                 value: `# Sequence Diagram для микросервисного взаимодействия
 
 Рассмотрим создание заказа:
+Frontend → API Gateway → Order Service → Customer Service → Payment Service → Database
 
-Frontend
-   ↓
-API Gateway
-   ↓
-Order Service
-   ↓
-Customer Service
-   ↓
-Payment Service
-   ↓
-Database
-
-Сценарий:
-
-1. Frontend отправляет запрос.
-2. API Gateway маршрутизирует запрос.
-3. Order Service проверяет клиента.
-4. Customer Service возвращает данные клиента.
-5. Order Service создаёт заказ.
-6. Payment Service инициирует оплату.
-7. Результат возвращается пользователю.
+**Сценарий:**
+\t1.\tFrontend отправляет запрос.
+\t2.\tAPI Gateway маршрутизирует запрос.
+\t3.\tOrder Service проверяет клиента.
+\t4.\tCustomer Service возвращает данные клиента.
+\t5.\tOrder Service создаёт заказ.
+\t6.\tPayment Service инициирует оплату.
+\t7.\tРезультат возвращается пользователю.
 
 Sequence Diagram позволяет увидеть всю цепочку взаимодействия.
-
 При этом важно не перегружать диаграмму внутренними деталями каждого сервиса, если они не относятся к рассматриваемому сценарию.`
             },
 
