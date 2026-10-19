@@ -2610,25 +2610,28 @@ Sequence Diagram позволяет увидеть всю цепочку вза�
 
 Ошибки обычно моделируются через **alt** или **break**.
 
-Например:
-
-Frontend → Backend:
-POST /orders
-
-Backend → Customer Service:
-getCustomer()
-
-┌──────── alt ───────────────┐
-│ [клиент найден]            │
-│ Backend → Database: save() │
-│ Backend → Frontend: 201    │
-│                            │
-├────────────────────────────┤
-│ [клиент не найден]         │
-│ Backend → Frontend: 404    │
-└────────────────────────────┘
-
-Если ошибка полностью прекращает сценарий, можно использовать break.
+Например:`
+            },
+            {
+                type: "mermaid",
+                caption: "Обработка ошибок через alt:",
+                value: `sequenceDiagram
+    participant F as Frontend
+    participant B as Backend
+    participant C as Customer Service
+    participant D as Database
+    F->>B: POST /orders
+    B->>C: getCustomer()
+    alt клиент найден
+        B->>D: save()
+        B->>F: 201
+    else клиент не найден
+        B->>F: 404
+    end`
+            },
+            {
+                type: "text",
+                value: `Если ошибка полностью прекращает сценарий, можно использовать break.
 
 Если существует несколько альтернативных вариантов продолжения — alt.`
             },
@@ -2639,30 +2642,32 @@ getCustomer()
 
 Если внешний сервис может не ответить вовремя, это тоже может быть важно для системного анализа.
 
-Например:
+**Например:**`
+            },
 
-Backend → Payment Service:
-POST /payment
+            {
+                type: "mermaid",
+                caption: "Пример:",
+                value: `sequenceDiagram
+    autonumber
+    participant F as Frontend
+    participant B as Backend
+    participant P as Payment Service
+    B->>P: POST /payment
+    alt успешный ответ
+        P-->>B: OK
+        B->>F: success
+    else timeout
+        B->>P: retry
+    end
+    loop max 3 attempts
+        B->>P: POST /payment
+    end`
+            },
 
-┌──────── alt ─────────────────┐
-│ [успешный ответ]             │
-│ Payment Service → Backend    │
-│ Backend → Frontend: success  │
-│                              │
-├──────────────────────────────┤
-│ [timeout]                    │
-│ Backend → Payment Service    │
-│ retry                        │
-└──────────────────────────────┘
-
-Если количество повторных попыток ограничено:
-
-┌──── loop [max 3 attempts] ───┐
-│ Backend → Payment Service    │
-│ POST /payment                 │
-└──────────────────────────────┘
-
-Это позволяет явно зафиксировать важное нефункциональное или системное поведение.`
+            {
+                type: "text",
+                value: `Если количество повторных попыток ограничено, это позволяет явно зафиксировать важное нефункциональное или системное поведение.`
             },
 
             {
@@ -3341,15 +3346,19 @@ Customer → Order → OrderItem → Product
 
 **Product**
 
-И связи:
-
-Customer 1 → 0..* Application
-
-Application 1 → 1..* Product
-
-Product 0..* ↔ 0..* Application
-
-Class Diagram помогает превратить такой текст в формальную модель.
+Связи:`
+            },
+            {
+                type: "mermaid",
+                caption: "Связи между сущностями:",
+                value: `classDiagram
+    Customer "1" --> "0..*" Application
+    Application "1" --> "1..*" Product
+    Product "0..*" -- "0..*" Application`
+            },
+            {
+                type: "text",
+                value: `Class Diagram помогает превратить такой текст в формальную модель.
 
 Для системного аналитика она полезна при:
 
@@ -3406,20 +3415,23 @@ Class Diagram часто путают с ER Diagram.
                 type: "text",
                 value: `# Из чего состоит Class
 
-Класс обычно изображается прямоугольником, разделённым на три части:
-
-┌─────────────────────┐
-│ Customer            │
-├─────────────────────┤
-│ - id: UUID          │
-│ - name: String      │
-│ - email: String     │
-├─────────────────────┤
-│ + activate(): void  │
-│ + deactivate():void │
-└─────────────────────┘
-
-Три секции:
+Класс обычно изображается прямоугольником, разделённым на три части:`
+            },
+            {
+                type: "mermaid",
+                caption: "Три секции класса Customer:",
+                value: `classDiagram
+    class Customer {
+        -UUID id
+        -String name
+        -String email
+        +activate() void
+        +deactivate() void
+    }`
+            },
+            {
+                type: "text",
+                value: `Три секции:
 
 **1. Имя класса**
 
@@ -3753,16 +3765,18 @@ customer: Customer
 
 > **является разновидностью**
 
-Например:
-
-Customer
-△
-│
-├──────── IndividualCustomer
-│
-└──────── CorporateCustomer
-
-Это означает:
+Например:`
+            },
+            {
+                type: "mermaid",
+                caption: "Наследование Customer:",
+                value: `classDiagram
+    Customer <|-- IndividualCustomer
+    Customer <|-- CorporateCustomer`
+            },
+            {
+                type: "text",
+                value: `Это означает:
 
 **IndividualCustomer является Customer.**
 
@@ -3808,22 +3822,21 @@ IndividualCustomer ─────▷ Customer
 
 **Realization** показывает, что класс реализует интерфейс.
 
-Например:
-
-┌──────────────────────┐
-│ <<interface>>        │
-│ PaymentProcessor     │
-├──────────────────────┤
-│ + pay(): Payment     │
-└──────────────────────┘
-          △
-          ╎
-          ╎
-┌──────────────────────┐
-│ CardPaymentProcessor │
-└──────────────────────┘
-
-Здесь:
+Например:`
+            },
+            {
+                type: "mermaid",
+                caption: "Realization:",
+                value: `classDiagram
+    class PaymentProcessor {
+        <<interface>>
+        +pay() Payment
+    }
+    CardPaymentProcessor ..|> PaymentProcessor`
+            },
+            {
+                type: "text",
+                value: `Здесь:
 
 **CardPaymentProcessor реализует PaymentProcessor.**
 
@@ -3917,23 +3930,27 @@ Order ◆──────── OrderItem
 
 ### Association
 
-Customer ───── Order
-
 Просто показывает связь.
 
 ### Aggregation
-
-Department ◇──── Employee
 
 Показывает целое и независимые части.
 
 ### Composition
 
-Order ◆──── OrderItem
-
-Показывает целое и зависимые части.
-
-Упрощённое правило:
+Показывает целое и зависимые части.`
+            },
+            {
+                type: "mermaid",
+                caption: "Association / Aggregation / Composition:",
+                value: `classDiagram
+    Customer -- Order : Association
+    Department o-- Employee : Aggregation
+    Order *-- OrderItem : Composition`
+            },
+            {
+                type: "text",
+                value: `Упрощённое правило:
 
 **Не уверены, что нужна агрегация или композиция?**
 
@@ -3948,17 +3965,21 @@ Order ◆──── OrderItem
 
 Класс может быть абстрактным.
 
-Например:
-
-*Customer*
-
-   ▲
-  / \\
- /   \\
-IndividualCustomer
-CorporateCustomer
-
-Абстрактный Customer используется как общий родитель, но экземпляр самого Customer создавать нельзя.
+Например:`
+            },
+            {
+                type: "mermaid",
+                caption: "Абстрактный класс Customer:",
+                value: `classDiagram
+    class Customer {
+        <<abstract>>
+    }
+    Customer <|-- IndividualCustomer
+    Customer <|-- CorporateCustomer`
+            },
+            {
+                type: "text",
+                value: `Абстрактный Customer используется как общий родитель, но экземпляр самого Customer создавать нельзя.
 
 В UML имя абстрактного класса обычно выделяется курсивом.
 
@@ -3975,16 +3996,20 @@ CorporateCustomer
 
 **Interface** описывает контракт, который должны реализовать другие классы.
 
-Например:
-
-┌──────────────────────────┐
-│ <<interface>>            │
-│ NotificationSender       │
-├──────────────────────────┤
-│ + send(message): void    │
-└──────────────────────────┘
-
-Реализации:
+Например:`
+            },
+            {
+                type: "mermaid",
+                caption: "Интерфейс NotificationSender:",
+                value: `classDiagram
+    class NotificationSender {
+        <<interface>>
+        +send(message) void
+    }`
+            },
+            {
+                type: "text",
+                value: `Реализации:
 
 EmailNotificationSender
 
@@ -4003,19 +4028,23 @@ PushNotificationSender
 
 **Enumeration (enum)** используется для набора фиксированных значений.
 
-Например:
-
-┌────────────────────┐
-│ <<enumeration>>    │
-│ OrderStatus        │
-├────────────────────┤
-│ NEW                │
-│ PAID               │
-│ CANCELLED          │
-│ COMPLETED          │
-└────────────────────┘
-
-И класс:
+Например:`
+            },
+            {
+                type: "mermaid",
+                caption: "Enumeration OrderStatus:",
+                value: `classDiagram
+    class OrderStatus {
+        <<enumeration>>
+        NEW
+        PAID
+        CANCELLED
+        COMPLETED
+    }`
+            },
+            {
+                type: "text",
+                value: `И класс:
 
 Order
 
@@ -4030,21 +4059,25 @@ Enum особенно полезен, когда значение поля не 
 
 Package позволяет группировать связанные элементы модели.
 
-Например:
-
-┌──────────── Customer ────────────┐
-│ Customer                         │
-│ IndividualCustomer               │
-│ CorporateCustomer                │
-└──────────────────────────────────┘
-
-┌──────────── Order ───────────────┐
-│ Order                            │
-│ OrderItem                        │
-│ OrderStatus                      │
-└──────────────────────────────────┘
-
-Package особенно полезен на больших диаграммах, когда необходимо визуально разделить:
+Например:`
+            },
+            {
+                type: "mermaid",
+                caption: "Пакеты Customer и Order:",
+                value: `classDiagram
+    namespace Customer {
+        class IndividualCustomer
+        class CorporateCustomer
+    }
+    namespace Order {
+        class Order
+        class OrderItem
+        class OrderStatus
+    }`
+            },
+            {
+                type: "text",
+                value: `Package особенно полезен на больших диаграммах, когда необходимо визуально разделить:
 
 \t•\tпредметные области;
 \t•\tмодули;
@@ -4082,34 +4115,37 @@ Package особенно полезен на больших диаграммах
 \t•\tname
 \t•\tprice
 
-Связи:
-
-Customer 1 ───── 0..* Order
-
-Order 1 ◆────── 1..* OrderItem
-
-Product 1 ───── 0..* OrderItem
-
-Получаем:
-
-Customer
-   |
-   | 1
-   |
-   | 0..*
-Order
-   |
-   | 1
-   ◆
-   | 1..*
-OrderItem
-   |
-   | 0..*
-   |
-   | 1
-Product
-
-Такая модель уже показывает значительную часть структуры предметной области.`
+Связи и модель:`
+            },
+            {
+                type: "mermaid",
+                caption: "Модель предметной области:",
+                value: `classDiagram
+    class Customer {
+        - id
+        - name
+    }
+    class Order {
+        - id
+        - createdAt
+        - status
+    }
+    class OrderItem {
+        - quantity
+        - price
+    }
+    class Product {
+        - id
+        - name
+        - price
+    }
+    Customer "1" --> "0..*" Order
+    Order "1" *-- "1..*" OrderItem
+    Product "1" --> "0..*" OrderItem`
+            },
+            {
+                type: "text",
+                value: `Такая модель уже показывает значительную часть структуры предметной области.`
             },
 
             {
@@ -4138,13 +4174,23 @@ Order ↔ Product
 
 **OrderItem**
 
-Получаем:
-
-Order 1 ◆──── 1..* OrderItem
-
-Product 1 ──── 0..* OrderItem
-
-OrderItem содержит:
+Получаем:`
+            },
+            {
+                type: "mermaid",
+                caption: "Класс-связка OrderItem:",
+                value: `classDiagram
+    class OrderItem {
+        - quantity
+        - price
+        - discount
+    }
+    Order "1" *-- "1..*" OrderItem
+    Product "1" -- "0..*" OrderItem`
+            },
+            {
+                type: "text",
+                value: `OrderItem содержит:
 
 \t•\tquantity;
 \t•\tprice;
@@ -4375,33 +4421,19 @@ Customer
 
 > **Как они связаны в предметной области?**
 
-Например:
-
-Customer — Order
-
-> Клиент создаёт заказ.
-
-Связь:
-
-Customer 1 ───── 0..* Order
-
-Order — OrderItem
-
-> Заказ состоит из позиций.
-
-Связь:
-
-Order 1 ◆──── 1..* OrderItem
-
-OrderItem — Product
-
-> Позиция заказа относится к продукту.
-
-Связь:
-
-OrderItem 0..* ───── 1 Product
-
-После этого проверяем кратность с обеих сторон.`
+Например:`
+            },
+            {
+                type: "mermaid",
+                caption: "Связи между классами:",
+                value: `classDiagram
+    Customer "1" --> "0..*" Order : создаёт
+    Order "1" *-- "1..*" OrderItem : состоит из
+    OrderItem "0..*" --> "1" Product : относится к`
+            },
+            {
+                type: "text",
+                value: `После этого проверяем кратность с обеих сторон.`
             },
 
             {
@@ -4422,19 +4454,20 @@ OrderItem 0..* ───── 1 Product
 
 Если да — сильный кандидат на Composition.
 
-Например:
+Например:`
+            },
+            {
+                type: "mermaid",
+                caption: "Composition и простая ассоциация:",
+                value: `classDiagram
+    Order *-- OrderItem
+    Customer -- Address`
+            },
+            {
+                type: "text",
+                value: `OrderItem без Order в рамках предметной модели существовать не должен.
 
-Order ◆──── OrderItem
-
-OrderItem без Order в рамках предметной модели существовать не должен.
-
-Но:
-
-Customer ──── Address
-
-не обязательно Composition.
-
-Адрес может существовать независимо от конкретного Customer или использоваться в других контекстах.`
+А вот Customer и Address — не обязательно Composition: адрес может существовать независимо от конкретного Customer или использоваться в других контекстах.`
             },
 
             {
@@ -4712,6 +4745,16 @@ OrderStatus.
             },
 
             {
+                type: "mermaid",
+                caption: "Итоговая модель по шагам:",
+                value: `classDiagram
+    Customer "1" --> "0..*" Order
+    Order "1" *-- "1..*" OrderItem
+    OrderItem "*" --> "1" Product
+    Order "1" --> "0..*" Payment`
+            },
+
+            {
                 type: "table",
                 headers: ["Вопрос", "Элемент Class Diagram"],
                 rows: [
@@ -4739,62 +4782,58 @@ OrderStatus.
 
 **Интернет-магазин**
 
-Классы:
-
-Customer
-
-\t•\tid: UUID
-\t•\tname: String
-
-Order
-
-\t•\tid: UUID
-\t•\tcreatedAt: DateTime
-\t•\tstatus: OrderStatus
-
-OrderItem
-
-\t•\tquantity: Integer
-\t•\tprice: Decimal
-
-Product
-
-\t•\tid: UUID
-\t•\tname: String
-\t•\tprice: Decimal
-
-Payment
-
-\t•\tid: UUID
-\t•\tamount: Decimal
-\t•\tstatus: PaymentStatus
-
-Связи:
-
-Customer 1 ───── 0..* Order
-
-Order 1 ◆────── 1..* OrderItem
-
-Product 1 ───── 0..* OrderItem
-
-Order 1 ───── 0..* Payment
-
-Enum:
-
-OrderStatus:
-
-\t•\tNEW
-\t•\tPAID
-\t•\tCANCELLED
-\t•\tCOMPLETED
-
-PaymentStatus:
-
-\t•\tCREATED
-\t•\tSUCCESS
-\t•\tFAILED
-
-Такая модель уже описывает основные сущности и связи предметной области без погружения в конкретную реализацию.`
+Классы:`
+            },
+            {
+                type: "mermaid",
+                caption: "Итоговая модель интернет-магазина:",
+                value: `classDiagram
+    class Customer {
+        -UUID id
+        -String name
+    }
+    class Order {
+        -UUID id
+        -DateTime createdAt
+        -OrderStatus status
+    }
+    class OrderItem {
+        -Integer quantity
+        -Decimal price
+    }
+    class Product {
+        -UUID id
+        -String name
+        -Decimal price
+    }
+    class Payment {
+        -UUID id
+        -Decimal amount
+        -PaymentStatus status
+    }
+    class OrderStatus {
+        <<enumeration>>
+        NEW
+        PAID
+        CANCELLED
+        COMPLETED
+    }
+    class PaymentStatus {
+        <<enumeration>>
+        CREATED
+        SUCCESS
+        FAILED
+    }
+    Customer "1" --> "0..*" Order
+    Order "1" *-- "1..*" OrderItem
+    Product "1" --> "0..*" OrderItem
+    Order "1" --> "0..*" Payment
+    Order --> OrderStatus
+    Payment --> PaymentStatus`
+            },
+            {
+                type: "text",
+                value: `Такая модель уже описывает основные сущности и связи предметной области без погружения в конкретную реализацию.`
             },
 
             {

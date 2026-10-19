@@ -1,6 +1,7 @@
 import { umlPages } from "../data/umlPages";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import MermaidBlock from "../components/MermaidBlock";
 
 export default function UMLDetail({ setPage, page }) {
     const normalizePageKey = (page) => {
@@ -189,6 +190,18 @@ export default function UMLDetail({ setPage, page }) {
                                         />
 
                                     </div>
+                                );
+                            }
+
+
+                            // MERMAID BLOCK
+                            if (block.type === "mermaid") {
+                                return (
+                                    <MermaidBlock
+                                        key={i}
+                                        code={block.value}
+                                        caption={block.caption}
+                                    />
                                 );
                             }
 

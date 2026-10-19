@@ -1012,6 +1012,42 @@ body {
   white-space: pre;
 }
 
+.mermaid-block {
+  margin: 20px 0;
+
+  overflow-x: auto;
+}
+
+.mermaid-svg svg {
+  display: block;
+
+  max-width: 100%;
+  height: auto;
+
+  margin: 0 auto;
+}
+
+.mermaid-skeleton {
+  min-height: 180px;
+
+  border-radius: 8px;
+
+  background: linear-gradient(90deg, #f1f0ec 25%, #e9e8e3 37%, #f1f0ec 63%);
+  background-size: 400% 100%;
+
+  animation: mermaid-shimmer 1.4s ease infinite;
+}
+
+@keyframes mermaid-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
 .markdown strong {
   font-weight: 600;
 }
