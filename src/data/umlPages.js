@@ -2674,12 +2674,9 @@ Sequence Diagram позволяет увидеть всю цепочку вза�
                 type: "text",
                 value: `# Как определить Lifeline
 
-При построении Sequence Diagram задайте вопрос:
-
-> **Кто или что реально участвует во взаимодействии?**
+При построении Sequence Diagram задайте вопрос: **Кто или что реально участвует во взаимодействии?**
 
 Для типового web-сценария это может быть:
-
 \t•\tActor;
 \t•\tFrontend;
 \t•\tBackend;
@@ -2687,7 +2684,6 @@ Sequence Diagram позволяет увидеть всю цепочку вза�
 \t•\tExternal Service.
 
 Для микросервисной архитектуры:
-
 \t•\tAPI Gateway;
 \t•\tOrder Service;
 \t•\tCustomer Service;
@@ -2695,9 +2691,7 @@ Sequence Diagram позволяет увидеть всю цепочку вза�
 \t•\tMessage Broker.
 
 Но не нужно автоматически добавлять все компоненты архитектуры.
-
 Если Database никак не влияет на понимание сценария, её можно не показывать.
-
 **Sequence Diagram строится под сценарий, а не под архитектурную схему целиком.**`
             },
 
@@ -2706,30 +2700,14 @@ Sequence Diagram позволяет увидеть всю цепочку вза�
                 value: `# Как определить сообщения
 
 Для каждого взаимодействия задайте четыре вопроса:
-
-**1. Кто инициатор?**
-
-Frontend.
-
-**2. Кто получатель?**
-
-Backend.
-
-**3. Что передаётся?**
-
-POST /orders + данные заказа.
-
-**4. Что возвращается?**
-
-201 Created + идентификатор заказа.
+\t1.\tКто инициатор? - Frontend.
+\t2.\tКто получатель? - Backend.
+\t3.\tЧто передаётся? - POST /orders + данные заказа.
+\t4.\tЧто возвращается? - 201 Created + идентификатор заказа.
 
 Получаем:
-
-Frontend → Backend:
-POST /orders(request)
-
-Backend → Frontend:
-201 Created(response)
+\t1.\tFrontend → Backend: POST /orders(request)
+\t2.\tBackend → Frontend: 201 Created(response)
 
 Такой подход помогает системно описывать API и межсервисные взаимодействия.`
             },
@@ -2739,26 +2717,9 @@ Backend → Frontend:
                 value: `# Уровень детализации сообщений
 
 Сообщение можно описывать на разных уровнях.
-
-### Бизнесовый уровень
-
-Frontend → Backend:
-
-**Создать заказ**
-
-### Системный уровень
-
-Frontend → Backend:
-
-**POST /api/v1/orders**
-
-### Технический уровень
-
-Frontend → Backend:
-
-**POST /api/v1/orders**
-Content-Type: application/json
-Authorization: Bearer token
+\t1.\t**Бизнесовый уровень** Frontend → Backend: **Создать заказ**
+\t2.\t**Системный уровень** Frontend → Backend: **POST /api/v1/orders**
+\t3.\t**Технический уровень** Frontend → Backend: **POST /api/v1/orders** Content-Type: application/json Authorization: Bearer token
 
 {
     customerId,
@@ -2766,57 +2727,40 @@ Authorization: Bearer token
 }
 
 Все три варианта могут быть правильными.
-
 Вопрос в цели диаграммы.
+\t•\tЕсли диаграмма нужна бизнесу — лучше использовать первый вариант.
+\t•\tЕсли системному аналитику и разработчику — второй или третий.
 
-Если диаграмма нужна бизнесу — лучше использовать первый вариант.
-
-Если системному аналитику и разработчику — второй или третий.
-
-**Главное правило:**
-
-> Уровень детализации должен соответствовать аудитории и цели диаграммы.`
+**Главное правило:** Уровень детализации должен соответствовать аудитории и цели диаграммы.`
             },
 
             {
                 type: "text",
                 value: `# Sequence Diagram и API-контракт
 
-Sequence Diagram может показать:
+Sequence Diagram может показать: **когда** вызывается API и **зачем**.
+API-контракт показывает: **как именно** выглядит запрос и ответ.
 
-**когда** вызывается API и **зачем**.
-
-API-контракт показывает:
-
-**как именно** выглядит запрос и ответ.
-
-Например:
-
+**Например:**
 Sequence:
-
 Frontend → Backend:
 POST /orders
 
 API-документация отдельно содержит:
-
-Request:
+**Request:
 {
     "customerId": 123,
     "products": [...]
-}
+}**
 
-Response:
+**Response:
 {
     "orderId": 456,
     "status": "NEW"
-}
+}**
 
-Поэтому Sequence Diagram не должна заменять Swagger / OpenAPI.
-
-Они решают разные задачи.
-
+Поэтому Sequence Diagram не должна заменять Swagger / OpenAPI.Они решают разные задачи.
 **Sequence Diagram → взаимодействие и порядок.**
-
 **API specification → контракт запроса и ответа.**`
             },
 
@@ -2828,32 +2772,41 @@ Response:
 
 ### Activity Diagram
 
-Показывает:
+Показывает логику процесса:`
+            },
+            {
+                type: "mermaid",
+                caption: "Activity Diagram:",
+                value: `flowchart TD
+    A[Проверить клиента] --> B[Проверить товар]
+    B --> C{Результат}
+    C -->|OK| D[Создать]
+    C -->|Ошибка| E[Показать ошибку]`
+            },
+            {
+                type: "text",
+                value: `### Sequence Diagram
 
-[Проверить клиента]
-↓
-[Проверить товар]
-↓
-◇
-↙ [OK]     ↘ [Ошибка]
-[Создать]   [Показать ошибку]
-
-Она показывает **логику процесса**.
-
-### Sequence Diagram
-
-Показывает:
-
-Frontend → Backend: createOrder()
-Backend → Customer Service: getCustomer()
-Customer Service → DB: SELECT
-DB → Customer Service: result
-Customer Service → Backend: customer
-Backend → Frontend: response
-
-Она показывает **взаимодействие участников**.
-
-### Главное различие
+Показывает взаимодействие участников:`
+            },
+            {
+                type: "mermaid",
+                caption: "Sequence Diagram:",
+                value: `sequenceDiagram
+    participant F as Frontend
+    participant B as Backend
+    participant C as Customer Service
+    participant D as DB
+    F->>B: createOrder()
+    B->>C: getCustomer()
+    C->>D: SELECT
+    D-->>C: result
+    C-->>B: customer
+    B-->>F: response`
+            },
+            {
+                type: "text",
+                value: `### Главное различие
 
 **Activity → что происходит.**
 
@@ -2870,25 +2823,37 @@ Use Case:
 
 ↓
 
-Activity:
-
-[Заполнить данные]
-↓
-[Проверить данные]
-↓
-[Создать заказ]
-
-↓
-
-Sequence:
-
-Frontend → Backend
-Backend → Customer Service
-Backend → Order Service
-Order Service → Database
-Backend → Frontend
-
-Получается последовательная детализация одного и того же требования:
+Activity:`
+            },
+            {
+                type: "mermaid",
+                caption: "Activity:",
+                value: `flowchart TD
+    A[Заполнить данные] --> B[Проверить данные]
+    B --> C[Создать заказ]`
+            },
+            {
+                type: "text",
+                value: `Sequence:`
+            },
+            {
+                type: "mermaid",
+                caption: "Sequence:",
+                value: `sequenceDiagram
+    participant F as Frontend
+    participant B as Backend
+    participant C as Customer Service
+    participant O as Order Service
+    participant D as Database
+    F->>B: createOrder()
+    B->>C: getCustomer()
+    B->>O: createOrder()
+    O->>D: save()
+    B-->>F: response`
+            },
+            {
+                type: "text",
+                value: `Получается последовательная детализация одного и того же требования:
 
 **Use Case**
 → функциональная возможность.
