@@ -3161,7 +3161,7 @@ Sequence показывает **как участники взаимодейст
 **Product**
 **OrderItem**
 
-И показать:Customer → Order → OrderItem → Product
+**И показать:** Customer → Order → OrderItem → Product
 
 **При этом для каждой сущности можно определить:**
 \t•\tатрибуты;
