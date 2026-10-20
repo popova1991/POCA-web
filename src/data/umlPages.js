@@ -7222,64 +7222,34 @@ Deployment Diagram должна показывать **архитектурно 
                 value: `# Окружения: DEV, TEST, STAGE, PROD
 
 Deployment Diagram может использоваться для описания разных окружений.
-
 Например:
-
-### DEV
-
-Developer
-↓
-DEV Environment
-↓
-Dev Database
-
-### TEST
-
-QA
-↓
-TEST Environment
-↓
-Test Database
-
-### PROD
-
-Users
-↓
-Load Balancer
-↓
-Production Cluster
-↓
-Production Database
-
+**DEV** Developer → DEV Environment → Dev Database
+**TEST** QA →  TEST Environment → Test Database
+**PROD** Users → Load Balancer → Production Cluster → Production Database
 Важно не смешивать все окружения на одной диаграмме, если она становится слишком сложной.
-
 Часто лучше сделать отдельные схемы:
-
 **Deployment — DEV**
-
 **Deployment — TEST**
-
 **Deployment — PROD**`
             },
 
             {
                 type: "text",
                 value: `# Deployment Diagram и отказоустойчивость
-
-Одна из сильных сторон Deployment Diagram — возможность показать резервирование.
-
-Например:
-
-                Load Balancer
-                 /        \\
-                ↓          ↓
-        App Server 1   App Server 2
-                \\          /
-                 ↓        ↓
-                  Database
-
-Так можно показать:
-
+Одна из сильных сторон Deployment Diagram — возможность показать резервирование.`
+            },
+            {
+                type: "mermaid",
+                caption: "Резервирование:",
+                value: `flowchart TD
+    LB["Load Balancer"] --> AS1["App Server 1"]
+    LB --> AS2["App Server 2"]
+    AS1 --> DB[("Database")]
+    AS2 --> DB`
+            },
+            {
+                type: "text",
+                value: `Так можно показать:
 \t•\tнесколько экземпляров приложения;
 \t•\tredundancy;
 \t•\tкластеризацию;
@@ -7287,7 +7257,6 @@ Production Database
 \t•\tбалансировку нагрузки.
 
 Если один Application Server недоступен, второй может продолжить обработку запросов.
-
 При этом сама диаграмма показывает архитектурную возможность отказоустойчивости, но не доказывает, что она действительно обеспечивается.`
             },
 
@@ -7307,8 +7276,7 @@ Application Network
    ↓
 Database Network
 
-Можно дополнительно показать:
-
+**Можно дополнительно показать:**
 \t•\tfirewall;
 \t•\tsecurity group;
 \t•\tprivate subnet;
@@ -7316,20 +7284,7 @@ Database Network
 \t•\tVPN;
 \t•\tAPI Gateway.
 
-Например:
-
-Internet
-   ↓
-WAF
-   ↓
-Load Balancer
-   ↓
-Application Servers
-   ↓
-Private Database
-
-Это позволяет обсуждать:
-
+**Это позволяет обсуждать:**
 \t•\tгде открыт внешний доступ;
 \t•\tгде находится приватная зона;
 \t•\tкакие узлы доступны из Internet;
