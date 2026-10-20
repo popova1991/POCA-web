@@ -30,14 +30,6 @@ export default function FeedbackModal({ open, onClose }) {
     e.preventDefault();
     if (!text.trim()) return;
 
-    const token = (import.meta.env.VITE_TG_BOT_TOKEN || "").trim();
-    const chatId = (import.meta.env.VITE_TG_CHAT_ID || "").trim();
-
-    if (!token || !chatId || token.startsWith("замените") || chatId.startsWith("замените")) {
-      setError("Отправка не настроена: заполните VITE_TG_BOT_TOKEN и VITE_TG_CHAT_ID в .env");
-      return;
-    }
-
     setSending(true);
     setError("");
 
@@ -47,23 +39,15 @@ export default function FeedbackModal({ open, onClose }) {
       `💬 Сообщение:\n${text.trim()}`;
 
     try {
-      const res = await fetch(
-        `https://api.telegram.org/bot${token}/sendMessage`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            chat_id: chatId,
-            text: message,
-            disable_web_page_preview: "true",
-          }),
-        }
-      );
+      const res = await fetch("/api/telegram/sendMessage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: message }),
+      });
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.ok) {
         throw new Error(data.description || `HTTP ${res.status}`);
       }
 
@@ -107,11 +91,7 @@ export default function FeedbackModal({ open, onClose }) {
             <p className="modal-success-text">
               Спасибо! Ваше сообщение отправлено.
             </p>
-            <button
-              type="button"
-              className="btn-primary"
-              onClick={onClose}
-            >
+            <button type="button" className="btn-primary" onClick={onClose}>
               Закрыть
             </button>
           </div>
@@ -125,9 +105,7 @@ export default function FeedbackModal({ open, onClose }) {
               onChange={(e) => setText(e.target.value)}
               autoFocus
             />
-            <div className="modal-counter">
-              {text.length}/2000
-            </div>
+            <div className="modal-counter">{text.length}/2000</div>
             {error && <div className="modal-error">{error}</div>}
             <div className="modal-actions">
               <button

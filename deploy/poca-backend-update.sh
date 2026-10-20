@@ -29,9 +29,10 @@ echo "==> Пересоздание контейнера ${CONTAINER_NAME}"
 docker stop "${CONTAINER_NAME}" || true
 docker rm "${CONTAINER_NAME}" || true
 
-PROXY_VOL=""
+# Собираем доп. аргументы в позиционные параметры
+set --
 if [ -f "${SECRETS_DIR}/tg_proxy.txt" ]; then
-  PROXY_VOL="-v ${SECRETS_DIR}/tg_proxy.txt:/run/secrets/tg_proxy:ro"
+  set -- -v "${SECRETS_DIR}/tg_proxy.txt:/run/secrets/tg_proxy:ro"
   echo "    > обнаружен tg_proxy.txt, прокси будет подключён"
 fi
 
@@ -41,7 +42,7 @@ docker run -d \
   --network "${NETWORK_NAME}" \
   -v "${SECRETS_DIR}/tg_bot_token.txt:/run/secrets/tg_bot_token:ro" \
   -v "${SECRETS_DIR}/tg_chat_id.txt:/run/secrets/tg_chat_id:ro" \
-  ${PROXY_VOL} \
+  "$@" \
   "${IMAGE}"
 
 echo "==> Готово. Контейнер ${CONTAINER_NAME} запущен в сети ${NETWORK_NAME}."
