@@ -1,39 +1,17 @@
 #!/bin/sh
 #
-# Сборка Docker image с secrets через build args
+# Сборка и пуш Docker-образов poca-web (frontend) и poca-backend (бот).
 # Использование: ./build.sh
 #
-# Перед сборкой создайте .env.local (не коммитится в git):
-#   VITE_TG_BOT_TOKEN=ваш_токен
-#   VITE_TG_CHAT_ID=ваш_chat_id
+# Секреты передаются в backend при запуске через docker secrets (файлы в /run/secrets/).
 #
 set -eu
 
 DOCKER_USER="richardgear"
-IMAGE="${DOCKER_USER}/poca-web:latest"
+WEB_IMAGE="${DOCKER_USER}/poca-web:latest"
 
-if [ ! -f .env.local ]; then
-  echo "ОШИБКА: Файл .env.local не найден!"
-  echo "Создайте его с содержимым:"
-  echo "  VITE_TG_BOT_TOKEN=ваш_токен"
-  echo "  VITE_TG_CHAT_ID=ваш_chat_id"
-  exit 1
-fi
+echo "==> Сборка и пуш frontend: ${WEB_IMAGE} (linux/amd64)"
+docker buildx build --platform linux/amd64 -t "${WEB_IMAGE}" --push .
 
-. ./.env.local
-
-if [ -z "${VITE_TG_BOT_TOKEN:-}" ] || [ -z "${VITE_TG_CHAT_ID:-}" ]; then
-  echo "ОШИБКА: VITE_TG_BOT_TOKEN или VITE_TG_CHAT_ID не заданы в .env.local"
-  exit 1
-fi
-
-echo "==> Сборка образа: ${IMAGE}"
-docker build \
-  --build-arg VITE_TG_BOT_TOKEN="${VITE_TG_BOT_TOKEN}" \
-  --build-arg VITE_TG_CHAT_ID="${VITE_TG_CHAT_ID}" \
-  -t "${IMAGE}" .
-
-echo "==> Пуш образа в Docker Hub"
-docker push "${IMAGE}"
-
-echo "==> Готово! Теперь на VPS запустите: ./deploy/speca-app-update.sh"
+echo "==> Готово! На VPS запустите:"
+echo "    ./deploy/speca-app-update.sh"
