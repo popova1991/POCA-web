@@ -7266,17 +7266,19 @@ Deployment Diagram может использоваться для описани
 
 Диаграмма развёртывания помогает показать сетевые и инфраструктурные границы.
 
-Например:
-
-Internet
-   ↓
-DMZ
-   ↓
-Application Network
-   ↓
-Database Network
-
-**Можно дополнительно показать:**
+Например:`
+            },
+            {
+                type: "mermaid",
+                caption: "Сетевые зоны:",
+                value: `flowchart TD
+    I["Internet"] --> DMZ["DMZ"]
+    DMZ --> AN["Application Network"]
+    AN --> DN["Database Network"]`
+            },
+            {
+                type: "text",
+                value: `**Можно дополнительно показать:**
 \t•\tfirewall;
 \t•\tsecurity group;
 \t•\tprivate subnet;
@@ -7295,39 +7297,36 @@ Database Network
                 type: "text",
                 value: `# Deployment Diagram и базы данных
 
-База данных часто является одним из ключевых элементов Deployment Diagram.
-
-Например:
-
-Application Server
-        |
-        | TCP
-        ↓
-Database Server
-        |
-        ↓
-PostgreSQL
-
-Можно дополнительно показать:
-
+База данных часто является одним из ключевых элементов Deployment Diagram.:`
+            },
+            {
+                type: "mermaid",
+                caption: "Database Server:",
+                value: `flowchart TD
+    AS["Application Server"] -->|TCP| DS
+    subgraph DS["Database Server"]
+        PG[("PostgreSQL")]
+    end`
+            },
+            {
+                type: "text",
+                value: `Можно дополнительно показать:
 \t•\tprimary database;
 \t•\treplica;
 \t•\tcluster;
 \t•\tcache;
-\t•\tbackup storage.
-
-Например:
-
-Application
-    |
-    ↓
-Primary DB
-    |
-    ↓
-Replica DB
-
-Так можно показать архитектуру хранения данных.
-
+\t•\tbackup storage.`
+            },
+            {
+                type: "mermaid",
+                caption: "Репликация:",
+                value: `flowchart TD
+    A["Application"] --> P[("Primary DB")]
+    P --> R[("Replica DB")]`
+            },
+            {
+                type: "text",
+                value: `Так можно показать архитектуру хранения данных.
 При этом детальную структуру таблиц нужно описывать через **ER Diagram или Class Diagram**, а не Deployment Diagram.`
             },
 
@@ -7336,118 +7335,106 @@ Replica DB
                 value: `# Deployment Diagram и Component Diagram
 
 Это одна из самых важных связок.
+**Component Diagram**: Какие программные компоненты существуют?
 
-**Component Diagram**:
+**Например:**
+\t•\tOrder Service
+\t•\tPayment Service
+\t•\tNotification Service
 
-> Какие программные компоненты существуют?
-
-Например:
-
-Order Service
-Payment Service
-Notification Service
-
-**Deployment Diagram**:
-
-> Где они выполняются?
-
-Например:
-
-Kubernetes Cluster
-├── order-service pod
-├── payment-service pod
-└── notification-service pod
-
-Связь:
-
-**Component**
-
-↓
-
-**Artifact**
-
-↓
-
-**Node / Execution Environment**
-
-Например:
-
-Order Service
-
-↓
-
-order-service.jar
-
-↓
-
-Application Server
-
-Это позволяет связать логическую архитектуру с физическим размещением.`
+**Deployment Diagram**: Где они выполняются?`
+            },
+            {
+                type: "mermaid",
+                caption: "Pods в кластере:",
+                value: `flowchart TD
+    subgraph KC["Kubernetes Cluster"]
+        OP["order-service pod"]
+        PP["payment-service pod"]
+        NP["notification-service pod"]
+    end`
+            },
+            {
+                type: "text",
+                value: `Связь:`
+            },
+            {
+                type: "mermaid",
+                caption: "Component → Artifact → Node:",
+                value: `flowchart TD
+    C["Component"] --> A["Artifact"] --> N["Node / Execution Environment"]`
+            },
+            {
+                type: "text",
+                value: ``
+            },
+            {
+                type: "mermaid",
+                caption: "Пример:",
+                value: `flowchart TD
+    OS["Order Service"] --> J["order-service.jar"] --> AS["Application Server"]`
+            },
+            {
+                type: "text",
+                value: `Это позволяет связать логическую архитектуру с физическим размещением.`
             },
 
             {
                 type: "text",
                 value: `# Deployment Diagram и Sequence Diagram
 
-Sequence Diagram показывает:
-
-> Что происходит во время выполнения сценария?
+Sequence Diagram показывает: Что происходит во время выполнения сценария?
 
 Например:
-
 Frontend
-→ Order Service
-→ Payment Service
-→ Database
+\t•\tOrder Service
+\t•\tPayment Service
+\t•\tDatabase
 
-Deployment Diagram показывает:
-
-> Где эти компоненты размещены?
+Deployment Diagram показывает: Где эти компоненты размещены?
 
 Например:
-
 User Device
-→ Load Balancer
-→ Kubernetes Cluster
-→ Database Server
+\t•\tLoad Balancer
+\t•\tKubernetes Cluster
+\t•\tDatabase Server
 
 Они описывают разные аспекты одной системы.
-
-Sequence:
-
-**время и взаимодействие.**
-
-Deployment:
-
-**размещение и инфраструктура.**`
+Sequence: **время и взаимодействие.**
+Deployment: **размещение и инфраструктура.**`
             },
 
             {
                 type: "text",
-                value: `# Deployment Diagram и Class Diagram
-
-Class Diagram:
-
-Order
-├── id
-├── status
-└── total
-
-Deployment Diagram:
-
-Application Server
-└── Order Service
-
-Они находятся на совершенно разных уровнях.
-
-Class Diagram описывает:
-
-> структуру программной модели.
-
-Deployment Diagram описывает:
-
-> инфраструктурное размещение программных артефактов.
-
+                value: `# Deployment Diagram и Class Diagram`
+            },
+            {
+                type: "mermaid",
+                caption: "Class Diagram:",
+                value: `classDiagram
+    class Order {
+        -id
+        -status
+        -total
+    }`
+            },
+            {
+                type: "text",
+                value: ``
+            },
+            {
+                type: "mermaid",
+                caption: "Deployment Diagram:",
+                value: `flowchart TD
+    subgraph AS["Application Server"]
+        OSN["Order Service"]
+    end`
+            },
+            {
+                type: "text",
+                value: `Они находятся на совершенно разных уровнях.
+**Class Diagram описывает:** структуру программной модели.
+**Deployment Diagram описывает:** инфраструктурное размещение программных артефактов.
 Не нужно пытаться размещать классы непосредственно на Deployment Diagram.`
             },
 
@@ -7458,66 +7445,49 @@ Deployment Diagram описывает:
 Используйте последовательность.
 
 **Шаг 1. Определите систему.**
-
 Что именно мы разворачиваем?
 
 **Шаг 2. Определите основные компоненты.**
-
 Например:
-
 \t•\tFrontend;
 \t•\tBackend;
 \t•\tPayment Service;
 \t•\tDatabase.
 
 **Шаг 3. Определите инфраструктурные узлы.**
-
 Например:
-
 \t•\tWeb Server;
 \t•\tApplication Server;
 \t•\tDatabase Server.
 
 **Шаг 4. Определите среды выполнения.**
-
 Например:
-
 \t•\tDocker;
 \t•\tKubernetes;
 \t•\tJVM.
 
 **Шаг 5. Определите артефакты.**
-
 Например:
-
 \t•\tfrontend bundle;
 \t•\torder-service.jar;
 \t•\tdocker image.
 
 **Шаг 6. Определите размещение.**
-
 Где выполняется каждый артефакт?
 
 **Шаг 7. Определите коммуникационные пути.**
-
 Какие узлы соединены?
 
 **Шаг 8. Определите сетевые протоколы, если они важны.**
-
 Например:
-
-HTTPS
-TCP
-AMQP
+\t•\tHTTPS
+\t•\tTCP
+\t•\tAMQP
 
 **Шаг 9. Покажите внешние системы.**
-
-Например:
-
-External Bank.
+Например: External Bank.
 
 **Шаг 10. Проверьте уровень детализации.**
-
 Диаграмма должна отвечать на конкретный архитектурный вопрос, а не воспроизводить всю инфраструктуру.`
             },
 
@@ -7526,89 +7496,73 @@ External Bank.
                 value: `# Практический пример
 
 Рассмотрим интернет-магазин.
-
-Требование:
-
-> Пользователь оформляет заказ через веб-приложение.
-
-Архитектура:
-
-User
-↓
-Web Application
-↓
-Backend
-↓
-Database
-
-Deployment Diagram:
-
-┌──────────────────────┐
-│ <<device>>           │
-│ User Laptop          │
-│ Browser              │
-└──────────┬───────────┘
-           │ HTTPS
-           ↓
-┌──────────────────────┐
-│ <<node>>             │
-│ Web Server           │
-│                      │
-│ <<artifact>>         │
-│ frontend.bundle.js   │
-└──────────┬───────────┘
-           │ HTTPS
-           ↓
-┌──────────────────────┐
-│ <<node>>             │
-│ Application Server   │
-│                      │
-│ <<artifact>>         │
-│ order-service.jar    │
-└──────────┬───────────┘
-           │ TCP
-           ↓
-┌──────────────────────┐
-│ <<node>>             │
-│ Database Server      │
-│                      │
-│ PostgreSQL           │
-└──────────────────────┘
-
-Теперь понятно не только, какие компоненты есть, но и где они выполняются.`
+Требование: Пользователь оформляет заказ через веб-приложение.`
+            },
+            {
+                type: "mermaid",
+                caption: "Архитектура:",
+                value: `flowchart TD
+    U["User"] --> WA["Web Application"]
+    WA --> BE["Backend"]
+    BE --> DB["Database"]`
+            },
+            {
+                type: "text",
+                value: ``
+            },
+            {
+                type: "mermaid",
+                caption: "Deployment Diagram:",
+                value: `flowchart TD
+    subgraph UL["«device» User Laptop"]
+        B["Browser"]
+    end
+    subgraph WS["«node» Web Server"]
+        FE["«artifact» frontend.bundle.js"]
+    end
+    subgraph AS["«node» Application Server"]
+        OS["«artifact» order-service.jar"]
+    end
+    subgraph DS["«node» Database Server"]
+        PG["PostgreSQL"]
+    end
+    UL -->|HTTPS| WS
+    WS -->|HTTPS| AS
+    AS -->|TCP| DS`
+            },
+            {
+                type: "text",
+                value: `Теперь понятно не только, какие компоненты есть, но и где они выполняются.`
             },
 
             {
                 type: "text",
                 value: `# Deployment Diagram для нескольких экземпляров
-
-Если приложение масштабируется горизонтально:
-
-                Load Balancer
-                 /        \\
-                ↓          ↓
-       Application 1   Application 2
-                \\          /
-                 ↓        ↓
-                  Database
-
-В UML это позволяет показать, что один и тот же артефакт может быть развёрнут на нескольких узлах.
-
-Например:
-
-<<artifact>>
-order-service
-
-развёрнут на:
-
-Application Server 1
-
-и:
-
-Application Server 2
-
-Это важно при обсуждении:
-
+Если приложение масштабируется горизонтально:`
+            },
+            {
+                type: "mermaid",
+                caption: "Горизонтальное масштабирование:",
+                value: `flowchart TD
+    LB["Load Balancer"] --> A1["Application 1"]
+    LB --> A2["Application 2"]
+    A1 --> DB[("Database")]
+    A2 --> DB`
+            },
+            {
+                type: "text",
+                value: `В UML это позволяет показать, что один и тот же артефакт может быть развёрнут на нескольких узлах.`
+            },
+            {
+                type: "mermaid",
+                caption: "Один артефакт на нескольких узлах:",
+                value: `flowchart TD
+    A["«artifact» order-service"] --> S1["Application Server 1"]
+    A --> S2["Application Server 2"]`
+            },
+            {
+                type: "text",
+                value: `Это важно при обсуждении:
 \t•\tмасштабирования;
 \t•\tотказоустойчивости;
 \t•\tбалансировки нагрузки.`
@@ -7618,33 +7572,34 @@ Application Server 2
                 type: "text",
                 value: `# Deployment Diagram и интеграции
 
-Предположим, наша система интегрируется с банком.
-
-Архитектура:
-
-Our System
-   ↓
-Payment Service
-   ↓ HTTPS
-External Bank API
-
-Deployment Diagram может показать:
-
-┌───────────────────────┐
-│ Our Network           │
-│                       │
-│ Payment Service       │
-└───────────┬───────────┘
-            │ HTTPS
-            ↓
-┌───────────────────────┐
-│ External Network      │
-│                       │
-│ Bank API              │
-└───────────────────────┘
-
-Это помогает определить:
-
+Предположим, наша система интегрируется с банком.`
+            },
+            {
+                type: "mermaid",
+                caption: "Взаимодействие с банком:",
+                value: `flowchart TD
+    OS["Our System"] --> PS["Payment Service"]
+    PS -->|HTTPS| EB["External Bank API"]`
+            },
+            {
+                type: "text",
+                value: `**Deployment Diagram может показать**`
+            },
+            {
+                type: "mermaid",
+                caption: "Границы сетей:",
+                value: `flowchart TD
+    subgraph ON["Our Network"]
+        PS["Payment Service"]
+    end
+    subgraph EN["External Network"]
+        BA["Bank API"]
+    end
+    ON -->|HTTPS| EN`
+            },
+            {
+                type: "text",
+                value: `**Это помогает определить:**
 \t•\tгде проходит граница систем;
 \t•\tкакая система является внешней;
 \t•\tчерез какой канал происходит интеграция;
@@ -7655,41 +7610,48 @@ Deployment Diagram может показать:
                 type: "text",
                 value: `# Как использовать Deployment Diagram при анализе изменений
 
-Допустим, появляется требование:
+Допустим, появляется требование: Система должна выдерживать увеличение количества пользователей в 5 раз.
 
-> Система должна выдерживать увеличение количества пользователей в 5 раз.
-
-Deployment Diagram позволяет начать анализ:
-
+**Deployment Diagram позволяет начать анализ:**
 \t•\tдостаточно ли одного Application Server;
 \t•\tнужен ли Load Balancer;
 \t•\tможно ли масштабировать сервис горизонтально;
 \t•\tможет ли выдержать нагрузку Database Server;
 \t•\tнужны ли дополнительные экземпляры;
 \t•\tесть ли единая точка отказа;
-\t•\tкакие компоненты являются stateful.
-
-Например:
-
-Было:
-
-Load Balancer
-↓
-Application Server
-↓
-Database
-
-Стало:
-
-Load Balancer
-├── Application Server 1
-├── Application Server 2
-├── Application Server 3
-└── Application Server 4
-             ↓
-          Database Cluster
-
-Так Deployment Diagram становится инструментом анализа архитектурных изменений.`
+\t•\tкакие компоненты являются stateful.`
+            },
+            {
+                type: "text",
+                value: ``
+            },
+            {
+                type: "mermaid",
+                caption: "Было:",
+                value: `flowchart TD
+    LB["Load Balancer"] --> AS["Application Server"]
+    AS --> DB[("Database")]`
+            },
+            {
+                type: "text",
+                value: ``
+            },
+            {
+                type: "mermaid",
+                caption: "Стало:",
+                value: `flowchart TD
+    LB["Load Balancer"] --> A1["Application Server 1"]
+    LB --> A2["Application Server 2"]
+    LB --> A3["Application Server 3"]
+    LB --> A4["Application Server 4"]
+    A1 --> DB[("Database Cluster")]
+    A2 --> DB
+    A3 --> DB
+    A4 --> DB`
+            },
+            {
+                type: "text",
+                value: `Так Deployment Diagram становится инструментом анализа архитектурных изменений.`
             },
 
             {
@@ -7698,138 +7660,109 @@ Load Balancer
 
 Deployment Diagram особенно полезна при анализе нефункциональных требований.
 
-Например:
-
 **Отказоустойчивость**
-
-Требование:
-
-> Отказ одного экземпляра сервиса не должен останавливать систему.
-
+Требование: Отказ одного экземпляра сервиса не должен останавливать систему.
 На Deployment Diagram должны быть видны несколько экземпляров сервиса.
 
 **Производительность**
+Требование: Система должна обрабатывать 1000 запросов в секунду.
 
-Требование:
-
-> Система должна обрабатывать 1000 запросов в секунду.
-
-На диаграмме можно показать:
-
+**На диаграмме можно показать:**
 \t•\tнесколько application instances;
 \t•\tload balancer;
 \t•\tcaching;
 \t•\tdatabase cluster.
 
 **Безопасность**
+Требование: База данных не должна быть доступна из Internet.
 
-Требование:
+На диаграмме **Изоляция базы данных:**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    I["Internet"] --> AL["Application Layer"]
+    AL --> PDB[("Private Database")]`
+            },
+            {
+                type: "text",
+                value: `**Доступность**
 
-> База данных не должна быть доступна из Internet.
+Требование: Система должна быть доступна при отказе одного сервера.
 
-На диаграмме:
+На диаграмме **Несколько серверов:**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    S1["Server 1"]
+    S2["Server 2"]`
+            },
+            {
+                type: "text",
+                value: `вместо одного экземпляра.
 
-Internet
-↓
-Application Layer
-↓
-Private Database
-
-**Доступность**
-
-Требование:
-
-> Система должна быть доступна при отказе одного сервера.
-
-На диаграмме:
-
-Server 1
-Server 2
-
-вместо одного экземпляра.
-
-Важно:
-
-Deployment Diagram показывает архитектурное решение, но количественные требования — например RPS, SLA или latency — должны быть дополнительно зафиксированы в требованиях.`
+**Важно:** Deployment Diagram показывает архитектурное решение, но количественные требования — например RPS, SLA или latency — должны быть дополнительно зафиксированы в требованиях.`
             },
 
             {
                 type: "text",
                 value: `# Типовые ошибки системных аналитиков
 
-### Ошибка 1. Deployment Diagram превращается в Component Diagram
-
+**Ошибка 1. Deployment Diagram превращается в Component Diagram**
 Если схема показывает только:
+\t•\tOrder Service
+\t•\tPayment Service
+\t•\tNotification Service
 
-Order Service
-Payment Service
-Notification Service
+и больше ничего — это Component Diagram. На Deployment Diagram должно быть понятно: **где эти компоненты выполняются.**
 
-и больше ничего — это Component Diagram.
-
-На Deployment Diagram должно быть понятно:
-
-**где эти компоненты выполняются.**
-
-### Ошибка 2. Показаны только серверы
-
+**Ошибка 2. Показаны только серверы**
 Server 1
 Server 2
 Server 3
 
-Но непонятно, какое ПО на них размещено.
-
-Нужно показать связь:
-
-Server
-↓
-Execution Environment
-↓
-Artifact / Component.
-
-### Ошибка 3. Слишком много инфраструктурных деталей
-
+Но непонятно, какое ПО на них размещено. Нужно показать связь:`
+            },
+            {
+                type: "mermaid",
+                caption: "Server → Execution Environment → Artifact:",
+                value: `flowchart TD
+    S["Server"] --> EE["Execution Environment"] --> A["Artifact / Component"]`
+            },
+            {
+                type: "text",
+                value: `**Ошибка 3. Слишком много инфраструктурных деталей**
 Например:
-
 \t•\tIP каждого сервера;
 \t•\tCPU;
 \t•\tRAM;
 \t•\tверсия ядра;
 \t•\tимя каждого процесса.
-
 Если это не нужно для цели диаграммы, детали лучше вынести в отдельную инфраструктурную документацию.
 
-### Ошибка 4. Не показаны внешние системы
-
+**Ошибка 4. Не показаны внешние системы**
 Если сервис интегрируется с банком, CRM или государственным API, это должно быть видно, если интеграция важна для рассматриваемой архитектуры.
 
-### Ошибка 5. Не указано окружение
-
+**Ошибка 5. Не указано окружение**
 Непонятно:
-
-DEV это?
-
-TEST?
-
-PROD?
-
+\t•\tDEV это?
+\t•\tTEST?
+\t•\tPROD?
 Для эксплуатационной схемы это критично.
 
-### Ошибка 6. Одна схема пытается описать все окружения
-
+**Ошибка 6. Одна схема пытается описать все окружения**
 DEV + TEST + STAGE + PROD + DR на одной диаграмме часто превращаются в нечитаемую схему.
-
 Лучше разделить.
 
-### Ошибка 7. Deployment Diagram используют для описания бизнес-процесса
-
+**Ошибка 7. Deployment Diagram используют для описания бизнес-процесса**
 Диаграмма развёртывания не показывает:
-
 \t•\tэтапы процесса;
 \t•\tбизнес-условия;
 \t•\tроли пользователя;
 \t•\tпорядок выполнения операций.
-
 Для этого существуют Activity и Sequence Diagram.`
             },
 
@@ -7839,45 +7772,56 @@ DEV + TEST + STAGE + PROD + DR на одной диаграмме часто п�
 
 У Deployment Diagram может быть несколько уровней.
 
-### Уровень 1 — инфраструктурный контекст
+**Уровень 1 — инфраструктурный контекст**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart LR
+    I["Internet"] --> OS["Our System"]
+    OS --> EB["External Bank"]`
+            },
+            {
+                type: "text",
+                value: `Подходит для общего обсуждения архитектуры.
 
-Internet
-↓
-Our System
-↓
-External Bank
-
-Подходит для общего обсуждения архитектуры.
-
-### Уровень 2 — инфраструктура приложения
-
-Internet
-↓
-Load Balancer
-↓
-Application Cluster
-↓
-Database
-
-Подходит для архитектурного обсуждения.
-
-### Уровень 3 — детальное размещение
-
-Kubernetes Cluster
-├── Node 1
-│   ├── Pod A
-│   └── Pod B
-├── Node 2
-│   ├── Pod C
-│   └── Pod D
-└── Node 3
-    └── Pod E
-
-Подходит для технической документации.
-
-**Правило:**
-
-> Чем выше уровень аудитории, тем меньше инфраструктурных деталей нужно показывать.`
+**Уровень 2 — инфраструктура приложения**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    I["Internet"] --> LB["Load Balancer"]
+    LB --> AC["Application Cluster"]
+    AC --> DB[("Database")]`
+            },
+            {
+                type: "text",
+                value: `Подходит для архитектурного обсуждения.
+**Уровень 3 — детальное размещение**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    subgraph KC["Kubernetes Cluster"]
+        subgraph N1["Node 1"]
+            PA["Pod A"]
+            PB["Pod B"]
+        end
+        subgraph N2["Node 2"]
+            PC["Pod C"]
+            PD["Pod D"]
+        end
+        subgraph N3["Node 3"]
+            PE["Pod E"]
+        end
+    end`
+            },
+            {
+                type: "text",
+                value: `Подходит для технической документации.
+**Правило:** Чем выше уровень аудитории, тем меньше инфраструктурных деталей нужно показывать.`
             },
 
             {
@@ -7886,33 +7830,35 @@ Kubernetes Cluster
 
 Deployment Diagram особенно полезна при описании изменений архитектуры.
 
-### AS-IS
-
-Один сервер:
-
-Internet
-↓
-Application Server
-↓
-Database
-
-### TO-BE
-
-Кластер:
-
-Internet
-↓
-Load Balancer
-↓
-Application Cluster
-├── Instance 1
-├── Instance 2
-└── Instance 3
-↓
-Database Cluster
-
-Сравнение позволяет показать:
-
+**AS-IS** Один сервер:`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    I["Internet"] --> AS["Application Server"]
+    AS --> DB[("Database")]`
+            },
+            {
+                type: "text",
+                value: `**TO-BE** Кластер:`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    I["Internet"] --> LB["Load Balancer"]
+    LB --> AC
+    subgraph AC["Application Cluster"]
+        A1["Instance 1"]
+        A2["Instance 2"]
+        A3["Instance 3"]
+    end
+    AC --> DB[("Database Cluster")]`
+            },
+            {
+                type: "text",
+                value: `Сравнение позволяет показать:
 \t•\tкакие инфраструктурные изменения требуются;
 \t•\tкакие компоненты добавляются;
 \t•\tкакие точки отказа устраняются;
@@ -7924,27 +7870,21 @@ Database Cluster
                 value: `# Как описывать узел в документации
 
 Для каждого значимого узла можно использовать короткий шаблон:
-
-**Название:** Application Cluster
-
-**Тип:** Kubernetes Cluster
-
-**Назначение:** выполнение backend-сервисов.
+\t•\t**Название:** Application Cluster
+\t•\t**Тип:** Kubernetes Cluster
+\t•\t**Назначение:** выполнение backend-сервисов.
 
 **Размещает:**
-
 \t•\tOrder Service;
 \t•\tPayment Service;
 \t•\tNotification Service.
 
 **Взаимодействует с:**
-
 \t•\tLoad Balancer;
 \t•\tDatabase;
 \t•\tMessage Broker.
 
 **Окружение:** Production.
-
 Так Deployment Diagram становится частью полноценной архитектурной документации.`
             },
 
@@ -7953,35 +7893,29 @@ Database Cluster
                 value: `# Deployment Diagram и требования
 
 Deployment Diagram должна быть связана с требованиями.
-
 Например:
-
-**Требование:**
-
-> Пользователь должен иметь возможность оформить заказ через веб-приложение.
-
-↓
-
-**Component Diagram:**
-
-Frontend
-↓
-Order Service
-
-↓
-
-**Deployment Diagram:**
-
-User Device
-↓
-Web Server
-↓
-Application Server
-
-Это позволяет проследить цепочку:
-
-**требование → компонент → размещение.**
-
+**Требование:** Пользователь должен иметь возможность оформить заказ через веб-приложение.`
+            },
+            {
+                type: "mermaid",
+                caption: "Component Diagram:",
+                value: `flowchart TD
+    FE["Frontend"] --> OS["Order Service"]`
+            },
+            {
+                type: "text",
+                value: ``
+            },
+            {
+                type: "mermaid",
+                caption: "Deployment Diagram:",
+                value: `flowchart TD
+    UD["User Device"] --> WS["Web Server"]
+    WS --> AS["Application Server"]`
+            },
+            {
+                type: "text",
+                value: `Это позволяет проследить цепочку: **требование → компонент → размещение.**
 Для системного аналитика это особенно важно при подготовке архитектурных решений и impact analysis.`
             },
 
@@ -7991,43 +7925,36 @@ Application Server
 
 Перед согласованием проверьте:
 
-### Узлы
-
+**Узлы**
 \t•\tПонятно, какие Node существуют.
 \t•\tПонятно назначение каждого узла.
 \t•\tПри необходимости указано окружение.
 
-### Размещение
-
+**Размещение**
 \t•\tПонятно, где выполняется каждый важный компонент.
 \t•\tСвязаны компоненты, артефакты и узлы.
 \t•\tПонятно, какие компоненты работают вместе.
 
-### Сети
-
+**Сети**
 \t•\tПоказаны важные коммуникационные пути.
 \t•\tПонятно направление или характер соединения.
 \t•\tПри необходимости указан протокол.
 
-### Внешние системы
-
+**Внешние системы**
 \t•\tВыделены внешние системы.
 \t•\tПонятно, где проходит граница нашей системы.
 
-### Надёжность
-
+**Надёжность**
 \t•\tЕсли важно, показано резервирование.
 \t•\tЕсли важно, показано масштабирование.
 \t•\tНе осталось очевидных single point of failure.
 
-### Безопасность
-
+**Безопасность**
 \t•\tПонятны внешние и внутренние зоны.
 \t•\tПоказаны важные сетевые границы.
 \t•\tБаза данных не выглядит случайно доступной из внешнего контура.
 
-### Читаемость
-
+**Читаемость**
 \t•\tДиаграмма не перегружена.
 \t•\tНет ненужных технических деталей.
 \t•\tПонятно, на какой вопрос отвечает диаграмма.`
@@ -8038,67 +7965,24 @@ Application Server
                 value: `# Главное, что нужно запомнить
 
 Deployment Diagram отвечает на четыре основных вопроса:
+**1. Какие вычислительные узлы существуют?** → Node / Device
+**2. Где выполняется программное обеспечение?** → Deployment
+**3. В какой среде оно выполняется?** → Execution Environment
+**4. Как узлы взаимодействуют между собой?** → Communication Path
 
-**1. Какие вычислительные узлы существуют?**
-
-→ Node / Device
-
-**2. Где выполняется программное обеспечение?**
-
-→ Deployment
-
-**3. В какой среде оно выполняется?**
-
-→ Execution Environment
-
-**4. Как узлы взаимодействуют между собой?**
-
-→ Communication Path
-
-Главная цепочка:
-
+**Главная цепочка:**
 **Component → Artifact → Execution Environment → Node**
 
-Например:
-
-Order Service
-
-↓
-
-order-service.jar
-
-↓
-
-JVM / Container
-
-↓
-
-Application Server
+Например: Order Service → order-service.jar → JVM / Container → Application Server
 
 Это позволяет связать логическую архитектуру с инфраструктурой.
+**Самое важное различие**
+**Component Diagram** Из каких программных компонентов состоит система?
+**Deployment Diagram** Где эти компоненты развёрнуты и как инфраструктурные узлы взаимодействуют?
+**Sequence Diagram** В каком порядке компоненты взаимодействуют во время выполнения сценария?
+**Class Diagram** Из каких классов и объектов состоит программная модель?
 
-### Самое важное различие
-
-**Component Diagram**
-
-> Из каких программных компонентов состоит система?
-
-**Deployment Diagram**
-
-> Где эти компоненты развёрнуты и как инфраструктурные узлы взаимодействуют?
-
-**Sequence Diagram**
-
-> В каком порядке компоненты взаимодействуют во время выполнения сценария?
-
-**Class Diagram**
-
-> Из каких классов и объектов состоит программная модель?
-
-**Главный принцип:**
-
-> **Deployment Diagram описывает физическое или инфраструктурное размещение программных частей системы, вычислительные узлы, среды выполнения и коммуникационные связи между ними.**
-
+**Главный принцип:** **Deployment Diagram описывает физическое или инфраструктурное размещение программных частей системы, вычислительные узлы, среды выполнения и коммуникационные связи между ними.**
 Для системного аналитика это инструмент, который позволяет связать **архитектуру приложения с инфраструктурой**, анализировать интеграции, отказоустойчивость, масштабирование, безопасность и влияние архитектурных изменений.`
             }
         ]
@@ -8116,20 +8000,11 @@ Application Server
                     type: "text",
                     value: `# Главный принцип выбора UML-диаграммы
 
-Самая распространённая ошибка при работе с UML — начинать с вопроса:
+Самая распространённая ошибка при работе с UML — начинать с вопроса: **«Какую диаграмму мне нарисовать?»**
+Правильный вопрос: **«Что именно я хочу показать и кому это должно быть понятно?»**
+UML — это инструмент визуализации. Поэтому сначала определяется **цель модели**, затем выбирается **тип диаграммы**.
 
-> **«Какую диаграмму мне нарисовать?»**
-
-Правильный вопрос:
-
-> **«Что именно я хочу показать и кому это должно быть понятно?»**
-
-UML — это инструмент визуализации.
-
-Поэтому сначала определяется **цель модели**, затем выбирается **тип диаграммы**.
-
-Например:
-
+**Например:**
 \t•\tнужно показать требования пользователя → **Use Case Diagram**;
 \t•\tнужно показать бизнес-процесс → **Activity Diagram**;
 \t•\tнужно показать взаимодействие сервисов во времени → **Sequence Diagram**;
@@ -8138,56 +8013,34 @@ UML — это инструмент визуализации.
 \t•\tнужно показать состав сервисов → **Component Diagram**;
 \t•\tнужно показать размещение сервисов на серверах → **Deployment Diagram**.
 
-**Ключевая мысль:**
-
-> Не существует «самой правильной UML-диаграммы». Существует диаграмма, которая лучше всего отвечает на конкретный вопрос.`
+**Ключевая мысль:** Не существует «самой правильной UML-диаграммы». Существует диаграмма, которая лучше всего отвечает на конкретный вопрос.`
                 },
 
                 {
                     type: "text",
                     value: `# Сначала определите, что нужно описать
 
-Перед созданием диаграммы определите предмет моделирования.
-
-Обычно системный аналитик работает с шестью основными категориями:
+Перед созданием диаграммы определите предмет моделирования. Обычно системный аналитик работает с шестью основными категориями:
 
 **1. Требования**
-
-Что система должна делать для пользователя?
-
-→ Use Case Diagram
+Что система должна делать для пользователя? → Use Case Diagram
 
 **2. Процессы**
-
-Как выполняется процесс?
-
-→ Activity Diagram
+Как выполняется процесс? → Activity Diagram
 
 **3. Взаимодействия**
-
-Как участники или компоненты обмениваются сообщениями?
-
-→ Sequence Diagram
+Как участники или компоненты обмениваются сообщениями? → Sequence Diagram
 
 **4. Структура**
-
-Из каких сущностей, классов или объектов состоит система?
-
-→ Class Diagram
+Из каких сущностей, классов или объектов состоит система? → Class Diagram
 
 **5. Состояния**
-
-Как меняется состояние объекта?
-
-→ State Machine Diagram
+Как меняется состояние объекта? → State Machine Diagram
 
 **6. Архитектура**
+Из каких компонентов состоит система и где они работают? → Component Diagram / Deployment Diagram
 
-Из каких компонентов состоит система и где они работают?
-
-→ Component Diagram / Deployment Diagram
-
-Это базовая карта выбора UML.`
+**Это базовая карта выбора UML.**`
                 },
 
                 {
@@ -8209,33 +8062,19 @@ UML — это инструмент визуализации.
                     value: `# Use Case Diagram — когда нужно показать требования
 
 Use Case Diagram выбирайте, если необходимо показать:
-
 \t•\tкто взаимодействует с системой;
 \t•\tкакие цели есть у пользователей;
 \t•\tкакие функции предоставляет система;
 \t•\tграницы системы;
 \t•\tсвязи между ролями и функциями.
 
-Главный вопрос:
+Главный вопрос: **Что пользователь должен иметь возможность сделать в системе?**
 
-> **Что пользователь должен иметь возможность сделать в системе?**
-
-Пример:
-
-Актёр:
-
-**Клиент**
-
-Use Case:
-
-**Оформить заказ**
-
-Связь:
-
-Клиент → Оформить заказ
-
+**Пример:**
+Актёр: **Клиент**
+Use Case: **Оформить заказ**
+Связь: Клиент → Оформить заказ
 Use Case Diagram хорошо подходит для начала анализа функциональности.
-
 Она помогает договориться с бизнесом о том, **какие функции существуют**, но не показывает внутреннюю реализацию этих функций.`
                 },
 
@@ -8244,7 +8083,6 @@ Use Case Diagram хорошо подходит для начала анализ�
                     value: `# Когда НЕ нужно использовать Use Case Diagram
 
 Use Case не подходит, если нужно показать:
-
 \t•\tпошаговый бизнес-процесс;
 \t•\tпорядок API-вызовов;
 \t•\tструктуру базы данных;
@@ -8252,31 +8090,17 @@ Use Case не подходит, если нужно показать:
 \t•\tразмещение сервисов;
 \t•\tвнутреннюю архитектуру.
 
-Например, если вопрос:
-
-> Что происходит после нажатия кнопки «Оплатить»?
-
-Use Case:
-
-**Оплатить заказ**
-
-может быть отправной точкой.
-
-Но подробный сценарий лучше показать через:
-
-**Sequence Diagram**.
-
-Если нужно показать бизнес-процесс:
-
-**Activity Diagram**.`
+Например, если вопрос: Что происходит после нажатия кнопки «Оплатить»?
+Use Case: **Оплатить заказ** может быть отправной точкой.
+Но подробный сценарий лучше показать через: **Sequence Diagram**.
+Если нужно показать бизнес-процесс: **Activity Diagram**.`
                 },
 
                 {
                     type: "text",
                     value: `# Activity Diagram — когда нужно показать процесс
 
-Activity Diagram выбирайте, если нужно показать:
-
+**Activity Diagram выбирайте, если нужно показать:**
 \t•\tпоследовательность действий;
 \t•\tусловия и ветвления;
 \t•\tпараллельные действия;
@@ -8285,53 +8109,41 @@ Activity Diagram выбирайте, если нужно показать:
 \t•\tбизнес-процесс;
 \t•\tалгоритм.
 
-Главный вопрос:
-
-> **Как выполняется процесс от начала до конца?**
-
-Например:
-
-Получить заявку
-↓
-Проверить данные
-↓
-Данные корректны?
-├── Да → Создать заявку
-└── Нет → Вернуть ошибку
-
-Activity Diagram хорошо подходит для описания бизнес-логики и процессов.`
+Главный вопрос: **Как выполняется процесс от начала до конца?** `
+            },
+            {
+                type: "mermaid",
+                caption: "Пример Activity Diagram:",
+                value: `flowchart TD
+    A["Получить заявку"] --> B["Проверить данные"]
+    B --> C{"Данные корректны?"}
+    C -->|Да| D["Создать заявку"]
+    C -->|Нет| E["Вернуть ошибку"]`
+            },
+            {
+                type: "text",
+                value: `Activity Diagram хорошо подходит для описания бизнес-логики и процессов.`
                 },
 
                 {
                     type: "text",
                     value: `# Когда НЕ нужно использовать Activity Diagram
 
-Не используйте Activity Diagram как основной инструмент, если нужно показать:
-
+**Не используйте Activity Diagram как основной инструмент, если нужно показать:**
 \t•\tконкретные API-вызовы между сервисами;
 \t•\tструктуру классов;
 \t•\tсостояния конкретной сущности;
 \t•\tфизическое размещение сервисов.
 
-Например:
-
-Frontend → POST /orders → Order Service
-
-Это уже ближе к **Sequence Diagram**.
-
-А:
-
-Order → New → Paid → Delivered
-
-Это **State Machine Diagram**.`
+Например: Frontend → POST /orders → Order Service
+Это уже ближе к **Sequence Diagram**. А Order → New → Paid → Delivered это **State Machine Diagram**.`
                 },
 
                 {
                     type: "text",
                     value: `# Sequence Diagram — когда важно взаимодействие во времени
 
-Sequence Diagram выбирайте, если нужно показать:
-
+**Sequence Diagram выбирайте, если нужно показать:**
 \t•\tкто кого вызывает;
 \t•\tкакие сообщения передаются;
 \t•\tв каком порядке происходят вызовы;
@@ -8339,52 +8151,48 @@ Sequence Diagram выбирайте, если нужно показать:
 \t•\tкакие ответы возвращаются;
 \t•\tкакие компоненты участвуют в сценарии.
 
-Главный вопрос:
-
-> **Кто, кому, что и в каком порядке отправляет?**
-
-Например:
-
-Frontend
-   ↓ POST /orders
-Order Service
-   ↓ POST /payments
-Payment Service
-   ↓
-Bank API
-
-Sequence Diagram особенно полезна системному аналитику при описании API и интеграций.`
+Главный вопрос: **Кто, кому, что и в каком порядке отправляет?** `
+            },
+            {
+                type: "mermaid",
+                caption: "Пример Sequence Diagram:",
+                value: `sequenceDiagram
+    participant FE as Frontend
+    participant OS as Order Service
+    participant PS as Payment Service
+    participant Bank as Bank API
+    FE->>OS: POST /orders
+    OS->>PS: POST /payments
+    PS->>Bank: запрос оплаты`
+            },
+            {
+                type: "text",
+                value: `Sequence Diagram особенно полезна системному аналитику при описании API и интеграций.`
                 },
 
                 {
                     type: "text",
                     value: `# Когда НЕ нужно использовать Sequence Diagram
 
-Не стоит использовать Sequence Diagram для:
-
+**Не стоит использовать Sequence Diagram для:**
 \t•\tописания всей архитектуры системы;
 \t•\tописания всех сервисов компании;
 \t•\tмоделирования структуры базы данных;
 \t•\tописания длительного бизнес-процесса из десятков этапов;
 \t•\tпоказа всех возможных состояний сущности.
 
-Если нужно показать:
-
-**архитектуру** → Component Diagram.
-
-**инфраструктуру** → Deployment Diagram.
-
-**процесс** → Activity Diagram.
-
-**состояния** → State Machine Diagram.`
+**Если нужно показать:**
+\t•\t**архитектуру** → Component Diagram.
+\t•\t**инфраструктуру** → Deployment Diagram.
+\t•\t**процесс** → Activity Diagram.
+\t•\t**состояния** → State Machine Diagram.`
                 },
 
                 {
                     type: "text",
                     value: `# Class Diagram — когда нужна структура данных и объектов
 
-Class Diagram выбирайте, если необходимо описать:
-
+**Class Diagram выбирайте, если необходимо описать:**
 \t•\tсущности;
 \t•\tклассы;
 \t•\tатрибуты;
@@ -8395,39 +8203,36 @@ Class Diagram выбирайте, если необходимо описать:
 \t•\tкомпозицию;
 \t•\tагрегацию.
 
-Главный вопрос:
-
-> **Из чего состоит предметная или программная модель?**
-
-Например:
-
-Customer
-├── id
-├── name
-└── email
-
-Order
-├── id
-├── date
-└── status
-
-Customer 1 ─── * Order
-
-Это позволяет показать:
-
-> Один Customer может иметь несколько Order.`
+Главный вопрос: **Из чего состоит предметная или программная модель?** `
+            },
+            {
+                type: "mermaid",
+                caption: "Пример Class Diagram:",
+                value: `classDiagram
+    class Customer {
+        -id
+        -name
+        -email
+    }
+    class Order {
+        -id
+        -date
+        -status
+    }
+    Customer "1" --> "*" Order`
+            },
+            {
+                type: "text",
+                value: `**Это позволяет показать:** Один Customer может иметь несколько Order.`
                 },
 
                 {
                     type: "text",
                     value: `# Class Diagram или ER Diagram?
 
-Это важное различие.
+Это важное различие. **Class Diagram** описывает объектную модель.
 
-**Class Diagram** описывает объектную модель.
-
-Она может содержать:
-
+**Она может содержать:**
 \t•\tклассы;
 \t•\tатрибуты;
 \t•\tметоды;
@@ -8435,68 +8240,50 @@ Customer 1 ─── * Order
 \t•\tассоциации.
 
 **ER Diagram** описывает структуру реляционной базы данных:
-
 \t•\tтаблицы;
 \t•\tколонки;
 \t•\tPK;
 \t•\tFK;
-\t•\tограничения.
-
-Например:
-
-Бизнес-сущность:
-
-**Customer**
-
-↓
-
-Class Diagram
-
-**Customer**
-
-↓
-
-Database
-
-**customer**
-
-Не следует автоматически считать Class Diagram схемой БД. Это разные модели.`
+\t•\tограничения.`
+            },
+            {
+                type: "mermaid",
+                caption: "От бизнес-сущности к таблице:",
+                value: `flowchart TD
+    BE["Бизнес-сущность: Customer"] --> CD["Class Diagram: Customer"]
+    CD --> DB["Database: customer"]`
+            },
+            {
+                type: "text",
+                value: `Не следует автоматически считать Class Diagram схемой БД. Это разные модели.`
                 },
 
                 {
                     type: "text",
                     value: `# State Machine Diagram — когда важны состояния
 
-State Machine Diagram выбирайте, если объект имеет:
-
+**State Machine Diagram выбирайте, если объект имеет:**
 \t•\tнесколько состояний;
 \t•\tстрогий жизненный цикл;
 \t•\tпереходы между состояниями;
 \t•\tсобытия, которые вызывают переходы;
 \t•\tограничения переходов.
 
-Главный вопрос:
-
-> **В каком состоянии находится объект и что переводит его в другое состояние?**
-
-Например:
-
-Created
-   ↓ pay
-Paid
-   ↓ ship
-Shipped
-   ↓ deliver
-Delivered
-
-И:
-
-Created
-   ↓ cancel
-Cancelled
-
-Для системного аналитика это особенно полезно при описании:
-
+Главный вопрос: **В каком состоянии находится объект и что переводит его в другое состояние?** `
+            },
+            {
+                type: "mermaid",
+                caption: "Жизненный цикл заказа:",
+                value: `stateDiagram-v2
+    [*] --> Created
+    Created --> Paid: pay
+    Paid --> Shipped: ship
+    Shipped --> Delivered: deliver
+    Created --> Cancelled: cancel`
+            },
+            {
+                type: "text",
+                value: `Для системного аналитика это особенно полезно при описании:
 \t•\tзаказов;
 \t•\tзаявок;
 \t•\tплатежей;
@@ -8511,41 +8298,35 @@ Cancelled
                     value: `# State Machine или Activity?
 
 Эти диаграммы часто путают.
-
-### Activity
-
-Показывает:
-
-> **Что нужно сделать?**
-
-Например:
-
-Получить заявку
-↓
-Проверить данные
-↓
-Согласовать заявку
-↓
-Создать договор
-
-### State Machine
-
-Показывает:
-
-> **В каком состоянии находится заявка?**
-
-Draft
-↓
-Submitted
-↓
-Approved
-↓
-Completed
-
-Простое правило:
-
+**Activity**
+Показывает: **Что нужно сделать?** `
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    A["Получить заявку"] --> B["Проверить данные"]
+    B --> C["Согласовать заявку"]
+    C --> D["Создать договор"]`
+            },
+            {
+                type: "text",
+                value: `**State Machine**
+Показывает: **В каком состоянии находится заявка?** `
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `stateDiagram-v2
+    [*] --> Draft
+    Draft --> Submitted
+    Submitted --> Approved
+    Approved --> Completed`
+            },
+            {
+                type: "text",
+                value: `**Простое правило:**
 **Activity = действия.**
-
 **State Machine = состояния объекта.**`
                 },
 
@@ -8553,8 +8334,7 @@ Completed
                     type: "text",
                     value: `# Component Diagram — когда нужно показать архитектуру приложения
 
-Component Diagram выбирайте, если нужно показать:
-
+**Component Diagram выбирайте, если нужно показать:**
 \t•\tсервисы;
 \t•\tмодули;
 \t•\tподсистемы;
@@ -8563,31 +8343,27 @@ Component Diagram выбирайте, если нужно показать:
 \t•\tзависимости;
 \t•\tвнешние системы.
 
-Главный вопрос:
-
-> **Из каких программных компонентов состоит система и как они взаимодействуют?**
-
-Например:
-
-Frontend
-   ↓
-API Gateway
-   ↓
-Order Service
-   ↓
-Payment Service
-   ↓
-Bank API
-
-Component Diagram показывает архитектурную структуру, а не последовательность конкретного сценария.`
+Главный вопрос: **Из каких программных компонентов состоит система и как они взаимодействуют?** `
+            },
+            {
+                type: "mermaid",
+                caption: "Пример Component Diagram:",
+                value: `flowchart TD
+    FE["Frontend"] --> AG["API Gateway"]
+    AG --> OS["Order Service"]
+    OS --> PS["Payment Service"]
+    PS --> Bank["Bank API"]`
+            },
+            {
+                type: "text",
+                value: `Component Diagram показывает архитектурную структуру, а не последовательность конкретного сценария.`
                 },
 
                 {
                     type: "text",
                     value: `# Deployment Diagram — когда нужно показать инфраструктуру
 
-Deployment Diagram выбирайте, если необходимо показать:
-
+**Deployment Diagram выбирайте, если необходимо показать:**
 \t•\tсерверы;
 \t•\tвиртуальные машины;
 \t•\tконтейнеры;
@@ -8597,27 +8373,25 @@ Deployment Diagram выбирайте, если необходимо показ�
 \t•\tсетевые связи;
 \t•\tразмещение компонентов.
 
-Главный вопрос:
-
-> **Где физически или инфраструктурно выполняются компоненты системы?**
-
-Например:
-
-Internet
-↓
-Load Balancer
-↓
-Kubernetes Cluster
-├── Order Service
-├── Payment Service
-└── Notification Service
-↓
-Database
-
-Главное различие:
-
+Главный вопрос: **Где физически или инфраструктурно выполняются компоненты системы?** `
+            },
+            {
+                type: "mermaid",
+                caption: "Пример Deployment Diagram:",
+                value: `flowchart TD
+    I["Internet"] --> LB["Load Balancer"]
+    LB --> KC
+    subgraph KC["Kubernetes Cluster"]
+        OS["Order Service"]
+        PS["Payment Service"]
+        NS["Notification Service"]
+    end
+    KC --> DB[("Database")]`
+            },
+            {
+                type: "text",
+                value: `**Главное различие:**
 **Component Diagram → что есть.**
-
 **Deployment Diagram → где это находится.**`
                 },
 
@@ -8627,49 +8401,28 @@ Database
 
 Если нужно выбрать диаграмму быстро, используйте следующий алгоритм.
 
-### Шаг 1
+**Шаг 1**
+Спросите: Я описываю **требование, процесс, взаимодействие, структуру, состояние или архитектуру**?
 
-Спросите:
-
-> Я описываю **требование, процесс, взаимодействие, структуру, состояние или архитектуру**?
-
-### Шаг 2
-
-Определите основной объект моделирования:
-
+**Шаг 2** Определите основной объект моделирования:
 **Пользователь и его цели**
-
 → Use Case
-
 **Процесс**
-
 → Activity
-
 **Взаимодействующие объекты / сервисы**
-
 → Sequence
-
 **Сущности / классы**
-
 → Class
-
 **Состояние объекта**
-
 → State Machine
-
 **Программные компоненты**
-
 → Component
-
 **Инфраструктура**
-
 → Deployment
 
-### Шаг 3
+**Шаг 3** Проверьте главный вопрос диаграммы.
 
-Проверьте главный вопрос диаграммы.
-
-Если его можно сформулировать одной фразой — вы, скорее всего, выбрали правильно.`
+**Если его можно сформулировать одной фразой — вы, скорее всего, выбрали правильно.**`
                 },
 
                 {
@@ -8697,97 +8450,110 @@ Database
                     type: "text",
                     value: `# Один кейс — несколько UML-диаграмм
 
-Очень важно понимать:
+Очень важно понимать:  **Один и тот же функциональный сценарий может быть описан несколькими UML-диаграммами.**
+Это не означает, что одна диаграмма неправильная. Каждая диаграмма показывает другой аспект системы.
+Рассмотрим сценарий: Клиент оформляет заказ и оплачивает его.
 
-> **Один и тот же функциональный сценарий может быть описан несколькими UML-диаграммами.**
-
-Это не означает, что одна диаграмма неправильная.
-
-Каждая диаграмма показывает другой аспект системы.
-
-Рассмотрим сценарий:
-
-> Клиент оформляет заказ и оплачивает его.
-
-### Use Case
-
+**Use Case**
 Клиент → Оформить заказ
-
 Показывает **цель пользователя**.
 
-### Activity
+**Activity:** Показывает **процесс**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    A["Выбрать товар"] --> B["Создать заказ"]
+    B --> C["Оплатить"]
+    C --> D["Проверить оплату"]
+    D --> E["Подтвердить заказ"]`
+            },
+            {
+                type: "text",
+                value: `.
 
-Выбрать товар
-↓
-Создать заказ
-↓
-Оплатить
-↓
-Проверить оплату
-↓
-Подтвердить заказ
+**Sequence** Показывает **взаимодействия**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `sequenceDiagram
+    actor C as Customer
+    participant FE as Frontend
+    participant OS as Order Service
+    participant PS as Payment Service
+    participant Bank
+    C->>FE: оформить заказ
+    FE->>OS: POST /orders
+    OS->>PS: POST /payments
+    PS->>Bank: оплата`
+            },
+            {
+                type: "text",
+                value: `
 
-Показывает **процесс**.
+**Class** Показывает **структуру предметной области**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `classDiagram
+    class Customer
+    class Order
+    class OrderItem
+    class Product
+    class Payment`
+            },
+            {
+                type: "text",
+                value: `.
 
-### Sequence
+**State Machine** Показывает **жизненный цикл заказа**
 
-Customer
-→ Frontend
-→ Order Service
-→ Payment Service
-→ Bank
+Order:`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `stateDiagram-v2
+    [*] --> Created
+    Created --> Paid
+    Paid --> Confirmed
+    Confirmed --> Completed`
+            },
+            {
+                type: "text",
+                value: `
 
-Показывает **взаимодействия**.
+**Component** Показывает **архитектуру приложения**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    FE["Frontend"] --> OS["Order Service"]
+    OS --> PS["Payment Service"]`
+            },
+            {
+                type: "text",
+                value: `.
 
-### Class
+**Deployment** Показывает **размещение системы**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    UD["User Device"] --> LB["Load Balancer"]
+    LB --> AC["Application Cluster"]
+    AC --> DB[("Database")]`
+            },
+            {
+                type: "text",
+                value: `
 
-Customer
-Order
-OrderItem
-Product
-Payment
-
-Показывает **структуру предметной области**.
-
-### State Machine
-
-Order:
-
-Created
-↓
-Paid
-↓
-Confirmed
-↓
-Completed
-
-Показывает **жизненный цикл заказа**.
-
-### Component
-
-Frontend
-↓
-Order Service
-↓
-Payment Service
-
-Показывает **архитектуру приложения**.
-
-### Deployment
-
-User Device
-↓
-Load Balancer
-↓
-Application Cluster
-↓
-Database
-
-Показывает **размещение системы**.
-
-Таким образом, диаграммы не конкурируют друг с другом.
-
-Они дополняют друг друга.`
+Таким образом, диаграммы не конкурируют друг с другом. Они дополняют друг друга.`
                 },
 
                 {
@@ -8795,53 +8561,22 @@ Database
                     value: `# Как связать несколько UML-диаграмм
 
 Для системного аналитика особенно важно не просто рисовать отдельные диаграммы, а создавать **согласованную модель системы**.
-
-Например:
-
-**Use Case**
-
-Оформить заказ
-
-↓
-
-**Activity**
-
-Создать заказ → Оплатить → Подтвердить
-
-↓
-
-**Sequence**
-
-Frontend → Order Service → Payment Service
-
-↓
-
-**Class**
-
-Order → OrderItem → Product
-
-↓
-
-**State Machine**
-
-Created → Paid → Confirmed
-
-↓
-
-**Component**
-
-Frontend → Order Service → Payment Service
-
-↓
-
-**Deployment**
-
-Application Cluster → Database
-
-Получается единая цепочка:
-
-> **Требование → процесс → взаимодействие → структура → состояние → архитектура → инфраструктура.**
-
+Например **Цепочка моделей:**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    UC["Use Case: Оформить заказ"] --> AC["Activity: Создать заказ → Оплатить → Подтвердить"]
+    AC --> SQ["Sequence: Frontend → Order Service → Payment Service"]
+    SQ --> CL["Class: Order → OrderItem → Product"]
+    CL --> SM["State Machine: Created → Paid → Confirmed"]
+    SM --> CP["Component: Frontend → Order Service → Payment Service"]
+    CP --> DP["Deployment: Application Cluster → Database"]`
+            },
+            {
+                type: "text",
+                value: `Получается единая цепочка: **Требование → процесс → взаимодействие → структура → состояние → архитектура → инфраструктура.**
 Это уже не набор разрозненных картинок, а модель системы.`
                 },
 
@@ -8853,91 +8588,34 @@ Application Cluster → Database
 
 ### Задача: «Нужно согласовать функциональность с бизнесом»
 
-Используйте:
-
-**Use Case Diagram**
-
-Дополнительно:
-
-**Activity Diagram**
-
-если процесс сложный.
+Используйте: **Use Case Diagram**
+Дополнительно: **Activity Diagram** если процесс сложный.
 
 ### Задача: «Нужно описать бизнес-процесс»
-
-Основная:
-
-**Activity Diagram**
-
-Дополнительно:
-
-**Sequence Diagram**
-
-если нужно показать системные взаимодействия.
+Основная: **Activity Diagram**
+Дополнительно: **Sequence Diagram** если нужно показать системные взаимодействия.
 
 ### Задача: «Нужно описать API-взаимодействие»
-
-Основная:
-
-**Sequence Diagram**
-
-Дополнительно:
-
-**Component Diagram**
-
-для общей архитектуры.
+Основная: **Sequence Diagram**
+Дополнительно: **Component Diagram** для общей архитектуры.
 
 ### Задача: «Нужно описать структуру данных»
-
-Основная:
-
-**Class Diagram**
-
-Если речь именно о реляционной БД:
-
-**ER Diagram**
+Основная: **Class Diagram**
+Если речь именно о реляционной БД: **ER Diagram**
 
 ### Задача: «Нужно описать статусы заявки»
-
-Основная:
-
-**State Machine Diagram**
+Основная: **State Machine Diagram**
 
 ### Задача: «Нужно показать микросервисную архитектуру»
-
-Основная:
-
-**Component Diagram**
-
-Дополнительно:
-
-**Deployment Diagram**
-
-если нужно показать инфраструктуру.
+Основная: **Component Diagram**
+Дополнительно: **Deployment Diagram** если нужно показать инфраструктуру.
 
 ### Задача: «Нужно показать, где развёрнуты сервисы»
-
-Основная:
-
-**Deployment Diagram**
+Основная: **Deployment Diagram**
 
 ### Задача: «Нужно понять влияние изменения API»
-
-Используйте:
-
-**Component Diagram**
-
-для зависимостей.
-
-**Sequence Diagram**
-
-для сценариев вызова.
-
-При необходимости:
-
-**Deployment Diagram**
-
-для инфраструктурных последствий.`
+Используйте: **Component Diagram** для зависимостей. **Sequence Diagram** для сценариев вызова.
+При необходимости: **Deployment Diagram** для инфраструктурных последствий.`
                 },
 
                 {
@@ -8945,57 +8623,50 @@ Application Cluster → Database
                     value: `# Что делать, если подходят несколько диаграмм
 
 Это нормальная ситуация.
+Например, требование: Пользователь может отменить заказ.
+Здесь могут использоваться: **Use Case** Клиент → Отменить заказ
 
-Например, требование:
-
-> Пользователь может отменить заказ.
-
-Здесь могут использоваться:
-
-**Use Case**
-
-Клиент → Отменить заказ
-
-**Activity**
-
-Проверить возможность отмены
-↓
-Отменить заказ
-↓
-Вернуть деньги
-
-**Sequence**
-
-Frontend
-→ Order Service
-→ Payment Service
-
-**State Machine**
-
-Created
-↓
-Cancelled
-
-Как выбрать?
-
-Нужно понять, **какой вопрос сейчас нужно решить**.
-
-Если обсуждаем функциональность с бизнесом:
-
-→ Use Case.
-
-Если обсуждаем процесс:
-
-→ Activity.
-
-Если обсуждаем API:
-
-→ Sequence.
-
-Если обсуждаем жизненный цикл:
-
-→ State Machine.
-
+**Activity**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    A["Проверить возможность отмены"] --> B["Отменить заказ"]
+    B --> C["Вернуть деньги"]`
+            },
+            {
+                type: "text",
+                value: `**Sequence**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `sequenceDiagram
+    participant FE as Frontend
+    participant OS as Order Service
+    participant PS as Payment Service
+    FE->>OS: отменить заказ
+    OS->>PS: отмена оплаты`
+            },
+            {
+                type: "text",
+                value: `**State Machine**`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `stateDiagram-v2
+    [*] --> Created
+    Created --> Cancelled`
+            },
+            {
+                type: "text",
+                value: `Как выбрать? Нужно понять, **какой вопрос сейчас нужно решить**.
+Если обсуждаем функциональность с бизнесом: → Use Case.
+Если обсуждаем процесс: → Activity.
+Если обсуждаем API: → Sequence.
+Если обсуждаем жизненный цикл: → State Machine.
 Не нужно рисовать все четыре диаграммы только потому, что они возможны.`
                 },
 
@@ -9003,34 +8674,19 @@ Cancelled
                     type: "text",
                     value: `# Как не переиспользовать одну диаграмму для всего
 
-Частая ошибка:
+Частая ошибка: «Я нарисую одну большую Activity Diagram, в которой будут пользователи, сервисы, API, базы данных и инфраструктура».
 
-> «Я нарисую одну большую Activity Diagram, в которой будут пользователи, сервисы, API, базы данных и инфраструктура».
-
-В результате получается схема, которая:
-
+**В результате получается схема, которая:**
 \t•\tсложно читается;
 \t•\tсодержит разные уровни абстракции;
 \t•\tне имеет однозначной семантики;
 \t•\tне подходит ни бизнесу, ни разработчикам.
 
-Лучше разделить:
-
-**Activity**
-
-→ бизнес-процесс.
-
-**Sequence**
-
-→ системное взаимодействие.
-
-**Component**
-
-→ архитектура.
-
-**Deployment**
-
-→ инфраструктура.
+**Лучше разделить:**
+**Activity** → бизнес-процесс.
+**Sequence** → системное взаимодействие.
+**Component** → архитектура.
+**Deployment** → инфраструктура.
 
 Каждая диаграмма должна решать одну основную задачу.`
                 },
@@ -9041,19 +8697,12 @@ Cancelled
 
 Тип диаграммы зависит не только от задачи, но и от того, **кто будет её читать**.
 
-### Бизнес
-
-Лучше подходят:
-
+**Бизнес** Лучше подходят:
 \t•\tUse Case;
 \t•\tActivity.
-
 Минимум технических деталей.
 
-### Системные аналитики
-
-Часто нужны:
-
+**Системные аналитики** Часто нужны:
 \t•\tUse Case;
 \t•\tActivity;
 \t•\tSequence;
@@ -9061,27 +8710,19 @@ Cancelled
 \t•\tClass;
 \t•\tComponent.
 
-### Разработчики
-
-Особенно полезны:
-
+**Разработчики** Особенно полезны:
 \t•\tSequence;
 \t•\tClass;
 \t•\tComponent;
 \t•\tDeployment.
 
-### Архитекторы
-
-Часто используются:
-
+**Архитекторы** Часто используются:
 \t•\tComponent;
 \t•\tDeployment;
 \t•\tSequence;
 \t•\tClass.
 
-Важно:
-
-> Диаграмма должна быть понятна её целевой аудитории.`
+**Важно:** Диаграмма должна быть понятна её целевой аудитории.`
                 },
 
                 {
@@ -9090,92 +8731,39 @@ Cancelled
 
 У UML-диаграмм разный уровень детализации.
 
-### Бизнес-уровень
+**Бизнес-уровень** -  **Use Case** Что хочет пользователь?
+**Процессный уровень** - **Activity** Как выполняется процесс?
+**Системный уровень** - **Sequence** Как система взаимодействует?
+**Логический уровень** - **Class** Какие сущности и связи существуют?
+**Архитектурный уровень** - **Component** Какие программные части существуют?
+**Инфраструктурный уровень** - **Deployment** Где они работают?
 
-**Use Case**
-
-Что хочет пользователь?
-
-### Процессный уровень
-
-**Activity**
-
-Как выполняется процесс?
-
-### Системный уровень
-
-**Sequence**
-
-Как система взаимодействует?
-
-### Логический уровень
-
-**Class**
-
-Какие сущности и связи существуют?
-
-### Архитектурный уровень
-
-**Component**
-
-Какие программные части существуют?
-
-### Инфраструктурный уровень
-
-**Deployment**
-
-Где они работают?
-
-Поэтому можно запомнить цепочку:
-
-**Пользователь**
-
-↓
-
-**Процесс**
-
-↓
-
-**Взаимодействие**
-
-↓
-
-**Структура**
-
-↓
-
-**Компоненты**
-
-↓
-
-**Инфраструктура**`
-                },
-
-                {
-                    type: "text",
-                    value: `# Типовые ошибки при выборе UML-диаграммы
+Поэтому можно запомнить цепочку:`
+            },
+            {
+                type: "mermaid",
+                caption: "",
+                value: `flowchart TD
+    U["Пользователь"] --> P["Процесс"]
+    P --> I["Взаимодействие"]
+    I --> S["Структура"]
+    S --> C["Компоненты"]
+    C --> INF["Инфраструктура"]`
+            },
+            {
+                type: "text",
+                value: `# Типовые ошибки при выборе UML-диаграммы
 
 ### Ошибка 1. Выбор диаграммы по привычке
 
-Например:
-
-> «Я всегда использую Activity Diagram».
-
-Даже если задача требует показать API-вызовы.
-
+Например:«Я всегда использую Activity Diagram». Даже если задача требует показать API-вызовы.
 **Правильно:** сначала определить вопрос.
 
 ### Ошибка 2. Использование Sequence для бизнес-процесса
-
-Sequence хорошо показывает технические взаимодействия.
-
-Но если процесс содержит множество бизнес-условий, ролей и параллельных ветвей, лучше использовать Activity.
+Sequence хорошо показывает технические взаимодействия. Но если процесс содержит множество бизнес-условий, ролей и параллельных ветвей, лучше использовать Activity.
 
 ### Ошибка 3. Использование Activity для архитектуры
-
-Activity показывает действия.
-
-Она не предназначена для описания архитектуры сервисов.
+Activity показывает действия. Она не предназначена для описания архитектуры сервисов.
 
 ### Ошибка 4. Использование Class Diagram как схемы БД
 
@@ -9183,33 +8771,17 @@ Class Diagram и ER Diagram решают разные задачи.
 
 ### Ошибка 5. Использование Component Diagram для показа сценария
 
-Component Diagram показывает структуру.
-
-Sequence Diagram показывает сценарий взаимодействия.
+Component Diagram показывает структуру. Sequence Diagram показывает сценарий взаимодействия.
 
 ### Ошибка 6. Использование Deployment вместо Component
 
-Если вопрос:
-
-> Какие сервисы существуют?
-
-→ Component.
-
-Если вопрос:
-
-> Где они размещены?
-
-→ Deployment.
+Если вопрос: Какие сервисы существуют? → Component.
+Если вопрос: Где они размещены? → Deployment.
 
 ### Ошибка 7. Рисование всех диаграмм
 
-Количество диаграмм не является показателем качества анализа.
-
-Иногда одна Activity Diagram полностью решает задачу.
-
-Иногда требуется связка:
-
-Use Case + Activity + Sequence + State Machine + Component.
+Количество диаграмм не является показателем качества анализа. Иногда одна Activity Diagram полностью решает задачу.
+Иногда требуется связка: Use Case + Activity + Sequence + State Machine + Component.
 
 Выбирайте только те модели, которые помогают решить конкретную задачу.`
                 },
@@ -9220,49 +8792,31 @@ Use Case + Activity + Sequence + State Machine + Component.
 
 Перед созданием UML-диаграммы задайте себе пять вопросов.
 
-### 1. Что я хочу объяснить?
+**1. Что я хочу объяснить?**
+\t•\tТребование?
+\t•\tПроцесс?
+\t•\tВзаимодействие?
+\t•\tСтруктуру?
+\t•\tСостояние?
+\t•\tАрхитектуру?
+\t•\tИнфраструктуру?
 
-Требование?
+**2. Кто будет читать диаграмму?**
+\t•\tБизнес?
+\t•\tАналитик?
+\t•\tРазработчик?
+\t•\tАрхитектор?
 
-Процесс?
+**3. Какой уровень детализации нужен?**
+\t•\tОбщий?
+\t•\tСистемный?
+\t•\tТехнический?
 
-Взаимодействие?
-
-Структуру?
-
-Состояние?
-
-Архитектуру?
-
-Инфраструктуру?
-
-### 2. Кто будет читать диаграмму?
-
-Бизнес?
-
-Аналитик?
-
-Разработчик?
-
-Архитектор?
-
-### 3. Какой уровень детализации нужен?
-
-Общий?
-
-Системный?
-
-Технический?
-
-### 4. Какой вопрос должна отвечать диаграмма?
-
+**4. Какой вопрос должна отвечать диаграмма?**
 Если вопрос нельзя сформулировать одним предложением, модель, скорее всего, ещё недостаточно определена.
 
-### 5. Нужна ли вообще UML-диаграмма?
-
-Иногда таблица, текст, JSON или OpenAPI-описание лучше решают задачу.
-
-**UML не является обязательным форматом для каждого требования.**
+**5. Нужна ли вообще UML-диаграмма?**
+Иногда таблица, текст, JSON или OpenAPI-описание лучше решают задачу. **UML не является обязательным форматом для каждого требования.**
 
 Он нужен тогда, когда визуальная модель делает информацию понятнее.`
                 },
@@ -9289,37 +8843,14 @@ Use Case + Activity + Sequence + State Machine + Component.
                     type: "text",
                     value: `# Минимальный набор UML для системного аналитика
 
-Необязательно одинаково глубоко знать все 14 типов UML-диаграмм.
-
-Для большинства задач системного аналитика достаточно уверенно владеть несколькими:
-
-### 1. Use Case Diagram
-
-Для требований и пользовательских целей.
-
-### 2. Activity Diagram
-
-Для процессов и бизнес-логики.
-
-### 3. Sequence Diagram
-
-Для взаимодействий, API и интеграций.
-
-### 4. Class Diagram
-
-Для сущностей, объектов и структуры модели.
-
-### 5. State Machine Diagram
-
-Для жизненного цикла объектов.
-
-### 6. Component Diagram
-
-Для архитектуры приложений.
-
-### 7. Deployment Diagram
-
-Для инфраструктуры и размещения.
+Необязательно одинаково глубоко знать все 14 типов UML-диаграмм. Для большинства задач системного аналитика достаточно уверенно владеть несколькими:
+\t1.\tUse Case Diagram - Для требований и пользовательских целей.
+\t2.\tActivity Diagram - Для процессов и бизнес-логики.
+\t3.\tSequence Diagram - Для взаимодействий, API и интеграций.
+\t4.\tClass Diagram - Для сущностей, объектов и структуры модели.
+\t5.\tState Machine Diagram - Для жизненного цикла объектов.
+\t6 \tComponent Diagram - Для архитектуры приложений.
+\t7.\tDeployment Diagram - Для инфраструктуры и размещения.
 
 Эти диаграммы покрывают большую часть практических задач системного анализа.`
                 },
@@ -9329,87 +8860,35 @@ Use Case + Activity + Sequence + State Machine + Component.
                     value: `# Быстрая шпаргалка
 
 Запомните семь вопросов:
+\t•\t **Кто и что хочет сделать?** → **Use Case**
+\t•\t **Как выполняется процесс?** → **Activity**
+\t•\t **Кто кому что отправляет?** → **Sequence**
+\t•\t **Из чего состоит объектная модель?** → **Class**
+\t•\t **Как меняется состояние объекта?** → **State Machine**
+\t•\t **Из каких частей состоит приложение?** → **Component**
+\t•\t **Где эти части работают?** → **Deployment**
 
-**Кто и что хочет сделать?**
-
-→ **Use Case**
-
-**Как выполняется процесс?**
-
-→ **Activity**
-
-**Кто кому что отправляет?**
-
-→ **Sequence**
-
-**Из чего состоит объектная модель?**
-
-→ **Class**
-
-**Как меняется состояние объекта?**
-
-→ **State Machine**
-
-**Из каких частей состоит приложение?**
-
-→ **Component**
-
-**Где эти части работают?**
-
-→ **Deployment**
-
-Можно запомнить как цепочку:
-
-> **Цель → Процесс → Взаимодействие → Структура → Состояние → Компоненты → Размещение**`
+Можно запомнить как цепочку: **Цель → Процесс → Взаимодействие → Структура → Состояние → Компоненты → Размещение**`
                 },
 
                 {
                     type: "text",
                     value: `# Итог
 
-Выбор UML-диаграммы начинается не с UML.
+Выбор UML-диаграммы начинается не с UML. Он начинается с **вопроса, который нужно решить**.
+Если нужно понять пользовательские цели: → **Use Case**
+Если нужно понять процесс: → **Activity**
+Если нужно понять взаимодействие: → **Sequence**
+Если нужно понять структуру: → **Class**
+Если нужно понять жизненный цикл: → **State Machine**
+Если нужно понять архитектуру: → **Component**
+Если нужно понять инфраструктуру: → **Deployment**
 
-Он начинается с **вопроса, который нужно решить**.
-
-Если нужно понять пользовательские цели:
-
-→ **Use Case**
-
-Если нужно понять процесс:
-
-→ **Activity**
-
-Если нужно понять взаимодействие:
-
-→ **Sequence**
-
-Если нужно понять структуру:
-
-→ **Class**
-
-Если нужно понять жизненный цикл:
-
-→ **State Machine**
-
-Если нужно понять архитектуру:
-
-→ **Component**
-
-Если нужно понять инфраструктуру:
-
-→ **Deployment**
-
-При этом одна система может иметь несколько диаграмм.
-
-Это нормально, потому что каждая диаграмма показывает **свой аспект системы**.
-
-Хорошая UML-модель — это не большое количество диаграмм.
-
-Хорошая UML-модель — это минимальный набор моделей, который позволяет участникам проекта одинаково понять систему.
+При этом одна система может иметь несколько диаграмм. Это нормально, потому что каждая диаграмма показывает **свой аспект системы**.
+Хорошая UML-модель — это не большое количество диаграмм. Хорошая UML-модель — это минимальный набор моделей, который позволяет участникам проекта одинаково понять систему.
 
 **Главное правило системного аналитика:**
-
-> **Сначала определите, что необходимо понять или согласовать. Затем выберите диаграмму, которая лучше всего отвечает на этот вопрос.**
+ **Сначала определите, что необходимо понять или согласовать. Затем выберите диаграмму, которая лучше всего отвечает на этот вопрос.**
 
 Если диаграмма не помогает принять решение, найти ошибку, согласовать требование или объяснить устройство системы — скорее всего, она не нужна.`
                 }
@@ -9427,7 +8906,7 @@ Use Case + Activity + Sequence + State Machine + Component.
             {
                 type: "text",
                 value: `# Почему текст лучше рисования
-Срез:
+**Срез:**
 \t•\t **Diff и code review** — изменения в диаграмме видны как обычный текстовый патч.
 \t•\t **Нет «съехавших» блоков** — раскладку делает движок, вы меняете только смысл.
 \t•\t **CI** — диаграммы перегенерируются при каждом коммите, документация не протухает.
@@ -9480,7 +8959,7 @@ class Позиция
             },
             {
                 type: "text",
-                value: `# Где использовать
+                value: `**Где использовать**
 \t•\t Плагин в IDE (IntelliJ, VS Code) — предпросмотр рядом с кодом.
 \t•\t Документация в Wiki (Confluence, GitLab) — рендер по коду.
 \t•\t README репозитория — диаграммы рядом с исходниками.
@@ -9508,7 +8987,7 @@ class Позиция
         content: [
             {
                 type: "text",
-                value: `# Топ ошибок
+                value: `**Топ ошибок**
 \t1.\t **Монолитная диаграмма.** «Нарисуем всю систему сразу» → никто не читает. Дробите по подсистемам.
 \t2.\t **Смешение уровней.** В одной схеме бизнес-процесс и SQL-запросы. Держите один уровень абстракции.
 \t3.\t **Неявные условия.** Ромб без [метки], связь без множественности, переход без события.
@@ -9517,7 +8996,7 @@ class Позиция
             },
             {
                 type: "text",
-                value: `# Рабочие шаблоны
+                value: `**Рабочие шаблоны**
 \t•\t **Трёхслойный разбор:** требования (Use Case) → процесс (Activity) → реализация (Class/Sequence).
 \t•\t **Один читатель — одна диаграмма:** перед рисованием назовите аудиторию.
 \t•\t **Легенда и заголовок:** всегда подписывайте, что и для кого показано.
@@ -9535,10 +9014,10 @@ class Позиция
             },
             {
                 type: "text",
-                value: `# Главное правило
-UML — инструмент коммуникации, а не самоцель. Если диаграмма помогла договориться и снять неопределённость — она сработала. Если её никто не открыл — она зря потраченное время.
+                value: `**Главное правило**
+**UML** — инструмент коммуникации, а не самоцель. Если диаграмма помогла договориться и снять неопределённость — она сработала. Если её никто не открыл — она зря потраченное время.
 
-Начните с малого: одна Use Case Diagram на следующую встречу с бизнесом, и вы увидите разницу.`
+**Начните с малого:** одна Use Case Diagram на следующую встречу с бизнесом, и вы увидите разницу.`
             }
         ]
     }
