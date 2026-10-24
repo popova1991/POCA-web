@@ -1,7 +1,11 @@
-import { umlPages } from "../data/umlPages";
+import { useLayoutEffect } from "react";
+
+import { umlPages, umlPageOrder } from "../data/umlPages";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import MermaidBlock from "../components/MermaidBlock";
+import ArticleNavigation from "../components/ArticleNavigation";
+import { getArticleNeighbors } from "../utils/articleNavigation";
 
 export default function UMLDetail({ setPage, page }) {
     const normalizePageKey = (page) => {
@@ -11,6 +15,24 @@ export default function UMLDetail({ setPage, page }) {
 
     const key = normalizePageKey(page);
     const data = key ? umlPages[key] : null;
+    const { previousKey, nextKey } = getArticleNeighbors(umlPageOrder, key);
+
+    const previousArticle = previousKey
+        ? { key: previousKey, title: umlPages[previousKey].title }
+        : null;
+    const nextArticle = nextKey
+        ? { key: nextKey, title: umlPages[nextKey].title }
+        : null;
+
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }, [page]);
+
+    const handleArticleNavigate = (targetKey) => {
+        if (!targetKey) return;
+
+        setPage(`uml_${targetKey}`);
+    };
 
     console.log("PAGE RAW:", page);
     console.log("KEY:", key);
@@ -210,6 +232,13 @@ export default function UMLDetail({ setPage, page }) {
                             return null;
 
                         })}
+
+                    <ArticleNavigation
+                        variant="bottom"
+                        previous={previousArticle}
+                        next={nextArticle}
+                        onNavigate={handleArticleNavigate}
+                    />
 
                 </div>
 

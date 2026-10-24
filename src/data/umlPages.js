@@ -54,6 +54,21 @@ import uml53Img from "../img/uml53.jpg";
 import uml54Img from "../img/uml54.jpg";
 
 
+export const umlPageOrder = [
+    "base",
+    "use_case",
+    "activity",
+    "sequence",
+    "class_diagram",
+    "state_machine",
+    "component",
+    "deployment",
+    "how_to_choose",
+    "plantuml",
+    "practice",
+];
+
+
 export const umlPages = {
 
     base: {
