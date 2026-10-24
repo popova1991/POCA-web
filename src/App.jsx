@@ -25,6 +25,9 @@ const OOPDetail = lazy(() => import("./pages/OOPDetail"));
 const DesignPatterns = lazy(() => import("./pages/DesignPatterns"));
 const DesignPatternsDetail = lazy(() => import("./pages/DesignPatternsDetail"));
 
+const CICD = lazy(() => import("./pages/CICD"));
+const CICDDetail = lazy(() => import("./pages/CICDDetail"));
+
 const Case1 = lazy(() => import("./pages/Case1"));
 const Case2 = lazy(() => import("./pages/Case2"));
 const Case3 = lazy(() => import("./pages/Case3"));
@@ -56,7 +59,8 @@ export default function App() {
       "UML",
       "Методология системного анализа. Системное мышление.",
       "Объектно-ориентированный подход - основные понятия",
-      "Паттерны проектирования"
+      "Паттерны проектирования",
+      "Суть концепции CI/CD. Релизные циклы"
     ],
 
     "Кейсы для разбора": [
@@ -124,6 +128,10 @@ export default function App() {
 
     if (item === "Паттерны проектирования") {
       setPage("patterns");
+    }
+
+    if (item === "Суть концепции CI/CD. Релизные циклы") {
+      setPage("cicd");
     }
 
 
@@ -318,6 +326,21 @@ export default function App() {
     if (page.startsWith("patterns_")) {
       return (
           <DesignPatternsDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
+    }
+
+
+    // Суть концепции CI/CD. Релизные циклы
+
+    if (page === "cicd") {
+      return <CICD setPage={setPage} />;
+    }
+    if (page.startsWith("cicd_")) {
+      return (
+          <CICDDetail
               setPage={setPage}
               page={page}
           />
