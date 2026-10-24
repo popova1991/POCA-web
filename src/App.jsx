@@ -22,6 +22,9 @@ const SystemAnalysisDetail = lazy(() => import("./pages/SystemAnalysisDetail"));
 const OOP = lazy(() => import("./pages/OOP"));
 const OOPDetail = lazy(() => import("./pages/OOPDetail"));
 
+const DesignPatterns = lazy(() => import("./pages/DesignPatterns"));
+const DesignPatternsDetail = lazy(() => import("./pages/DesignPatternsDetail"));
+
 const Case1 = lazy(() => import("./pages/Case1"));
 const Case2 = lazy(() => import("./pages/Case2"));
 const Case3 = lazy(() => import("./pages/Case3"));
@@ -52,7 +55,8 @@ export default function App() {
       "BPMN",
       "UML",
       "Методология системного анализа. Системное мышление.",
-      "Объектно-ориентированный подход - основные понятия"
+      "Объектно-ориентированный подход - основные понятия",
+      "Паттерны проектирования"
     ],
 
     "Кейсы для разбора": [
@@ -116,6 +120,10 @@ export default function App() {
         "Объектно-ориентированный подход - основные понятия"
     ) {
       setPage("oop");
+    }
+
+    if (item === "Паттерны проектирования") {
+      setPage("patterns");
     }
 
 
@@ -295,6 +303,21 @@ export default function App() {
     if (page.startsWith("oop_")) {
       return (
           <OOPDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
+    }
+
+
+    // Паттерны проектирования
+
+    if (page === "patterns") {
+      return <DesignPatterns setPage={setPage} />;
+    }
+    if (page.startsWith("patterns_")) {
+      return (
+          <DesignPatternsDetail
               setPage={setPage}
               page={page}
           />
