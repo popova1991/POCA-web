@@ -2,13 +2,14 @@ export default function ArticleNavigation({
     previous,
     next,
     onNavigate,
+    label = "Навигация по статьям",
 }) {
     if (!previous && !next) return null;
 
     return (
         <nav
             className="article-nav article-nav--bottom"
-            aria-label="Навигация по статьям UML"
+            aria-label={label}
         >
             {previous && (
                 <button

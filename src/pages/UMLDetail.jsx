@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import MermaidBlock from "../components/MermaidBlock";
 import ArticleNavigation from "../components/ArticleNavigation";
+import ArticleSideNavigation from "../components/ArticleSideNavigation";
 import { getArticleNeighbors } from "../utils/articleNavigation";
 
 export default function UMLDetail({ setPage, page }) {
@@ -234,15 +235,22 @@ export default function UMLDetail({ setPage, page }) {
                         })}
 
                     <ArticleNavigation
-                        variant="bottom"
                         previous={previousArticle}
                         next={nextArticle}
                         onNavigate={handleArticleNavigate}
+                        label="Навигация по статьям UML"
                     />
 
                 </div>
 
             </div>
+
+            <ArticleSideNavigation
+                previous={previousArticle}
+                next={nextArticle}
+                onNavigate={handleArticleNavigate}
+                label="Навигация по статьям UML"
+            />
         </div>
     );
 }

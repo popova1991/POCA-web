@@ -1,5 +1,37 @@
 
 import poolLaneImg from "../img/pool-lane.jpg";
+
+export const bpmnPageOrder = [
+  "goals",
+  "elements",
+  "gold",
+  "customer",
+  "pool_lane",
+  "end",
+  "tasks",
+  "sequence",
+  "gateway",
+  "parallel",
+  "events",
+  "message",
+  "inclusive",
+  "subprocess",
+  "compensation",
+  "artefacts",
+  "analysis",
+  "trigger",
+  "pools_lanes",
+  "exceptions",
+  "decomposition",
+  "validation",
+  "eventstorming",
+  "agreement",
+  "versioning",
+  "dev",
+  "qa",
+  "metrics",
+];
+
 export const bpmnPages = {
   goals: {
     title: "Цели моделирования: Почему одна диаграмма не может угодить всем",

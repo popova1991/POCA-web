@@ -1,13 +1,48 @@
-import { systemAnalysisPages } from "../data/systemAnalysisPages";
+import { useLayoutEffect } from "react";
+
+import {
+    systemAnalysisPages,
+    systemAnalysisPageOrder,
+} from "../data/systemAnalysisPages";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import ArticleNavigation from "../components/ArticleNavigation";
+import ArticleSideNavigation from "../components/ArticleSideNavigation";
+import { getArticleNeighbors } from "../utils/articleNavigation";
 
 
 export default function SystemAnalysisDetail({ setPage, page }) {
 
     // Получаем данные страницы напрямую по ключу (как в BPMN)
     const data = systemAnalysisPages[page];
+    const { previousKey, nextKey } = getArticleNeighbors(
+        systemAnalysisPageOrder,
+        page
+    );
+
+    const previousArticle = previousKey
+        ? {
+            key: previousKey,
+            title: systemAnalysisPages[previousKey].title,
+        }
+        : null;
+    const nextArticle = nextKey
+        ? {
+            key: nextKey,
+            title: systemAnalysisPages[nextKey].title,
+        }
+        : null;
+
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }, [page]);
+
+    const handleArticleNavigate = (targetKey) => {
+        if (!targetKey) return;
+
+        setPage(targetKey);
+    };
 
 
     console.log("PAGE:", page);
@@ -342,11 +377,25 @@ export default function SystemAnalysisDetail({ setPage, page }) {
 
                     }
 
+                    <ArticleNavigation
+                        previous={previousArticle}
+                        next={nextArticle}
+                        onNavigate={handleArticleNavigate}
+                        label="Навигация по статьям системного анализа"
+                    />
+
 
                 </div>
 
 
             </div>
+
+            <ArticleSideNavigation
+                previous={previousArticle}
+                next={nextArticle}
+                onNavigate={handleArticleNavigate}
+                label="Навигация по статьям системного анализа"
+            />
 
         </div>
 

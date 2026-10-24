@@ -27,6 +27,27 @@ export default function SystemAnalysis({ setPage }) {
             page: "sa_metod",
             clickable: true,
         },
+        {
+            title: "Современные методологии системного анализа",
+            description:
+                "DDD, Event Storming и SOA: современные подходы и их сочетание с классическими методами.",
+            page: "sa_modern",
+            clickable: true,
+        },
+        {
+            title: "Системное мышление как навык аналитика",
+            description:
+                "Взаимосвязи, обратные связи и отложенные эффекты: как аналитику видеть систему целиком.",
+            page: "sa_thinking",
+            clickable: true,
+        },
+        {
+            title: "Практики и техники системного анализа",
+            description:
+                "Контекстный анализ, стейкхолдеры, Use Case Modeling и BPMN в ежедневной работе аналитика.",
+            page: "sa_practice",
+            clickable: true,
+        },
     ];
 
     return (

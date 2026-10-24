@@ -1,6 +1,11 @@
-import { bpmnPages } from "../data/bpmnPages";
+import { useLayoutEffect } from "react";
+
+import { bpmnPages, bpmnPageOrder } from "../data/bpmnPages";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import ArticleNavigation from "../components/ArticleNavigation";
+import ArticleSideNavigation from "../components/ArticleSideNavigation";
+import { getArticleNeighbors } from "../utils/articleNavigation";
 
 export default function BPMNDetail({ setPage, page }) {
   const normalizePageKey = (page) => {
@@ -10,6 +15,24 @@ export default function BPMNDetail({ setPage, page }) {
 
   const key = normalizePageKey(page);
   const data = key ? bpmnPages[key] : null;
+  const { previousKey, nextKey } = getArticleNeighbors(bpmnPageOrder, key);
+
+  const previousArticle = previousKey
+    ? { key: previousKey, title: bpmnPages[previousKey].title }
+    : null;
+  const nextArticle = nextKey
+    ? { key: nextKey, title: bpmnPages[nextKey].title }
+    : null;
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [page]);
+
+  const handleArticleNavigate = (targetKey) => {
+    if (!targetKey) return;
+
+    setPage(`bpmn_${targetKey}`);
+  };
 
   if (!data) {
     return (
@@ -181,9 +204,23 @@ export default function BPMNDetail({ setPage, page }) {
 
             })}
 
+          <ArticleNavigation
+            previous={previousArticle}
+            next={nextArticle}
+            onNavigate={handleArticleNavigate}
+            label="Навигация по статьям BPMN"
+          />
+
         </div>
 
       </div>
+
+      <ArticleSideNavigation
+        previous={previousArticle}
+        next={nextArticle}
+        onNavigate={handleArticleNavigate}
+        label="Навигация по статьям BPMN"
+      />
     </div>
   );
 }
