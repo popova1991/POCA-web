@@ -28,6 +28,9 @@ const DesignPatternsDetail = lazy(() => import("./pages/DesignPatternsDetail"));
 const CICD = lazy(() => import("./pages/CICD"));
 const CICDDetail = lazy(() => import("./pages/CICDDetail"));
 
+const ProjectDocumentation = lazy(() => import("./pages/ProjectDocumentation"));
+const ProjectDocumentationDetail = lazy(() => import("./pages/ProjectDocumentationDetail"));
+
 const Case1 = lazy(() => import("./pages/Case1"));
 const Case2 = lazy(() => import("./pages/Case2"));
 const Case3 = lazy(() => import("./pages/Case3"));
@@ -60,7 +63,8 @@ export default function App() {
       "Методология системного анализа. Системное мышление.",
       "Объектно-ориентированный подход - основные понятия",
       "Паттерны проектирования",
-      "Суть концепции CI/CD. Релизные циклы"
+      "Суть концепции CI/CD. Релизные циклы",
+      "Виды проектной документации и ее назначение"
     ],
 
     "Кейсы для разбора": [
@@ -132,6 +136,10 @@ export default function App() {
 
     if (item === "Суть концепции CI/CD. Релизные циклы") {
       setPage("cicd");
+    }
+
+    if (item === "Виды проектной документации и ее назначение") {
+      setPage("project_documentation");
     }
 
 
@@ -341,6 +349,21 @@ export default function App() {
     if (page.startsWith("cicd_")) {
       return (
           <CICDDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
+    }
+
+
+    // Виды проектной документации и ее назначение
+
+    if (page === "project_documentation") {
+      return <ProjectDocumentation setPage={setPage} />;
+    }
+    if (page.startsWith("pd_")) {
+      return (
+          <ProjectDocumentationDetail
               setPage={setPage}
               page={page}
           />
