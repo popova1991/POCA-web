@@ -113,6 +113,43 @@ body {
 
 
 /* =========================================================
+   ✨ КНОПКА «ЧТО НОВОГО»
+========================================================= */
+
+.header-updates-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-left: auto;
+  padding: 10px 16px;
+
+  background-color: var(--bg-main);
+  color: var(--accent);
+
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 12px;
+
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.header-updates-btn:hover {
+  background-color: #fff;
+  border-color: rgba(124, 58, 237, 0.5);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.18);
+}
+
+
+/* =========================================================
    🔙 КНОПКА НАЗАД
 ========================================================= */
 
@@ -2624,6 +2661,162 @@ body {
 
   font-size: 16px;
   line-height: 1.6;
+}
+
+
+/* =========================================================
+   🆕 МОДАЛЬНОЕ ОКНО ОБНОВЛЕНИЙ
+========================================================= */
+
+.updates-modal {
+  width: min(560px, 100%);
+  max-height: calc(100vh - 40px);
+
+  overflow-y: auto;
+}
+
+.updates-releases {
+  display: flex;
+  flex-direction: column;
+}
+
+.updates-release + .updates-release {
+  margin-top: 18px;
+  padding-top: 18px;
+
+  border-top: 1px dashed var(--border-medium);
+}
+
+.updates-release-header {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-bottom: 10px;
+}
+
+.updates-release-date {
+  color: var(--accent);
+
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.updates-release-title {
+  color: var(--text-secondary);
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.updates-image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  margin-bottom: 18px;
+
+  border-radius: 14px;
+}
+
+.updates-subtitle {
+  margin-bottom: 14px;
+
+  color: var(--text-secondary);
+
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.updates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+}
+
+.updates-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+}
+
+.updates-item-icon {
+  flex-shrink: 0;
+
+  font-size: 22px;
+  line-height: 1;
+}
+
+.updates-item-text {
+  flex: 1;
+
+  color: var(--text-main);
+
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.updates-item-link {
+  flex-shrink: 0;
+
+  padding: 4px 0;
+
+  background: none;
+  border: none;
+
+  color: var(--accent);
+
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+
+  cursor: pointer;
+}
+
+.updates-item-link:hover {
+  text-decoration: underline;
+}
+
+.updates-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 18px;
+}
+
+@media (max-width: 480px) {
+  .header-updates-btn {
+    padding: 8px 12px;
+
+    font-size: 13px;
+  }
+
+  .updates-item {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .updates-item-text {
+    flex-basis: calc(100% - 34px);
+  }
+
+  .updates-item-link {
+    margin-left: 34px;
+  }
 }
 
 

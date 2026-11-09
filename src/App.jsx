@@ -3,8 +3,16 @@ import { useState, lazy, Suspense } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FeedbackModal from "./components/FeedbackModal";
+import UpdatesModal from "./components/UpdatesModal";
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
+
+import {
+  getLatestRelease,
+  getRecentReleases,
+  getUnseenReleases,
+  markReleaseSeen,
+} from "./utils/releases";
 
 const Junior = lazy(() => import("./pages/Junior"));
 const Middle = lazy(() => import("./pages/Middle"));
@@ -45,9 +53,32 @@ export default function App() {
   const [page, setPage] = useState("main");
   const [feedbackOpen, setFeedbackOpen] = useState(false);
 
+  const [updatesReleases, setUpdatesReleases] = useState(() =>
+      getUnseenReleases()
+  );
+  const latestRelease = getLatestRelease();
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarItems, setSidebarItems] = useState([]);
   const [sidebarTitle, setSidebarTitle] = useState("");
+
+
+  const closeUpdates = () => {
+    if (updatesReleases.length) {
+      markReleaseSeen(updatesReleases[0].id);
+    }
+
+    setUpdatesReleases([]);
+  };
+
+  const openUpdates = () => {
+    setUpdatesReleases(getRecentReleases());
+  };
+
+  const handleUpdateNavigate = (targetPage) => {
+    closeUpdates();
+    setPage(targetPage);
+  };
 
 
   const sidebarContent = {
@@ -381,7 +412,11 @@ export default function App() {
 
   return (
       <>
-        <Header onHome={() => setPage("main")} />
+        <Header
+            onHome={() => setPage("main")}
+            onUpdates={openUpdates}
+            hasUpdates={Boolean(latestRelease)}
+        />
 
         <Sidebar
             open={sidebarOpen}
@@ -399,6 +434,12 @@ export default function App() {
         <FeedbackModal
             open={feedbackOpen}
             onClose={() => setFeedbackOpen(false)}
+        />
+        <UpdatesModal
+            open={updatesReleases.length > 0}
+            releases={updatesReleases}
+            onClose={closeUpdates}
+            onNavigate={handleUpdateNavigate}
         />
       </>
   );

@@ -1,0 +1,37 @@
+<svg width="640" height="240" viewBox="0 0 640 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="640" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F1EAFE"/>
+      <stop offset="1" stop-color="#FCE9EF"/>
+    </linearGradient>
+    <linearGradient id="violet" x1="120" y1="60" x2="300" y2="220" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="rose" x1="360" y1="40" x2="520" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E11D48"/>
+      <stop offset="1" stop-color="#FB7185"/>
+    </linearGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="640" height="240" rx="18" fill="url(#bg)"/>
+
+  <circle cx="150" cy="70" r="60" fill="#7C3AED" fill-opacity="0.18" filter="url(#soft)"/>
+  <circle cx="510" cy="180" r="70" fill="#E11D48" fill-opacity="0.16" filter="url(#soft)"/>
+
+  <rect x="176" y="58" width="150" height="104" rx="18" fill="url(#violet)" transform="rotate(-8 176 58)"/>
+  <rect x="330" y="70" width="150" height="104" rx="18" fill="#FFFFFF" fill-opacity="0.85"/>
+  <rect x="356" y="96" width="98" height="10" rx="5" fill="#7C3AED" fill-opacity="0.35"/>
+  <rect x="356" y="118" width="74" height="10" rx="5" fill="#2B2B2B" fill-opacity="0.15"/>
+  <rect x="356" y="140" width="86" height="10" rx="5" fill="#2B2B2B" fill-opacity="0.1"/>
+
+  <circle cx="470" cy="72" r="34" fill="url(#rose)"/>
+  <path d="M470 58v28M456 72h28" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+
+  <circle cx="210" cy="176" r="8" fill="#7C3AED" fill-opacity="0.5"/>
+  <circle cx="586" cy="64" r="6" fill="#E11D48" fill-opacity="0.45"/>
+  <circle cx="570" cy="40" r="4" fill="#7C3AED" fill-opacity="0.4"/>
+</svg>
