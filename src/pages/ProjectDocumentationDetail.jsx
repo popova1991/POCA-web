@@ -9,6 +9,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import ArticleNavigation from "../components/ArticleNavigation";
 import ArticleSideNavigation from "../components/ArticleSideNavigation";
+import MermaidBlock from "../components/MermaidBlock";
 import { getArticleNeighbors } from "../utils/articleNavigation";
 
 
@@ -357,6 +358,23 @@ export default function ProjectDocumentationDetail({ setPage, page }) {
 
                                     </div>
 
+                                );
+
+                            }
+
+
+                            /*
+                             * MERMAID BLOCK
+                             */
+
+                            if (block.type === "mermaid") {
+
+                                return (
+                                    <MermaidBlock
+                                        key={i}
+                                        code={block.value}
+                                        caption={block.caption}
+                                    />
                                 );
 
                             }
