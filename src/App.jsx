@@ -39,6 +39,9 @@ const CICDDetail = lazy(() => import("./pages/CICDDetail"));
 const ProjectDocumentation = lazy(() => import("./pages/ProjectDocumentation"));
 const ProjectDocumentationDetail = lazy(() => import("./pages/ProjectDocumentationDetail"));
 
+const Raci = lazy(() => import("./pages/Raci"));
+const RaciDetail = lazy(() => import("./pages/RaciDetail"));
+
 const Case1 = lazy(() => import("./pages/Case1"));
 const Case2 = lazy(() => import("./pages/Case2"));
 const Case3 = lazy(() => import("./pages/Case3"));
@@ -95,7 +98,8 @@ export default function App() {
       "Объектно-ориентированный подход - основные понятия",
       "Паттерны проектирования",
       "Суть концепции CI/CD. Релизные циклы",
-      "Виды проектной документации и ее назначение"
+      "Виды проектной документации и ее назначение",
+      "Зоны ответственности по ролям в проектной команде. RACI - матрица"
     ],
 
     "Кейсы для разбора": [
@@ -171,6 +175,13 @@ export default function App() {
 
     if (item === "Виды проектной документации и ее назначение") {
       setPage("project_documentation");
+    }
+
+    if (
+        item ===
+        "Зоны ответственности по ролям в проектной команде. RACI - матрица"
+    ) {
+      setPage("raci");
     }
 
 
@@ -395,6 +406,21 @@ export default function App() {
     if (page.startsWith("pd_")) {
       return (
           <ProjectDocumentationDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
+    }
+
+
+    // Зоны ответственности по ролям в проектной команде. RACI - матрица
+
+    if (page === "raci") {
+      return <Raci setPage={setPage} />;
+    }
+    if (page.startsWith("raci_")) {
+      return (
+          <RaciDetail
               setPage={setPage}
               page={page}
           />
