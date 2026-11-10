@@ -40,6 +40,8 @@ html {
 body {
   min-width: 320px;
 
+  padding-bottom: var(--footer-height, 100px);
+
   background-color: var(--bg-main);
   color: var(--text-main);
 
@@ -758,6 +760,9 @@ body {
 .grade-table-wrapper {
   width: 100%;
   overflow-x: auto;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
 
 .grade-table {
@@ -1819,6 +1824,32 @@ body {
   .sidebar.active {
     transform: translateX(0);
   }
+
+  .footer {
+    padding: 14px var(--page-padding)
+      calc(14px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .footer-inner {
+    gap: 12px;
+  }
+
+  .footer-info {
+    gap: 4px 10px;
+  }
+
+  .footer-logo {
+    font-size: 16px;
+  }
+
+  .footer-copy,
+  .footer-tagline {
+    font-size: 13px;
+  }
+
+  .footer-feedback {
+    padding: 10px 16px;
+  }
 }
 
 /* =========================================================
@@ -2396,13 +2427,22 @@ body {
 ======================================================== */
 
 .footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  z-index: 90;
+
   width: 100%;
 
-  margin-top: 60px;
-  padding: 28px var(--page-padding);
+  padding: 20px var(--page-padding)
+    calc(20px + env(safe-area-inset-bottom, 0px));
 
   background-color: var(--bg-card);
   border-top: 1px solid var(--border-light);
+
+  box-shadow: 0 -6px 24px rgba(20, 10, 40, 0.08);
 }
 
 .footer-inner {
@@ -3083,5 +3123,284 @@ body {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================================
+   📱 АДАПТИВНЫЕ ТАБЛИЦЫ ГРЕЙДОВ И КЕЙСОВ
+========================================================= */
+
+@media (max-width: 768px) {
+  .grade-table-wrapper {
+    overflow: visible;
+  }
+
+  .grade-table {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+
+    background: transparent;
+    border: 0;
+
+    table-layout: auto;
+  }
+
+  .grade-table thead {
+    display: none;
+  }
+
+  .grade-table tbody {
+    display: block;
+  }
+
+  .grade-table tbody tr:not(.details-row) {
+    display: grid;
+
+    gap: 8px 12px;
+
+    margin-bottom: 12px;
+    padding: 14px;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border-medium);
+    border-radius: 16px;
+
+    box-shadow: 0 4px 14px rgba(20, 10, 40, 0.04);
+  }
+
+  .grade-table tbody tr:not(.details-row):last-child {
+    margin-bottom: 0;
+  }
+
+  .grade-table td {
+    display: block;
+
+    width: auto;
+    padding: 0;
+
+    border: 0;
+
+    text-align: left;
+  }
+
+  .grade-table td::before {
+    content: attr(data-label);
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--text-secondary);
+
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .grade-table td.grade-cell-check::before,
+  .grade-table td.grade-cell-num::before,
+  .grade-table td.grade-cell-title::before,
+  .grade-table td.grade-cell-indicator::before,
+  .grade-table td.grade-cell-action::before {
+    display: none;
+  }
+
+  .grade-table td.grade-cell-check {
+    display: flex;
+    align-items: center;
+
+    width: auto;
+    padding: 0;
+
+    text-align: left;
+  }
+
+  .grade-table td.grade-cell-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .grade-table td.grade-cell-description {
+    color: var(--text-secondary);
+
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .grade-table td.grade-cell-indicator {
+    justify-self: start;
+
+    width: fit-content;
+    padding: 4px 10px;
+
+    background: #F5F3FF;
+    border: 1px solid #E9E1FF;
+    border-radius: 999px;
+
+    color: var(--accent);
+
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .grade-table td.grade-cell-num {
+    justify-self: start;
+
+    min-width: 28px;
+    padding: 3px 8px;
+
+    background: #F5F3FF;
+    border: 1px solid #E9E1FF;
+    border-radius: 999px;
+
+    color: var(--accent);
+
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .grade-table td.grade-cell-action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .grade-table tr.row-checked td.grade-cell-title,
+  .grade-table tr.row-checked td.grade-cell-indicator,
+  .grade-table tr.row-checked td.grade-cell-description {
+    color: #9CA3AF;
+
+    text-decoration: line-through;
+
+    opacity: 0.7;
+  }
+
+  .grade-table tr.row-checked td.grade-cell-check,
+  .grade-table tr.row-checked td.grade-cell-num,
+  .grade-table tr.row-checked td.grade-cell-action {
+    text-decoration: none;
+
+    opacity: 1;
+  }
+
+  .grade-table:not(.grade-table-case) tbody tr:not(.details-row) {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "check title"
+      "indicator indicator"
+      "description description";
+
+    align-items: center;
+  }
+
+  .grade-table:not(.grade-table-case) td.grade-cell-check {
+    grid-area: check;
+  }
+
+  .grade-table:not(.grade-table-case) td.grade-cell-title {
+    grid-area: title;
+  }
+
+  .grade-table:not(.grade-table-case) td.grade-cell-indicator {
+    grid-area: indicator;
+  }
+
+  .grade-table:not(.grade-table-case) td.grade-cell-description {
+    grid-area: description;
+  }
+
+  .grade-table-case tbody tr:not(.details-row) {
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "check num title action"
+      "description description description description";
+
+    align-items: center;
+  }
+
+  .grade-table-case td.grade-cell-check {
+    grid-area: check;
+  }
+
+  .grade-table-case td.grade-cell-num {
+    grid-area: num;
+
+    align-self: center;
+  }
+
+  .grade-table-case td.grade-cell-title {
+    grid-area: title;
+
+    align-self: center;
+  }
+
+  .grade-table-case td.grade-cell-action {
+    grid-area: action;
+
+    align-self: center;
+  }
+
+  .grade-table-case td.grade-cell-description {
+    grid-area: description;
+  }
+
+  .grade-table tbody tr.details-row {
+    display: block;
+
+    margin: 0 0 12px;
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+
+    box-shadow: none;
+  }
+
+  .grade-table tbody tr.details-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .grade-table tbody tr.details-row td {
+    display: block;
+
+    width: auto;
+    padding: 14px;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border-medium);
+    border-top: 0;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .grade-table tbody tr.row-expanded {
+    margin-bottom: 0;
+
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .case-deepseek-header {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 12px;
+  }
+
+  .case-deepseek-actions {
+    flex-wrap: wrap;
+  }
+
+  .case-deepseek-btn,
+  .case-notes-btn {
+    flex: 1;
+
+    justify-content: center;
+
+    text-align: center;
   }
 }

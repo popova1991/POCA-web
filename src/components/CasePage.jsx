@@ -225,68 +225,76 @@ export default function CasePage({ data, onBack }) {
         </div>
         <p>{data.description}</p>
 
-        <table className="grade-table grade-table-case">
-          <thead>
-            <tr>
-              <th>✔</th>
-              <th>№</th>
-              <th>Компетенция</th>
-              <th>Описание</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, i) => (
-              <React.Fragment key={i}>
-                <tr
-                  className={
-                    (checked[i] ? "row-checked " : "") +
-                    (expanded[i] ? "row-expanded" : "")
-                  }
-                >
-                  <td>
-                    <input
-                      type="checkbox"
-                      className="row-check"
-                      checked={!!checked[i]}
-                      onChange={() => toggleCheck(i)}
-                    />
-                  </td>
-                  <td>{row.num}</td>
-                  <td>{row.label}</td>
-                  <td>{row.desc}</td>
-                  <td>
-                    <button
-                      type="button"
-                      className={"case-toggle" + (expanded[i] ? " open" : "")}
-                      onClick={() => toggleExpand(i)}
-                      aria-expanded={!!expanded[i]}
-                      aria-label={expanded[i] ? "Свернуть" : "Развернуть"}
-                    >
-                      <Chevron />
-                    </button>
-                  </td>
-                </tr>
-                {expanded[i] && (
-                  <tr className="details-row">
-                    <td colSpan={5}>
-                      <div className="case-details">
-                        {Array.isArray(row.content) &&
-                          row.content.map((block, bi) =>
-                            block.type === "rich" ? (
-                              <RichText key={bi} text={block.text} />
-                            ) : (
-                              <Block key={bi} block={block} />
-                            )
-                          )}
-                      </div>
+        <div className="grade-table-wrapper">
+          <table className="grade-table grade-table-case">
+            <thead>
+              <tr>
+                <th>✔</th>
+                <th>№</th>
+                <th>Компетенция</th>
+                <th>Описание</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, i) => (
+                <React.Fragment key={i}>
+                  <tr
+                    className={
+                      (checked[i] ? "row-checked " : "") +
+                      (expanded[i] ? "row-expanded" : "")
+                    }
+                  >
+                    <td className="grade-cell-check">
+                      <input
+                        type="checkbox"
+                        className="row-check"
+                        checked={!!checked[i]}
+                        onChange={() => toggleCheck(i)}
+                      />
+                    </td>
+                    <td data-label="№" className="grade-cell-num">
+                      {row.num}
+                    </td>
+                    <td data-label="Компетенция" className="grade-cell-title">
+                      {row.label}
+                    </td>
+                    <td data-label="Описание" className="grade-cell-description">
+                      {row.desc}
+                    </td>
+                    <td className="grade-cell-action">
+                      <button
+                        type="button"
+                        className={"case-toggle" + (expanded[i] ? " open" : "")}
+                        onClick={() => toggleExpand(i)}
+                        aria-expanded={!!expanded[i]}
+                        aria-label={expanded[i] ? "Свернуть" : "Развернуть"}
+                      >
+                        <Chevron />
+                      </button>
                     </td>
                   </tr>
-                )}
-              </React.Fragment>
-            ))}
-          </tbody>
-        </table>
+                  {expanded[i] && (
+                    <tr className="details-row">
+                      <td colSpan={5}>
+                        <div className="case-details">
+                          {Array.isArray(row.content) &&
+                            row.content.map((block, bi) =>
+                              block.type === "rich" ? (
+                                <RichText key={bi} text={block.text} />
+                              ) : (
+                                <Block key={bi} block={block} />
+                              )
+                            )}
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div className="answers-container">

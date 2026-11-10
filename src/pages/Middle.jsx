@@ -154,37 +154,45 @@ export default function Middle({ setPage }) {
         <h2>{data.subtitle}</h2>
         <p>{data.description}</p>
 
-        <table className="grade-table">
-          <thead>
-          <tr>
-            <th>✔</th>
-            <th>Компетенция</th>
-            <th>Индикатор</th>
-            <th>Описание</th>
-          </tr>
-          </thead>
-
-          <tbody>
-          {data.table.map((row, index) => (
-            <tr
-              key={index}
-              className={checkedRows[index] ? "row-checked" : ""}
-            >
-              <td>
-                <input
-                  type="checkbox"
-                  checked={!!checkedRows[index]}
-                  onChange={() => toggleRow(index)}
-                />
-              </td>
-              <td>{row.competence}</td>
-              <td>{row.indicator}</td>
-              <td>{row.description}</td>
+        <div className="grade-table-wrapper">
+          <table className="grade-table">
+            <thead>
+            <tr>
+              <th>✔</th>
+              <th>Компетенция</th>
+              <th>Индикатор</th>
+              <th>Описание</th>
             </tr>
-          ))}
-          </tbody>
+            </thead>
 
-        </table>
+            <tbody>
+            {data.table.map((row, index) => (
+              <tr
+                key={index}
+                className={checkedRows[index] ? "row-checked" : ""}
+              >
+                <td className="grade-cell-check">
+                  <input
+                    type="checkbox"
+                    checked={!!checkedRows[index]}
+                    onChange={() => toggleRow(index)}
+                  />
+                </td>
+                <td data-label="Компетенция" className="grade-cell-title">
+                  {row.competence}
+                </td>
+                <td data-label="Индикатор" className="grade-cell-indicator">
+                  {row.indicator}
+                </td>
+                <td data-label="Описание" className="grade-cell-description">
+                  {row.description}
+                </td>
+              </tr>
+            ))}
+            </tbody>
+
+          </table>
+        </div>
       </div>
     </div>
   );
