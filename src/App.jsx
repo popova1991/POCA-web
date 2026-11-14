@@ -42,6 +42,9 @@ const ProjectDocumentationDetail = lazy(() => import("./pages/ProjectDocumentati
 const Raci = lazy(() => import("./pages/Raci"));
 const RaciDetail = lazy(() => import("./pages/RaciDetail"));
 
+const SDLC = lazy(() => import("./pages/SDLC"));
+const SDLCDetail = lazy(() => import("./pages/SDLCDetail"));
+
 const Case1 = lazy(() => import("./pages/Case1"));
 const Case2 = lazy(() => import("./pages/Case2"));
 const Case3 = lazy(() => import("./pages/Case3"));
@@ -99,7 +102,8 @@ export default function App() {
       "Паттерны проектирования",
       "Суть концепции CI/CD. Релизные циклы",
       "Виды проектной документации и ее назначение",
-      "Зоны ответственности по ролям в проектной команде. RACI - матрица"
+      "Зоны ответственности по ролям в проектной команде. RACI - матрица",
+      "SDLC: этапы и процессы разработки ПО"
     ],
 
     "Кейсы для разбора": [
@@ -182,6 +186,10 @@ export default function App() {
         "Зоны ответственности по ролям в проектной команде. RACI - матрица"
     ) {
       setPage("raci");
+    }
+
+    if (item === "SDLC: этапы и процессы разработки ПО") {
+      setPage("sdlc");
     }
 
 
@@ -421,6 +429,21 @@ export default function App() {
     if (page.startsWith("raci_")) {
       return (
           <RaciDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
+    }
+
+
+    // SDLC: этапы и процессы разработки ПО
+
+    if (page === "sdlc") {
+      return <SDLC setPage={setPage} />;
+    }
+    if (page.startsWith("sdlc_")) {
+      return (
+          <SDLCDetail
               setPage={setPage}
               page={page}
           />
