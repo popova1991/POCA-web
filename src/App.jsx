@@ -27,6 +27,15 @@ const UMLDetail = lazy(() => import("./pages/UMLDetail"));
 const SystemAnalysis = lazy(() => import("./pages/SystemAnalysis"));
 const SystemAnalysisDetail = lazy(() => import("./pages/SystemAnalysisDetail"));
 
+const RestApi = lazy(() => import("./pages/RestApi"));
+const RestApiDetail = lazy(() => import("./pages/RestApiDetail"));
+
+const GraphQL = lazy(() => import("./pages/GraphQL"));
+const GraphQLDetail = lazy(() => import("./pages/GraphQLDetail"));
+
+const DFD = lazy(() => import("./pages/DFD"));
+const DFDDetail = lazy(() => import("./pages/DFDDetail"));
+
 const OOP = lazy(() => import("./pages/OOP"));
 const OOPDetail = lazy(() => import("./pages/OOPDetail"));
 
@@ -103,7 +112,24 @@ export default function App() {
       "Суть концепции CI/CD. Релизные циклы",
       "Виды проектной документации и ее назначение",
       "Зоны ответственности по ролям в проектной команде. RACI - матрица",
-      "SDLC: этапы и процессы разработки ПО"
+      "SDLC: этапы и процессы разработки ПО",
+      "Rest API: рекомендации по дизайну, блокировкам, кешированию и версионированию",
+      "GraphQL",
+      "Диаграммы потоков данных DFD"
+    ],
+
+    "Hard скилы": [
+      "Методология системного анализа. Системное мышление.",
+      "SDLC: этапы и процессы разработки ПО",
+      "BPMN",
+      "UML",
+      "Диаграммы потоков данных DFD",
+      "Виды проектной документации и ее назначение",
+      "Rest API: рекомендации по дизайну, блокировкам, кешированию и версионированию",
+      "GraphQL",
+      "Объектно-ориентированный подход - основные понятия",
+      "Паттерны проектирования",
+      "Суть концепции CI/CD. Релизные циклы"
     ],
 
     "Кейсы для разбора": [
@@ -190,6 +216,21 @@ export default function App() {
 
     if (item === "SDLC: этапы и процессы разработки ПО") {
       setPage("sdlc");
+    }
+
+    if (
+        item ===
+        "Rest API: рекомендации по дизайну, блокировкам, кешированию и версионированию"
+    ) {
+      setPage("rest_api");
+    }
+
+    if (item === "GraphQL") {
+      setPage("graphql");
+    }
+
+    if (item === "Диаграммы потоков данных DFD") {
+      setPage("dfd");
     }
 
 
@@ -354,6 +395,51 @@ export default function App() {
     if (page.startsWith("sa_")) {
       return (
           <SystemAnalysisDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
+    }
+
+
+    // Rest API
+
+    if (page === "rest_api") {
+      return <RestApi setPage={setPage} />;
+    }
+    if (page.startsWith("rest_")) {
+      return (
+          <RestApiDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
+    }
+
+
+    // GraphQL
+
+    if (page === "graphql") {
+      return <GraphQL setPage={setPage} />;
+    }
+    if (page.startsWith("graphql_")) {
+      return (
+          <GraphQLDetail
+              setPage={setPage}
+              page={page}
+          />
+      );
+    }
+
+
+    // Диаграммы потоков данных DFD
+
+    if (page === "dfd") {
+      return <DFD setPage={setPage} />;
+    }
+    if (page.startsWith("dfd_")) {
+      return (
+          <DFDDetail
               setPage={setPage}
               page={page}
           />

@@ -361,15 +361,18 @@ body {
 .container {
   width: min(100%, var(--content-max-width));
 
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 
-  gap: 32px;
+  gap: 24px;
 
   padding: 40px var(--page-padding);
 
   margin: 0 auto;
+}
+
+.container .card {
+  max-width: none;
 }
 
 
@@ -1604,6 +1607,10 @@ body {
 ========================================================= */
 
 @media (max-width: 1200px) {
+  .container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1712,8 +1719,7 @@ body {
   .container {
     width: 100%;
 
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr;
 
     gap: 16px;
 

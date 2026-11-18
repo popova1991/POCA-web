@@ -20,6 +20,12 @@ export default function Main({ openSidebar, openPage }) {
       icon: "📚",
       action: "sidebar",
     },
+    {
+      title: "Hard скилы",
+      description: "Технические навыки системного аналитика: моделирование, API и архитектура",
+      icon: "🛠️",
+      action: "sidebar",
+    },
   ];
 
   const handleClick = (card) => {
