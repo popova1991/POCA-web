@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -13,6 +13,7 @@ import {
   getUnseenReleases,
   markReleaseSeen,
 } from "./utils/releases";
+import { applyTheme, getStoredTheme, saveTheme } from "./utils/theme";
 
 const Junior = lazy(() => import("./pages/Junior"));
 const Middle = lazy(() => import("./pages/Middle"));
@@ -67,6 +68,18 @@ const Case8 = lazy(() => import("./pages/Case8"));
 export default function App() {
   const [page, setPage] = useState("main");
   const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [theme, setTheme] = useState(getStoredTheme);
+
+  const isDarkTheme = theme === "dark";
+
+  useEffect(() => {
+    applyTheme(theme);
+    saveTheme(theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
+  };
 
   const [updatesReleases, setUpdatesReleases] = useState(() =>
       getUnseenReleases()
@@ -551,6 +564,8 @@ export default function App() {
             onHome={() => setPage("main")}
             onUpdates={openUpdates}
             hasUpdates={Boolean(latestRelease)}
+            isDarkTheme={isDarkTheme}
+            onToggleTheme={toggleTheme}
         />
 
         <Sidebar
