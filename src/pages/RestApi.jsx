@@ -7,6 +7,13 @@ import { restApiPageOrder, restApiPages } from "../data/restApiPages";
 export default function RestApi({ setPage }) {
     const [hoveredCard, setHoveredCard] = useState(null);
 
+    const clockedPages = new Set(
+        restApiPageOrder.slice(
+            restApiPageOrder.indexOf("rest_resources"),
+            restApiPageOrder.indexOf("rest_links") + 1
+        )
+    );
+
     const cards = [
         {
             image: dogImg,
@@ -18,6 +25,7 @@ export default function RestApi({ setPage }) {
             title: restApiPages[key].title,
             page: key,
             clickable: true,
+            inProgress: clockedPages.has(key),
         })),
     ];
 
@@ -54,6 +62,16 @@ export default function RestApi({ setPage }) {
                             onMouseEnter={() => setHoveredCard(index)}
                             onMouseLeave={() => setHoveredCard(null)}
                         >
+                            {card.inProgress && (
+                                <span
+                                    className="card-status-clock"
+                                    title="Статья в работе"
+                                    aria-label="Статья в работе"
+                                >
+                                    🕐
+                                </span>
+                            )}
+
                             {card.image && (
                                 <img
                                     src={

@@ -32,6 +32,9 @@ export default function Sidebar({ open, items, title, onClose, onSelect }) {
             >
               <span className="grade-dot" aria-hidden="true" />
               <span className="grade-name">{item}</span>
+              {item === "Rest API: рекомендации по дизайну, блокировкам, кешированию и версионированию" && (
+                <span className="grade-clock" aria-hidden="true">🕐</span>
+              )}
               <svg
                 className="grade-chevron"
                 width="16"

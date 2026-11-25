@@ -673,6 +673,35 @@ body {
 
 .cards .card {
   max-width: none;
+
+  position: relative;
+}
+
+.card-status-clock {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  font-size: 16px;
+  line-height: 1;
+
+  background-color: var(--bg-main);
+
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+  pointer-events: none;
 }
 
 
