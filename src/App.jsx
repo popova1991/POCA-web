@@ -6,6 +6,7 @@ import FeedbackModal from "./components/FeedbackModal";
 import UpdatesModal from "./components/UpdatesModal";
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
+import Snowfall from "./components/Snowfall";
 
 import {
   getLatestRelease,
@@ -14,6 +15,7 @@ import {
   markReleaseSeen,
 } from "./utils/releases";
 import { applyTheme, getStoredTheme, saveTheme } from "./utils/theme";
+import { isHolidaySeason } from "./utils/holiday";
 
 const Junior = lazy(() => import("./pages/Junior"));
 const Middle = lazy(() => import("./pages/Middle"));
@@ -64,11 +66,27 @@ const Case6 = lazy(() => import("./pages/Case6"));
 const Case7 = lazy(() => import("./pages/Case7"));
 const Case8 = lazy(() => import("./pages/Case8"));
 
+const ARTICLE_PAGE_PREFIXES = [
+  "bpmn_",
+  "uml_",
+  "sa_",
+  "rest_",
+  "graphql_",
+  "dfd_",
+  "oop_",
+  "patterns_",
+  "cicd_",
+  "pd_",
+  "raci_",
+  "sdlc_",
+];
+
 
 export default function App() {
   const [page, setPage] = useState("main");
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [theme, setTheme] = useState(getStoredTheme);
+  const [holidayEnabled, setHolidayEnabled] = useState(isHolidaySeason);
 
   const isDarkTheme = theme === "dark";
 
@@ -76,6 +94,23 @@ export default function App() {
     applyTheme(theme);
     saveTheme(theme);
   }, [theme]);
+
+  useEffect(() => {
+    const refreshHoliday = () => setHolidayEnabled(isHolidaySeason());
+
+    const interval = window.setInterval(refreshHoliday, 60 * 60 * 1000);
+
+    document.addEventListener("visibilitychange", refreshHoliday);
+
+    return () => {
+      window.clearInterval(interval);
+      document.removeEventListener("visibilitychange", refreshHoliday);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.holiday = holidayEnabled ? "on" : "off";
+  }, [holidayEnabled]);
 
   const toggleTheme = () => {
     setTheme((current) => (current === "dark" ? "light" : "dark"));
@@ -85,6 +120,12 @@ export default function App() {
       getUnseenReleases()
   );
   const latestRelease = getLatestRelease();
+
+  const isArticlePage = ARTICLE_PAGE_PREFIXES.some((prefix) =>
+    page.startsWith(prefix)
+  );
+  const showEdgeSnow =
+    holidayEnabled && (page === "main" || isArticlePage);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarItems, setSidebarItems] = useState([]);
@@ -312,6 +353,7 @@ export default function App() {
           <Main
               openSidebar={openSidebar}
               openPage={setPage}
+              holidayEnabled={holidayEnabled}
           />
       );
     }
@@ -566,7 +608,10 @@ export default function App() {
             hasUpdates={Boolean(latestRelease)}
             isDarkTheme={isDarkTheme}
             onToggleTheme={toggleTheme}
+            holidayEnabled={holidayEnabled}
         />
+
+        {showEdgeSnow && <Snowfall />}
 
         <Sidebar
             open={sidebarOpen}
