@@ -3859,37 +3859,6 @@ body {
   }
 }
 
-[data-holiday="on"] .info-box {
-  --snowdrift: #ffffff;
-  --snowdrift-shadow: rgba(148, 178, 220, 0.55);
-}
-
-[data-theme="dark"][data-holiday="on"] .info-box {
-  --snowdrift: #eef4ff;
-  --snowdrift-shadow: rgba(80, 110, 160, 0.5);
-}
-
-[data-holiday="on"] .info-box::before {
-  content: "";
-  position: absolute;
-  top: -20px;
-  right: -6px;
-  left: -6px;
-  z-index: 2;
-  height: 32px;
-  pointer-events: none;
-  background:
-    linear-gradient(to top, rgba(186, 210, 245, 0.45) 0 3px, transparent 3px),
-    radial-gradient(ellipse 44px 22px at 4% 100%, var(--snowdrift) 0 66%, transparent 67%),
-    radial-gradient(ellipse 66px 26px at 20% 100%, var(--snowdrift) 0 66%, transparent 67%),
-    radial-gradient(ellipse 50px 23px at 38% 100%, var(--snowdrift) 0 66%, transparent 67%),
-    radial-gradient(ellipse 78px 30px at 56% 100%, var(--snowdrift) 0 66%, transparent 67%),
-    radial-gradient(ellipse 56px 24px at 74% 100%, var(--snowdrift) 0 66%, transparent 67%),
-    radial-gradient(ellipse 48px 21px at 92% 100%, var(--snowdrift) 0 66%, transparent 67%),
-    linear-gradient(to top, var(--snowdrift) 0 13px, transparent 13px);
-  filter: drop-shadow(0 4px 5px var(--snowdrift-shadow));
-}
-
 .hero {
   position: relative;
 }
